@@ -1,5 +1,6 @@
 package project;
 import java.util.ArrayList;
+import java.util.Random;
 
 import acm.graphics.GImage;
 
@@ -13,54 +14,64 @@ public class Entity {
 	private ArrayList<Card> deck;
 	private ArrayList<Card> discard;
 	private GImage sprite;
-	
-	public int getHP() {
-		return 0;
+	Random rand = new Random();
+	public int getHp() {
+		return hp;
 	}
-	public void setHP() {
-		
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
-	public int getMaxHP() {
-		return 0;
+	public int getMaxHp() {
+		return maxHp;
 	}
-	public void setMaxHP() {
-		
+	public void setMaxHp(int maxHp) {
+		this.maxHp = maxHp;
 	}
 	public int getArmor() {
-		return 0;
+		return armor;
 	}
-	public void setArmor() {
-		
+	public void setArmor(int armor) {
+		this.armor = armor;
 	}
 	public int getMana() {
-		return 0;
+		return mana;
 	}
-	public void setMana() {
-		
+	public void setMana(int mana) {
+		this.mana = mana;
 	}
 	public int getMaxMana() {
-		return 0;
+		return maxMana;
 	}
-	public void setMaxMana() {
-		
+	public void setMaxMana(int maxMana) {
+		this.maxMana = maxMana;
 	}
-	public ArrayList<Card> getHand(){
-		return null;
+	public void setHand(ArrayList<Card> hand) {
+		this.hand = hand;
 	}
-	public ArrayList<Card> getDeck(){
-		return null;
+	public void setDeck(ArrayList<Card> deck) {
+		this.deck = deck;
 	}
-	public ArrayList<Card> getDiscard(){
-		return null;
+	public void setDiscard(ArrayList<Card> discard) {
+		this.discard = discard;
 	}
 	public void shuffleDeck() {
-		
+		int length = deck.size();
+		ArrayList<Card> temp = new ArrayList<Card>();
+		int ran = rand.nextInt(length-1);
+		while(temp.size() < length) {
+			temp.add(deck.get(ran));
+			deck.remove(ran);
+		}
 	}
 	public void resetDeck() {
-		
+		for(Card a : discard) {
+			deck.add(a);
+		}
+		shuffleDeck();
 	}
 	public boolean isAlive() {
-		return false;
+		if(hp <= 0) return false;
+		else return true;
 	}
 	public void playCard(Card card) {
 		
