@@ -11,11 +11,13 @@ public class CharacterSelectGraphics extends GraphicsProgram implements ActionLi
 	GImage maleMagician;
 	GImage femaleMagician;
 	
+	public void run() {
+		maleKnight = new GImage("media/images/MaleKnight.jpg", 0, 0);
+		add(maleKnight);
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
-	}
-	public void charaterSelect() {
 		
 	}
 }
