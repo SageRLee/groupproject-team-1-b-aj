@@ -14,7 +14,11 @@ public class CharacterSelectGraphics extends ProjectGraphics implements ActionLi
 	public void run() {
 		initializeApplet();
 		maleKnight = new GImage("media/images/MaleKnight.jpg", 0, 0);
+		maleKnight.setSize(ProjectGraphics.RESOLUTION_X / 4, ProjectGraphics.RESOLUTION_Y);
 		add(maleKnight);
+		femaleKnight = new GImage("media/images/FemaleKnight.jpg", 480, 0);
+		femaleKnight.setSize(ProjectGraphics.RESOLUTION_X / 4, ProjectGraphics.RESOLUTION_Y);
+		add(femaleKnight);
 	}
 	
 	@Override
