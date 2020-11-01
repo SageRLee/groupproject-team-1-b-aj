@@ -24,8 +24,11 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	private GImage playerArmorBar;
 	
 	public void run() {
+		enemyHealthBar = new GLine(20, 20, 200, 40);
+		
 		initializeApplet();
 		
+		add(enemyHealthBar);
 	}
 	
 	@Override
