@@ -7,7 +7,9 @@ import acm.graphics.GLabel;
 import acm.graphics.GLine;
 import acm.program.GraphicsProgram;
 
-public class BoardGraphics extends GraphicsProgram implements ActionListener {
+//ANDREW
+
+public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
 	private GLine enemyHealthBar;
 	private GLine enemyManaBar;
@@ -21,7 +23,8 @@ public class BoardGraphics extends GraphicsProgram implements ActionListener {
 	private GLabel playerArmorText;
 	private GImage playerArmorBar;
 	
-	public BoardGraphics() {
+	public void run() {
+		initializeApplet();
 		
 	}
 	
