@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.program.GraphicsProgram;
 
-public class CharacterSelectGraphics extends GraphicsProgram implements ActionListener {
+public class CharacterSelectGraphics extends ProjectGraphics implements ActionListener {
 //commit 2
 	GImage maleKnight;
 	GImage femaleKnight;
@@ -12,6 +12,7 @@ public class CharacterSelectGraphics extends GraphicsProgram implements ActionLi
 	GImage femaleMagician;
 	
 	public void run() {
+		initializeApplet();
 		maleKnight = new GImage("media/images/MaleKnight.jpg", 0, 0);
 		add(maleKnight);
 	}
