@@ -1,4 +1,5 @@
 package project;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Shop {
@@ -7,6 +8,7 @@ public class Shop {
 	private Integer pid;
 	  private String name;
 	  private Double price;
+	  public int Card;
 	
 	public Shop( int buycards, int sellcards, Integer pid, String name, Double price) {
 		this.buycards = buycards;
@@ -51,4 +53,27 @@ public int hashCode() {
     hash = 29 * hash + Objects.hashCode(this.price);
     return hash;
 }
+
+public void shuffle(){
+	 int[] randomPermutation = null;
+    ArrayList<Card> tempOldDeck = new ArrayList<>();
+
+    ArrayList<project.Card> deck = null;
+	for (Card card: deck){
+        tempOldDeck.add(card);
+    }
+
+    int[] random = randomPermutation(deck.size());
+
+    for (int i = 0; i < deck.size(); i++){  
+       
+		deck.set(i, tempOldDeck.get(randomPermutation[i] - 1));
+    }       
+}
+
+private int[] randomPermutation(int size) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }
