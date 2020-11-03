@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import acm.graphics.GImage;
@@ -34,10 +35,18 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 	public Level LevelSeven;
 	public Level LevelEight;
 	public HashMap<GImage , Level > levelmap;
+	private ArrayList<GImage> Iconlist;
 	public void run() {
 		addMouseListeners();
 		Map = new GImage("media/images/Background.png", 0, 0);
-		
+		Iconlist.add(Level1);
+		Iconlist.add(Level2);
+		Iconlist.add(Level3);
+		Iconlist.add(Level4);
+		Iconlist.add(Level5);
+		Iconlist.add(Level6);
+		Iconlist.add(Level7);
+		Iconlist.add(Level8);
 //		Level1=new  GImage("media/images/level1.png", 0, 0);
 //		Level2=new  GImage("media/images/level2.png", 0, 0);
 //		Level3=new  GImage("media/images/level3.png", 0, 0);
@@ -71,6 +80,9 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 			temp=levelmap.get(((GImage) elem));
 			print(temp);
 		}
+	}
+	public void finishLevel(int levelnum) {
+		//Iconlist.get(levelnum).setImage("");;
 	}
 	 public void mouseMoved(MouseEvent e) {
 			GObject elem = getElementAt(e.getX(), e.getY());
