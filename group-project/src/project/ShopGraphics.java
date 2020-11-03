@@ -17,7 +17,6 @@ public class ShopGraphics extends ProjectGraphics implements ActionListener {
 			
 		}
 		
-		
 		@Override
 		public void mousePressed(MouseEvent e) {
 			
