@@ -9,6 +9,7 @@ import java.util.HashMap;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GLine;
+import acm.graphics.GObject;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
@@ -34,6 +35,7 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 	public Level LevelEight;
 	public HashMap<GImage , Level > levelmap;
 	public void run() {
+		addMouseListeners();
 		Map = new GImage("media/images/Background.png", 0, 0);
 		
 //		Level1=new  GImage("media/images/level1.png", 0, 0);
@@ -62,4 +64,18 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 //		add(Level7);
 //		add(Level8);
 	}
+	public void mousePressed(MouseEvent e) {
+		GObject elem = getElementAt(e.getX(), e.getY());
+		if (elem instanceof GImage) {
+			Level temp;
+			temp=levelmap.get(((GImage) elem));
+			print(temp);
+		}
+	}
+	 public void mouseMoved(MouseEvent e) {
+			GObject elem = getElementAt(e.getX(), e.getY());
+			if (elem instanceof GImage) {
+				((GImage) elem).setSize(10, 10);
+			}
+		}
 }
