@@ -23,5 +23,4 @@ public class Shop {
 
 public void renew(){	
 }
-
 }

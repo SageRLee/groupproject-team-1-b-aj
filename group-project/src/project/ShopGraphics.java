@@ -12,8 +12,7 @@ public class ShopGraphics extends ProjectGraphics implements ActionListener {
 			shopbackground = new GImage("media/images/shop background.jpg", 0, 0);
 			shopbackground.setSize(ProjectGraphics.RESOLUTION_X, ProjectGraphics.RESOLUTION_Y);
 			add(shopbackground);
-		}
-		
+		}	
 		
 		@Override
 		public void mousePressed(MouseEvent e) {
