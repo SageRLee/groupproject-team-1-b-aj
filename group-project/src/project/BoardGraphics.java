@@ -16,6 +16,8 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
 	private Font statsFont;
 	
+	private GImage background;
+	
 	private GRect enemyHealthBar;
 	private GRect enemyManaBar;
 	private GRect enemyArmorBar;
@@ -28,21 +30,35 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	private GLabel playerArmorText; //TODO
 	private GImage playerArmorBar; //TODO
 	
+	private Player player;
+	private Enemy enemy;
+	
+	public BoardGraphics() {
+		//todo idk why the fuck i need this
+	}
+	
+	public BoardGraphics(Player player, Enemy enemy) {
+		this.player = player;
+		this.enemy = enemy;
+	}
+	
 	public void run() {
 		
 		statsFont = new Font("TimesRoman", Font.PLAIN, 50);
 
 		initializeApplet();
 		
-		enemyHealthBar = new GRect(860, 540, 200, 15);
+		background = new GImage("media/images/DungeonBackground.jpg");
+		
+		enemyHealthBar = new GRect(843, 740, 193, 15);
 		enemyHealthBar.setFillColor(Color.RED);
 		enemyHealthBar.setFilled(true);
 		
-		enemyManaBar = new GRect(860, 560, 200, 10);
+		enemyManaBar = new GRect(843, 760, 193, 10);
 		enemyManaBar.setFillColor(Color.BLUE);
 		enemyManaBar.setFilled(true);
 		
-		enemyArmorBar = new GRect(860, 580, 200, 5);
+		enemyArmorBar = new GRect(843, 780, 193, 5);
 		enemyArmorBar.setFillColor(Color.GRAY);
 		enemyArmorBar.setFilled(true);
 		
@@ -66,6 +82,14 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		playerManaText.setLocation(176, 140);
 		playerManaText.setFont(statsFont);
 
+		playerArmorBar = new GImage("media/images/PlayerArmor.png", 0, 164);
+		playerArmorBar.setSize(148, 82);
+		playerArmorText = new GLabel("10"); //TODO getMana
+		playerArmorText.setLocation(82, 220);
+		playerArmorText.setFont(statsFont);
+
+		add(background);
+		
 		add(enemyHealthBar);
 		add(enemyManaBar);
 		add(enemyArmorBar);
@@ -78,8 +102,92 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		add(playerManaUseBar);
 		add(playerManaText);
 		
-		add(playerArmorText);
 		add(playerArmorBar);
+		add(playerArmorText);
+		
+		testRun();
+	}
+	
+	private void testRun() {
+		
+		player = new Player();
+		player.setHp(10);
+		player.setMaxHp(10);
+		player.setMana(10);
+		player.setMaxMana(10);
+		enemy = new Enemy();
+		
+		loadCards();
+		pause(3);
+		playerDamaged(5);
+		pause(3);
+		enemyDamaged(5);
+		pause(3);
+		playerHealed(5);
+		pause(3);
+		enemyHealed(5);
+		pause(3);
+		playerArmorAdd(5);
+		pause(3);
+		playerArmorSubtract(5);
+		pause(3);
+		enemyArmorAdd(5);
+		pause(3);
+		enemyArmorSubtract(5);
+		pause(3);
+	}
+	
+	private void loadCards() {
+		//TODO
+	}
+	
+	private void playerDamaged(int damageAmt) {
+		//TODO
+		
+		player.setHp(player.getHp() - damageAmt);
+		String playerHealthString = playerHealthText.getLabel();
+		playerHealthText.setLabel(player.getHp() + "/" + player.getMaxHp());
+		
+		GLabel damageLabel = new GLabel("-" + damageAmt);
+		damageLabel.setColor(Color.RED);
+		damageLabel.setLocation(400, 50);
+		damageLabel.setFont(statsFont);
+		add(damageLabel);
+		
+		for (int x = 0; x < 30; x++) {
+			damageLabel.setLocation(damageLabel.getX(), damageLabel.getY() + 1);
+			pause(30);
+		}		
+		
+		remove(damageLabel);
+	}
+	
+	private void enemyDamaged(int damageAmt) {
+		//TODO
+	}
+	
+	private void playerHealed(int healAmt) {
+		//TODO
+	}
+	
+	private void enemyHealed(int healAmt) {
+		//TODO
+	}
+	
+	private void playerArmorAdd(int armorAddAmt) {
+		//TODO
+	}
+	
+	private void playerArmorSubtract(int armorSubAmt) {
+		//TODO
+	}
+	
+	private void enemyArmorAdd(int armorAddAmt) {
+		//TODO
+	}
+	
+	private void enemyArmorSubtract(int armorSubAmt) {
+		//TODO
 	}
 	
 	@Override
