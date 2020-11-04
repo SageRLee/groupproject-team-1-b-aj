@@ -6,8 +6,7 @@ import acm.program.GraphicsProgram;
 
 public class ShopGraphics extends ProjectGraphics implements ActionListener {
 		GImage shopbackground;
-
-		
+	
 		public void run() {
 			initializeApplet();
 			shopbackground = new GImage("media/images/shop background.jpg", 0, 0);
