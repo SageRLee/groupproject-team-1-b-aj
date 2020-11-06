@@ -4,6 +4,7 @@ import acm.graphics.GImage;
 
 public class Card {
 
+
 	
 	//public string getName;
 	enum type{
@@ -12,25 +13,46 @@ public class Card {
 		ACTION,
 		MANA,
 		HEALING
-		
 	}
+
+	private GImage picture;
+	private String name;
+	private String description;
 	private int cost;
-	public type cardType;
-	private GImage sprite = new GImage("media/images.Strike.png");
+	
+	public Card(GImage picture, String name, String description, int cost) {
+		this.picture = picture;
+		this.name = name;
+		this.description = description;
+		this.cost = cost;
+	}
+
+	public boolean canPlay(Entity user, Entity target) {//Function to test if card is playable (can pay mana cost, can target entity, etc)
+
+		return true;
+	}
+	
+
+
+	public GImage getPicture() {
+		return picture;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+	
 	public int getCost() {
 		return cost;
 	}
-
-	public void setCost(int cost) { //Probably will be unused, unless we add cards to do that later
-		this.cost = cost;
-	}
-	public boolean canPlay(Entity user, Entity target) {//Function to test if card is playable (can pay mana cost, can target entity, etc)
-		return true;
-	}
-	public void play(Entity user, Entity target) {//Function to play the card
+	
+	public void play(boolean isPlayerTurn, Player player, Enemy enemy) {
 		
 	}
-	
 	
 }
 
