@@ -159,6 +159,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
 	private void loadCards() {
 		//TODO
+
 	}
 	
 	public void playerDamaged(int damageAmt) {

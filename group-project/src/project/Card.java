@@ -4,6 +4,17 @@ import acm.graphics.GImage;
 
 public class Card {
 
+
+	
+	//public string getName;
+	enum type{
+		ATTACK,
+		EQUIP,
+		ACTION,
+		MANA,
+		HEALING
+	}
+
 	private GImage picture;
 	private String name;
 	private String description;
@@ -15,6 +26,13 @@ public class Card {
 		this.description = description;
 		this.cost = cost;
 	}
+
+	public boolean canPlay(Entity user, Entity target) {//Function to test if card is playable (can pay mana cost, can target entity, etc)
+
+		return true;
+	}
+	
+
 
 	public GImage getPicture() {
 		return picture;
