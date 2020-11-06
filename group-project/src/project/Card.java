@@ -32,7 +32,7 @@ public class Card {
 		return cost;
 	}
 	
-	public void play(boolean isPlayerTurn, Player player, Enemy enemy) {
+	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {
 		
 	}
 	

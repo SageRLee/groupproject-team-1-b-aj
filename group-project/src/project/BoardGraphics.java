@@ -9,6 +9,7 @@ import acm.graphics.GLabel;
 import acm.graphics.GLine;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
+import project.cards.SmallHealthPotion;
 
 //ANDREW
 
@@ -36,6 +37,8 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	private Player player;
 	private Enemy enemy;
 	
+	private boolean isPlayerTurn;
+	
 	public BoardGraphics() {
 		//todo idk why the fuck i need this
 	}
@@ -46,10 +49,10 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	}
 	
 	public void run() {
+		addMouseListeners();
+		initializeApplet();
 		
 		statsFont = new Font("TimesRoman", Font.PLAIN, 50);
-
-		initializeApplet();
 		
 		background = new GImage("media/images/DungeonBackground.jpg");
 		
@@ -119,25 +122,30 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	private void testRun() {
 		
 		player = new Player();
-		player.setHp(10);
+		player.setHp(3);
 		player.setMaxHp(10);
 		player.setMana(10);
 		player.setMaxMana(10);
 		enemy = new Enemy();
-		enemy.setHp(20);
+		enemy.setHp(3);
 		enemy.setMaxHp(20);
 		enemy.setMana(10);
 		enemy.setMaxMana(10);
-		
+
+		playerHealthDamageBar.setSize((player.getHp()*PLAYER_BAR_WIDTH)/player.getMaxHp(), playerHealthDamageBar.getHeight());
+		playerHealthText.setLabel(player.getHp() + "/" + player.getMaxHp());
+		enemyHealthBar.setSize((enemy.getHp()*ENEMY_BAR_WIDTH)/enemy.getMaxHp(), enemyHealthBar.getHeight());
+
+		/*
 		loadCards();
 		pause(2000);
 		playerDamaged(3);
 		pause(2000);
 		enemyDamaged(5);
+		pause(2000);*/
+		playerHealed(1);
 		pause(2000);
-		playerHealed(5);
-		pause(2000);
-		enemyHealed(5);
+		enemyHealed(1);
 		pause(2000);
 		//playerArmorAdd(5);
 		//pause(2000);
@@ -153,7 +161,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		//TODO
 	}
 	
-	private void playerDamaged(int damageAmt) {
+	public void playerDamaged(int damageAmt) {
 		int newHp = player.getHp() - damageAmt;
 		if (newHp < 0)
 			newHp = 0;
@@ -178,7 +186,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		remove(damageLabel);
 	}
 	
-	private void enemyDamaged(int damageAmt) {
+	public void enemyDamaged(int damageAmt) {
 		int newHp = enemy.getHp() - damageAmt;
 		if (newHp < 0)
 			newHp = 0;
@@ -201,7 +209,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		remove(damageLabel);
 	}
 	
-	private void playerHealed(int healAmt) {
+	public void playerHealed(int healAmt) {
 		int newHp = player.getHp() + healAmt;
 
 		if (newHp > player.getMaxHp())
@@ -227,7 +235,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		remove(healLabel);
 	}
 	
-	private void enemyHealed(int healAmt) {
+	public void enemyHealed(int healAmt) {
 		int newHp = enemy.getHp() + healAmt;
 		if (newHp > enemy.getMaxHp())
 			newHp = enemy.getMaxHp();
@@ -269,7 +277,10 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
+		SmallHealthPotion smp = new SmallHealthPotion();
+		smp.play(this, isPlayerTurn, player, enemy);
 		
+		isPlayerTurn = !isPlayerTurn;
 	}
 	
 	public void playPlayerTurn(Enemy enemy, Card card) {
@@ -279,4 +290,5 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	public void playEnemyTurn(Player player, Card card) {
 		
 	}
+	
 }

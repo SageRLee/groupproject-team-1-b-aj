@@ -1,6 +1,7 @@
 package project.cards;
 
 import acm.graphics.GImage;
+import project.BoardGraphics;
 import project.Card;
 import project.Enemy;
 import project.Entity;
@@ -8,17 +9,16 @@ import project.Player;
 
 public class SmallHealthPotion extends Card {
 
-	public SmallHealthPotion(GImage picture, String name, String description, int cost) {
-		super(picture, name, description, cost);
+	public SmallHealthPotion() {
+		super(new GImage("media/images/SmallHealthPotion.jpg"), "Small Health Potion", "+2 Health", 50);
 	}
 	
 	@Override
-	public void play(boolean isPlayerTurn, Player player, Enemy enemy) {
-		Entity target;
+	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {
 		if (isPlayerTurn) {
-			target = player;
+			bG.playerHealed(2);
 		} else {
-			target = enemy;
+			bG.enemyHealed(2);
 		}
 	}
 
