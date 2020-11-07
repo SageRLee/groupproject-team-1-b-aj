@@ -1,6 +1,6 @@
 package project;
 //ignore
-public class Enemy {
+public class Enemy extends Entity {
 	private String name;
 	public String getName() {
 		return name;

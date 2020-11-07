@@ -7,6 +7,7 @@ import javax.swing.Timer;
 
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
+import starter.AudioPlayer;
 
 public class MainMenuGraphics extends ProjectGraphics {
 	//Images
@@ -15,9 +16,12 @@ public class MainMenuGraphics extends ProjectGraphics {
 	private static GImage shop = new GImage("media/images/Shop.png");
 	private static GImage charSelect = new GImage("media/images/CharacterSelect.png");
 	private static GImage background = new GImage("media/images/Background.png", 0, 0);//Yeah I know the background is low res, it's just a placeholder 
+	private AudioPlayer snd;
 	//private Timer someTimeVar = new Timer(33, this);
 	private static GObject target;
 	private GRect hover = new GRect(0, 0, 3, 3 );
+	private int lastX = 0;
+	private int lastY = 0;
 	//Classes
 	private Map mp = new Map();
 	//private Shop shp = new Shop();
@@ -25,6 +29,7 @@ public class MainMenuGraphics extends ProjectGraphics {
 	public void run() {
 		initializeApplet();
 		addMouseListeners();
+		snd = AudioPlayer.getInstance();
 		background.setSize(MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);
 		//Mess around with locations later to make them equal distance from each other
 		play.setSize(MainMenu.RESOLUTION_X / 6, MainMenu.RESOLUTION_Y / 6);
@@ -54,7 +59,9 @@ public class MainMenuGraphics extends ProjectGraphics {
 		//Mouse event for all button options
 		if(target == null) {
 			
-		} else if(target == play) {
+		} else {
+			snd.playSound("media/sounds/", "select.wav");
+			if(target == play) {
 			System.out.println("Playing game");	
 			
 			mp.run();
@@ -67,18 +74,26 @@ public class MainMenuGraphics extends ProjectGraphics {
 				System.out.println("Opening character select");
 				//character.run();
 			}
+			}
 		}
 	public void mouseMoved(MouseEvent e) {
 		//Mouse Hovering
+		
 		if(getElementAt(e.getX(), e.getY()) == play || getElementAt(e.getX(), e.getY()) == shop || getElementAt(e.getX(), e.getY()) == charSelect ) {
 			hover.setLocation( getElementAt(e.getX(), e.getY()).getX() - 8,  getElementAt(e.getX(), e.getY()).getY() - 8);
 			hover.setVisible(true);
 			target = getElementAt(e.getX(), e.getY());
+			if(getElementAt(e.getX(), e.getY()) != getElementAt(lastX, lastY)) {
+				snd.playSound("media/sounds/", "cardHover.mp3");
+			}
 		}
 		else {
 			hover.setVisible(false);
 			target = null;
 		}
+		
+		lastX = e.getX();
+		lastY = e.getY();
 	}
 
 	
