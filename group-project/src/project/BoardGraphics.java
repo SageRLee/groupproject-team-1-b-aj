@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
@@ -96,7 +97,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		playerArmorText.setFont(statsFont);
 		*/
 
-		add(background);
+		//add(background);
 		
 		add(enemyHealthBar);
 		add(enemyManaBar);
@@ -122,12 +123,12 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	private void testRun() {
 		
 		player = new Player();
-		player.setHp(3);
+		player.setHp(10);
 		player.setMaxHp(10);
 		player.setMana(10);
 		player.setMaxMana(10);
 		enemy = new Enemy();
-		enemy.setHp(3);
+		enemy.setHp(10);
 		enemy.setMaxHp(20);
 		enemy.setMana(10);
 		enemy.setMaxMana(10);
@@ -138,15 +139,16 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 
 		/*
 		loadCards();
-		pause(2000);
-		playerDamaged(3);
-		pause(2000);
-		enemyDamaged(5);
 		pause(2000);*/
-		playerHealed(1);
+		loadCards();
+		playerDamaged(8);
 		pause(2000);
-		enemyHealed(1);
+		enemyDamaged(8);
 		pause(2000);
+		//playerHealed(1);
+		//pause(2000);
+		//enemyHealed(1);
+		//pause(2000);
 		//playerArmorAdd(5);
 		//pause(2000);
 		//playerArmorSubtract(5);
@@ -158,8 +160,29 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	}
 	
 	private void loadCards() {
-		//TODO
+		player.getDeck().add(new SmallHealthPotion());
+		player.getDeck().add(new SmallHealthPotion());
+		player.getDeck().add(new SmallHealthPotion());
+		player.getDeck().add(new SmallHealthPotion());
+		player.getDeck().add(new SmallHealthPotion());
+		while (player.getHand().size() <= 2) {
+			int randCard = new Random().nextInt(player.getDeck().size());
+			player.getHand().add(player.getDeck().get(randCard));
+			player.getDeck().remove(randCard);
+		}
 
+		reloadHand();
+	}
+	
+	private void reloadHand() {
+		int x = 0;
+		for (Card cards : player.getHand()) {
+			//remove(cards.getPicture());
+			cards.getPicture().setSize(200, 200);
+			cards.getPicture().setLocation((200 * x) + 400, 500);
+			add(cards.getPicture());
+			x++;
+		}
 	}
 	
 	public void playerDamaged(int damageAmt) {
@@ -173,18 +196,21 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		
 		playerHealthText.setLabel(player.getHp() + "/" + player.getMaxHp());
 		
-		GLabel damageLabel = new GLabel("-" + damageAmt);
-		damageLabel.setColor(Color.RED);
-		damageLabel.setLocation(400, 50);
-		damageLabel.setFont(statsFont);
-		add(damageLabel);
-		
-		for (int x = 0; x < 30; x++) {
-			damageLabel.setLocation(damageLabel.getX(), damageLabel.getY() + 1);
-			pause(30);
-		}		
-		
-		remove(damageLabel);
+		new Thread() {
+	        public void run() {
+	        	GLabel damageLabel = new GLabel("-" + damageAmt);
+	        	damageLabel.setColor(Color.RED);
+	        	damageLabel.setFont(statsFont);
+	        	damageLabel.setLocation(400, 50);
+	    		add(damageLabel);
+	    		for (int x = 0; x < 30; x++) {
+	    			damageLabel.move(0, 1);
+	    			pause(30);
+	    		}
+	    		
+	    		remove(damageLabel);
+	        }
+	    }.start();
 	}
 	
 	public void enemyDamaged(int damageAmt) {
@@ -195,19 +221,22 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		enemy.setHp(newHp);
 		
 		enemyHealthBar.setSize((enemy.getHp()*ENEMY_BAR_WIDTH)/enemy.getMaxHp(), enemyHealthBar.getHeight());
-				
-		GLabel damageLabel = new GLabel("-" + damageAmt);
-		damageLabel.setColor(Color.RED);
-		damageLabel.setLocation(1050, 740);
-		damageLabel.setFont(statsFont);
-		add(damageLabel);
 		
-		for (int x = 0; x < 30; x++) {
-			damageLabel.setLocation(damageLabel.getX(), damageLabel.getY() + 1);
-			pause(30);
-		}		
-		
-		remove(damageLabel);
+		new Thread() {
+	        public void run() {
+	        	GLabel damageLabel = new GLabel("-" + damageAmt);
+	        	damageLabel.setColor(Color.RED);
+	        	damageLabel.setFont(statsFont);
+	        	damageLabel.setLocation(1050, 740);
+	    		add(damageLabel);
+	    		for (int x = 0; x < 30; x++) {
+	    			damageLabel.move(0, 1);
+	    			pause(30);
+	    		}
+	    		
+	    		remove(damageLabel);
+	        }
+	    }.start();
 	}
 	
 	public void playerHealed(int healAmt) {
@@ -222,18 +251,21 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		
 		playerHealthText.setLabel(player.getHp() + "/" + player.getMaxHp());
 		
-		GLabel healLabel = new GLabel("+" + healAmt);
-		healLabel.setColor(Color.GREEN);
-		healLabel.setLocation(400, 50);
-		healLabel.setFont(statsFont);
-		add(healLabel);
-		
-		for (int x = 0; x < 30; x++) {
-			healLabel.setLocation(healLabel.getX(), healLabel.getY() + 1);
-			pause(30);
-		}		
-		
-		remove(healLabel);
+		new Thread() {
+	        public void run() {
+	        	GLabel healLabel = new GLabel("+" + healAmt);
+	    		healLabel.setColor(Color.GREEN);
+	    		healLabel.setFont(statsFont);
+	    		healLabel.setLocation(400, 50);
+	    		add(healLabel);
+	    		for (int x = 0; x < 30; x++) {
+	    			healLabel.move(0, 1);
+	    			pause(30);
+	    		}
+	    		
+	    		remove(healLabel);
+	        }
+	    }.start();
 	}
 	
 	public void enemyHealed(int healAmt) {
@@ -244,19 +276,22 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		enemy.setHp(newHp);
 		
 		enemyHealthBar.setSize((enemy.getHp()*ENEMY_BAR_WIDTH)/enemy.getMaxHp(), enemyHealthBar.getHeight());
-				
-		GLabel healLabel = new GLabel("+" + healAmt);
-		healLabel.setColor(Color.GREEN);
-		healLabel.setLocation(1050, 740);
-		healLabel.setFont(statsFont);
-		add(healLabel);
-		
-		for (int x = 0; x < 30; x++) {
-			healLabel.setLocation(healLabel.getX(), healLabel.getY() + 1);
-			pause(30);
-		}		
-		
-		remove(healLabel);
+			
+		new Thread() {
+	        public void run() {
+	        	GLabel healLabel = new GLabel("+" + healAmt);
+	    		healLabel.setColor(Color.GREEN);
+	    		healLabel.setFont(statsFont);
+	    		healLabel.setLocation(1050, 740);
+	    		add(healLabel);
+	    		for (int x = 0; x < 30; x++) {
+	    			healLabel.move(0, 1);
+	    			pause(30);
+	    		}
+	    		
+	    		remove(healLabel);
+	        }
+	    }.start();
 	}
 	
 	/*
@@ -278,8 +313,15 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		SmallHealthPotion smp = new SmallHealthPotion();
-		smp.play(this, isPlayerTurn, player, enemy);
+		
+		for (Card cards : player.getHand()) {
+			if (getElementAt(e.getX(), e.getY()) == cards.getPicture()) {
+				cards.play(this, isPlayerTurn, player, enemy);
+				player.getDiscard().add(cards);
+				player.getHand().remove(cards);
+				reloadHand();
+			}
+		}
 		
 		isPlayerTurn = !isPlayerTurn;
 	}
