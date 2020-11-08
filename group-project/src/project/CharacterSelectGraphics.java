@@ -16,7 +16,7 @@ public class CharacterSelectGraphics extends ProjectGraphics implements ActionLi
 		maleKnight = new GImage("media/images/MaleKnight.jpg", 0 * (ProjectGraphics.RESOLUTION_X / 4), 0);
 		maleKnight.setSize(ProjectGraphics.RESOLUTION_X / 4, ProjectGraphics.RESOLUTION_Y);
 		add(maleKnight);
-		femaleKnight = new GImage("media/images/FemaleKnight.jpg", 1 * (ProjectGraphics.RESOLUTION_X / 4), 0);
+		femaleKnight = new GImage("media/images/FemaleKnight.png", 1 * (ProjectGraphics.RESOLUTION_X / 4), 0);
 		femaleKnight.setSize(ProjectGraphics.RESOLUTION_X / 4, ProjectGraphics.RESOLUTION_Y);
 		add(femaleKnight);
 		maleMagician = new GImage("media/images/MaleMagician.png", 2 * (ProjectGraphics.RESOLUTION_X / 4), 0);
