@@ -30,6 +30,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	private GRect playerManaUseBar; //TODO
 	//private GLabel playerArmorText; //TODO
 	//private GImage playerArmorBar; //TODO
+	private GLabel healLabel;
 
 	private static int PLAYER_BAR_WIDTH;
 	private static int ENEMY_BAR_WIDTH;
@@ -88,6 +89,9 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		playerManaText.setLocation(176, 140);
 		playerManaText.setFont(statsFont);
 
+		healLabel = new GLabel("");
+		healLabel.setFont(statsFont);
+
 		/*
 		playerArmorBar = new GImage("media/images/PlayerArmor.png", 0, 164);
 		playerArmorBar.setSize(148, 82);
@@ -96,7 +100,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		playerArmorText.setFont(statsFont);
 		*/
 
-		add(background);
+		//add(background);
 		
 		add(enemyHealthBar);
 		add(enemyManaBar);
@@ -109,6 +113,8 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		add(playerManaBar);
 		add(playerManaUseBar);
 		add(playerManaText);
+		
+		add(healLabel);
 		
 		//add(playerArmorBar);
 		//add(playerArmorText);
@@ -222,19 +228,29 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		
 		playerHealthText.setLabel(player.getHp() + "/" + player.getMaxHp());
 		
-		GLabel healLabel = new GLabel("+" + healAmt);
+		initThread(healAmt);
+	}
+	
+	public void healAnimation(int healAmt) {
+		healLabel.setLabel("+" + healAmt);
 		healLabel.setColor(Color.GREEN);
 		healLabel.setLocation(400, 50);
-		healLabel.setFont(statsFont);
-		add(healLabel);
-		
+		healLabel.setVisible(true);
 		for (int x = 0; x < 30; x++) {
-			healLabel.setLocation(healLabel.getX(), healLabel.getY() + 1);
+			healLabel.move(0, 1);
 			pause(30);
-		}		
+		}
 		
-		remove(healLabel);
+		healLabel.setVisible(false);
 	}
+	
+	private void initThread(int healAmt) {
+	    new Thread() {
+	        public void run() {
+	            healAnimation(healAmt);
+	        }
+	    }.start();
+	 }
 	
 	public void enemyHealed(int healAmt) {
 		int newHp = enemy.getHp() + healAmt;
