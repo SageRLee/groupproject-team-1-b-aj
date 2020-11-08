@@ -61,7 +61,6 @@ public class ShopGraphics extends ProjectGraphics implements ActionListener {
 			}
 			
 		
-		
 		private void playSound(String string, String string2) {
 				// TODO Auto-generated method stub
 			
