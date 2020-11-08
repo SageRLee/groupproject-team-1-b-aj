@@ -9,7 +9,8 @@ public class ShopGraphics extends ProjectGraphics implements ActionListener {
 		GImage sell;
 		GImage buy;
 		GImage back;
-	
+
+		
 		public void run() {
 			initializeApplet();
 			shopbackground = new GImage("media/images/shop background.jpg", 0, 0);
