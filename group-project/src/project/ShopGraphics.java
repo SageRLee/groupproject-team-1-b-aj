@@ -19,3 +19,4 @@ public class ShopGraphics extends ProjectGraphics implements ActionListener {
 			
 		}
 }
+
