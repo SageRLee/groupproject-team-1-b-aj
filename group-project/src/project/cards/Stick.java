@@ -7,18 +7,18 @@ import project.Enemy;
 import project.Entity;
 import project.Player;
 
-public class SmallHealthPotion extends Card {
+public class Stick extends Card {
 
-	public SmallHealthPotion() {
-		super(new GImage("media/images/cards/SmallHealthPotionCard.png"), "Small Health Potion", 3, 50);
+	public Stick() {
+		super(new GImage("media/images/cards/StickCard.png"), "Stick", 2, 25);
 	}
 	
 	@Override
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {
 		if (isPlayerTurn) {
-			bG.playerHealed(2);
+			bG.enemyDamaged(1);
 		} else {
-			bG.enemyHealed(2);
+			bG.playerDamaged(1);
 		}
 	}
 

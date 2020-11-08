@@ -10,7 +10,12 @@ import acm.graphics.GLabel;
 import acm.graphics.GLine;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
+import project.cards.LargeHealthPotion;
+import project.cards.Revive;
+import project.cards.Slash;
 import project.cards.SmallHealthPotion;
+import project.cards.Stab;
+import project.cards.Stick;
 
 //ANDREW
 
@@ -97,7 +102,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		playerArmorText.setFont(statsFont);
 		*/
 
-		//add(background);
+		add(background);
 		
 		add(enemyHealthBar);
 		add(enemyManaBar);
@@ -116,6 +121,8 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		
 		PLAYER_BAR_WIDTH = (int) playerHealthDamageBar.getWidth();
 		ENEMY_BAR_WIDTH = (int) enemyHealthBar.getWidth();
+		
+		isPlayerTurn = true;
 		
 		testRun();
 	}
@@ -141,9 +148,9 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		loadCards();
 		pause(2000);*/
 		loadCards();
-		playerDamaged(8);
+		playerDamaged(1);
 		pause(2000);
-		enemyDamaged(8);
+		enemyDamaged(1);
 		pause(2000);
 		//playerHealed(1);
 		//pause(2000);
@@ -161,11 +168,12 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
 	private void loadCards() {
 		player.getDeck().add(new SmallHealthPotion());
-		player.getDeck().add(new SmallHealthPotion());
-		player.getDeck().add(new SmallHealthPotion());
-		player.getDeck().add(new SmallHealthPotion());
-		player.getDeck().add(new SmallHealthPotion());
-		while (player.getHand().size() <= 2) {
+		player.getDeck().add(new LargeHealthPotion());
+		player.getDeck().add(new Revive());
+		player.getDeck().add(new Stick());
+		player.getDeck().add(new Slash());
+		player.getDeck().add(new Stab());
+		while (player.getHand().size() <= 5) {
 			int randCard = new Random().nextInt(player.getDeck().size());
 			player.getHand().add(player.getDeck().get(randCard));
 			player.getDeck().remove(randCard);
@@ -177,12 +185,13 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	private void reloadHand() {
 		int x = 0;
 		for (Card cards : player.getHand()) {
-			//remove(cards.getPicture());
-			cards.getPicture().setSize(200, 200);
-			cards.getPicture().setLocation((200 * x) + 400, 500);
+			//cards.getPicture().setSize(200, 200);
+			cards.getPicture().setLocation((200 * x) + 400, 700);
+			cards.getPicture().sendToBack();
 			add(cards.getPicture());
 			x++;
 		}
+		background.sendToBack();
 	}
 	
 	public void playerDamaged(int damageAmt) {
@@ -293,41 +302,25 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	        }
 	    }.start();
 	}
-	
-	/*
-	private void playerArmorAdd(int armorAddAmt) {
-		//TODO
-	}
-	
-	private void playerArmorSubtract(int armorSubAmt) {
-		//TODO
-	}
-	
-	private void enemyArmorAdd(int armorAddAmt) {
-		//TODO
-	}
-	
-	private void enemyArmorSubtract(int armorSubAmt) {
-		//TODO
-	}*/
-	
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
+		Card cardToRemove = null;
 		for (Card cards : player.getHand()) {
 			if (getElementAt(e.getX(), e.getY()) == cards.getPicture()) {
 				cards.play(this, isPlayerTurn, player, enemy);
 				player.getDiscard().add(cards);
-				player.getHand().remove(cards);
-				reloadHand();
+				remove(cards.getPicture());
+				cardToRemove = cards;
+				break;
 			}
 		}
+		if (cardToRemove != null)
+			player.getHand().remove(cardToRemove);
+		reloadHand();
 		
-		isPlayerTurn = !isPlayerTurn;
-	}
-	
-	public void playPlayerTurn(Enemy enemy, Card card) {
-		
+		//isPlayerTurn = !isPlayerTurn;
 	}
 	
 	public void playEnemyTurn(Player player, Card card) {

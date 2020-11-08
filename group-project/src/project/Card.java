@@ -17,13 +17,13 @@ public class Card {
 
 	private GImage picture;
 	private String name;
-	private String description;
+	private int mana;
 	private int cost;
 	
-	public Card(GImage picture, String name, String description, int cost) {
+	public Card(GImage picture, String name, int mana, int cost) {
 		this.picture = picture;
 		this.name = name;
-		this.description = description;
+		this.mana = mana;
 		this.cost = cost;
 	}
 
@@ -40,10 +40,6 @@ public class Card {
 
 	public String getName() {
 		return name;
-	}
-
-	public String getDescription() {
-		return description;
 	}
 	
 	public int getCost() {
