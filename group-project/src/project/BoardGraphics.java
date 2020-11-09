@@ -62,15 +62,15 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		
 		background = new GImage("media/images/DungeonBackground.jpg");
 		
-		enemyHealthBar = new GRect(843, 740, 193, 15);
+		enemyHealthBar = new GRect(843, 640, 193, 15);
 		enemyHealthBar.setFillColor(Color.RED);
 		enemyHealthBar.setFilled(true);
 		
-		enemyManaBar = new GRect(843, 760, 193, 10);
+		enemyManaBar = new GRect(843, 660, 193, 10);
 		enemyManaBar.setFillColor(Color.BLUE);
 		enemyManaBar.setFilled(true);
 		
-		enemyArmorBar = new GRect(843, 780, 193, 5);
+		enemyArmorBar = new GRect(843, 680, 193, 5);
 		enemyArmorBar.setFillColor(Color.GRAY);
 		enemyArmorBar.setFilled(true);
 		
@@ -185,13 +185,11 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	private void reloadHand() {
 		int x = 0;
 		for (Card cards : player.getHand()) {
-			//cards.getPicture().setSize(200, 200);
-			cards.getPicture().setLocation((200 * x) + 400, 700);
+			cards.getPicture().setLocation((202 * x) + 400, 700);
 			cards.getPicture().sendToBack();
 			add(cards.getPicture());
 			x++;
 		}
-		background.sendToBack();
 	}
 	
 	public void playerDamaged(int damageAmt) {

@@ -95,13 +95,16 @@ public class Entity {
 			temp.add(deck.get(ran));
 			deck.remove(ran);
 		}
+		deck = temp;
 	}
 	
 	public void resetDeck() {
-		for(Card a : discard) {
-			deck.add(a);
+		if (deck.size() == 0 ) {
+			for(Card a : discard) {
+				deck.add(a);
+			}
+			shuffleDeck();
 		}
-		shuffleDeck();
 	}
 	
 	public boolean isAlive() {

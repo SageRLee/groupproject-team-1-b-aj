@@ -31,8 +31,6 @@ public class Card {
 
 		return true;
 	}
-	
-
 
 	public GImage getPicture() {
 		return picture;
