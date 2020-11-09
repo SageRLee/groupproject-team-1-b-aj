@@ -39,17 +39,9 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 	public void run() {
 		addMouseListeners();
 		Map = new GImage("media/images/Background.png", 0, 0);
-		Iconlist.add(Level1);
-		Iconlist.add(Level2);
-		Iconlist.add(Level3);
-		Iconlist.add(Level4);
-		Iconlist.add(Level5);
-		Iconlist.add(Level6);
-		Iconlist.add(Level7);
-		Iconlist.add(Level8);
-//		Level1=new  GImage("media/images/level1.png", 0, 0);
-//		Level2=new  GImage("media/images/level2.png", 0, 0);
-//		Level3=new  GImage("media/images/level3.png", 0, 0);
+		Level1=new  GImage("media/images/level1.png", 80, 80);
+		Level2=new  GImage("media/images/level2.png", 160, 160);
+		Level3=new  GImage("media/images/level3.png", 240, 240);
 //		Level4=new  GImage("media/images/level4.png", 0, 0);
 //		Level5=new  GImage("media/images/level5.png", 0, 0);
 //		Level6=new  GImage("media/images/level6.png", 0, 0);
@@ -64,14 +56,22 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 //		levelmap.put(Level7,LevelSeven);
 //		levelmap.put(Level8,LevelEight);
 		add(Map);
-//		add(Level1);
-//		add(Level2);
-//		add(Level3);
+		add(Level1);
+		add(Level2);
+		add(Level3);
 //		add(Level4);
 //		add(Level5);
 //		add(Level6);
 //		add(Level7);
 //		add(Level8);
+		Iconlist.add(Level1);
+		Iconlist.add(Level2);
+		Iconlist.add(Level3);
+//		Iconlist.add(Level4);
+//		Iconlist.add(Level5);
+//		Iconlist.add(Level6);
+//		Iconlist.add(Level7);
+//		Iconlist.add(Level8);
 	}
 	public void mousePressed(MouseEvent e) {
 		GObject elem = getElementAt(e.getX(), e.getY());
@@ -82,12 +82,14 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 		}
 	}
 	public void finishLevel(int levelnum) {
-		//Iconlist.get(levelnum).setImage("");;
+		Iconlist.get(levelnum).setVisible(false);
 	}
 	 public void mouseMoved(MouseEvent e) {
 			GObject elem = getElementAt(e.getX(), e.getY());
 			if (elem instanceof GImage) {
+				if(elem.isVisible()) {
 				((GImage) elem).setSize(10, 10);
+			}
 			}
 		}
 }
