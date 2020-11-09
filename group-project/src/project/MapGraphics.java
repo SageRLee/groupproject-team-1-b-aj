@@ -82,12 +82,14 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 		}
 	}
 	public void finishLevel(int levelnum) {
-		//Iconlist.get(levelnum).setImage("");;
+		Iconlist.get(levelnum).setVisible(false);
 	}
 	 public void mouseMoved(MouseEvent e) {
 			GObject elem = getElementAt(e.getX(), e.getY());
 			if (elem instanceof GImage) {
+				if(elem.isVisible()) {
 				((GImage) elem).setSize(10, 10);
+			}
 			}
 		}
 }
