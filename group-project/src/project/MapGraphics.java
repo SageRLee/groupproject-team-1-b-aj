@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GLine;
@@ -17,7 +18,7 @@ import acm.program.GraphicsProgram;
 public class MapGraphics extends ProjectGraphics implements ActionListener {
 	public static final int RESOLUTION_X = 1920;
 	public static final int RESOLUTION_Y = 1080;
-	private GImage Map;
+	private GImage mapimg;
 	public GImage Level1;
 	public GImage Level2;
 	public GImage Level3;
@@ -34,14 +35,18 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 	public Level LevelSix;
 	public Level LevelSeven;
 	public Level LevelEight;
-	public HashMap<GImage , Level > levelmap;
+	public HashMap<GImage , Level > levelmapimg;
+	public GImage Leveltemp;
 	private ArrayList<GImage> Iconlist;
 	public void run() {
 		addMouseListeners();
-		Map = new GImage("media/images/Background.png", 0, 0);
-		Map.setSize(RESOLUTION_X, RESOLUTION_Y);
+		
+		mapimg = new GImage("media/images/Background.png", 0, 0);
+		mapimg.setSize(RESOLUTION_X, RESOLUTION_Y);
+		
 		Level1=new  GImage("media/images/level1.png", 150, 600);
 		Level1.setSize(150, 150);
+		Leveltemp=Level1;
 		Level2=new  GImage("media/images/level2.png", 150, 300);
 		Level2.setSize(150, 150);
 		Level3=new  GImage("media/images/level3.png", 450, 300);
@@ -61,15 +66,15 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 //		Level6=new  GImage("media/images/level6.png", 0, 0);
 //		Level7=new  GImage("media/images/level7.png", 0, 0);
 //		Level8=new  GImage("media/images/level8.png", 0, 0);
-//		levelmap.put(Level1,LevelOne);
-//		levelmap.put(Level2,LevelTwo);
-//		levelmap.put(Level3,LevelThree);
-//		levelmap.put(Level4,LevelFlour);
-//		levelmap.put(Level5,LevelFive);
-//		levelmap.put(Level6,LevelSix);
-//		levelmap.put(Level7,LevelSeven);
-//		levelmap.put(Level8,LevelEight);
-		add(Map);
+//		levelmapimg.put(Level1,LevelOne);
+//		levelmapimg.put(Level2,LevelTwo);
+//		levelmapimg.put(Level3,LevelThree);
+//		levelmapimg.put(Level4,LevelFlour);
+//		levelmapimg.put(Level5,LevelFive);
+//		levelmapimg.put(Level6,LevelSix);
+//		levelmapimg.put(Level7,LevelSeven);
+//		levelmapimg.put(Level8,LevelEight);
+		add(mapimg);
 		add(Level1);
 		add(Level2);
 		add(Level3);
@@ -78,31 +83,39 @@ public class MapGraphics extends ProjectGraphics implements ActionListener {
 		add(Level6);
 		add(Level7);
 		add(Level8);
-		Iconlist.add(Level1);
-		Iconlist.add(Level2);
-		Iconlist.add(Level3);
-		Iconlist.add(Level4);
-		Iconlist.add(Level5);
-		Iconlist.add(Level6);
-		Iconlist.add(Level7);
-		Iconlist.add(Level8);
+//		Iconlist.add(Level1);
+//		Iconlist.add(Level2);
+//		Iconlist.add(Level3);
+//		Iconlist.add(Level4);
+//		Iconlist.add(Level5);
+//		Iconlist.add(Level6);
+//		Iconlist.add(Level7);
+//		Iconlist.add(Level8);
 	}
 	public void mousePressed(MouseEvent e) {
 		GObject elem = getElementAt(e.getX(), e.getY());
 		if (elem instanceof GImage) {
-			Level temp;
-			temp=levelmap.get(((GImage) elem));
-			print(temp);
-		}
+			if(elem.isVisible()&& elem.getWidth()!=RESOLUTION_X) {
+				((GImage) elem).setVisible(false);
+				
+		}		}
 	}
 	public void finishLevel(int levelnum) {
 		Iconlist.get(levelnum).setVisible(false);
 	}
 	 public void mouseMoved(MouseEvent e) {
 			GObject elem = getElementAt(e.getX(), e.getY());
-			if (elem instanceof GImage && elem.getWidth()!=RESOLUTION_X ) {
-				if(elem.isVisible()) {
-				((GImage) elem).setSize(140, 140);
+			if (elem instanceof GImage) {
+				if(Leveltemp!=elem) {
+					if(Leveltemp.getWidth()!=RESOLUTION_X) {
+						Leveltemp.setSize(150, 150);
+					}
+					Leveltemp=(GImage) elem;
+					
+				}
+				if(elem.isVisible()&& elem.getWidth()!=RESOLUTION_X) {
+					((GImage) elem).setSize(140, 140);
+
 			}
 		}
 		}
