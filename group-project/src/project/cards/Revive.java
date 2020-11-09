@@ -16,9 +16,9 @@ public class Revive extends Card {
 	@Override
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {
 		if (isPlayerTurn) {
-			bG.playerHealed(10);
+			bG.changeEntityStats(player, 10, true);
 		} else {
-			bG.enemyHealed(10);
+			bG.changeEntityStats(enemy, 10, true);
 		}
 	}
 

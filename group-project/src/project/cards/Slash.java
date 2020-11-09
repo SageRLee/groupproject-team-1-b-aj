@@ -16,9 +16,9 @@ public class Slash extends Card {
 	@Override
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {
 		if (isPlayerTurn) {
-			bG.enemyDamaged(3);
+			bG.changeEntityStats(enemy, -3, true);
 		} else {
-			bG.playerDamaged(3);
+			bG.changeEntityStats(player, -3, true);
 		}
 	}
 

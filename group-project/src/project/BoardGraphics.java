@@ -135,48 +135,53 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		player.setMana(10);
 		player.setMaxMana(10);
 		enemy = new Enemy();
-		enemy.setHp(10);
+		enemy.setHp(20);
 		enemy.setMaxHp(20);
 		enemy.setMana(10);
 		enemy.setMaxMana(10);
-
-		playerHealthDamageBar.setSize((player.getHp()*PLAYER_BAR_WIDTH)/player.getMaxHp(), playerHealthDamageBar.getHeight());
-		playerHealthText.setLabel(player.getHp() + "/" + player.getMaxHp());
-		enemyHealthBar.setSize((enemy.getHp()*ENEMY_BAR_WIDTH)/enemy.getMaxHp(), enemyHealthBar.getHeight());
-
-		/*
-		loadCards();
+		
+		loadTestCards();
+		/*changeEntityStats(player, -1, true);
+		pause(2000);
+		changeEntityStats(player, 1, true);
+		pause(2000);
+		changeEntityStats(enemy, -1, true);
+		pause(2000);
+		changeEntityStats(enemy, 1, true);
+		pause(2000);
+		changeEntityStats(player, -1, false);
+		pause(2000);
+		changeEntityStats(player, 1, false);
+		pause(2000);
+		changeEntityStats(enemy, -1, false);
+		pause(2000);
+		changeEntityStats(enemy, 1, false);
 		pause(2000);*/
-		loadCards();
-		playerDamaged(1);
-		pause(2000);
-		enemyDamaged(1);
-		pause(2000);
-		//playerHealed(1);
-		//pause(2000);
-		//enemyHealed(1);
-		//pause(2000);
-		//playerArmorAdd(5);
-		//pause(2000);
-		//playerArmorSubtract(5);
-		//pause(2000);
-		//enemyArmorAdd(5);
-		//pause(2000);
-		//enemyArmorSubtract(5);
-		//pause(2000);
 	}
 	
-	private void loadCards() {
+	private void loadTestCards() {
 		player.getDeck().add(new SmallHealthPotion());
 		player.getDeck().add(new LargeHealthPotion());
 		player.getDeck().add(new Revive());
 		player.getDeck().add(new Stick());
 		player.getDeck().add(new Slash());
 		player.getDeck().add(new Stab());
-		while (player.getHand().size() <= 5) {
+		while (player.getHand().size() <= 3) {
 			int randCard = new Random().nextInt(player.getDeck().size());
 			player.getHand().add(player.getDeck().get(randCard));
 			player.getDeck().remove(randCard);
+		}
+		
+		enemy.getDeck().add(new SmallHealthPotion());
+		enemy.getDeck().add(new LargeHealthPotion());
+		enemy.getDeck().add(new Revive());
+		enemy.getDeck().add(new Stick());
+		enemy.getDeck().add(new Slash());
+		enemy.getDeck().add(new Stab());
+		while (enemy.getHand().size() <= 3) {
+			int randCard = new Random().nextInt(enemy.getDeck().size());
+			enemy.getHand().add(enemy.getDeck().get(randCard));
+			enemy.getDeck().remove(randCard);
 		}
 
 		reloadHand();
@@ -186,121 +191,102 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		int x = 0;
 		for (Card cards : player.getHand()) {
 			cards.getPicture().setLocation((202 * x) + 400, 700);
-			cards.getPicture().sendToBack();
+			add(cards.getPicture());
+			x++;
+		}
+
+		x = 0;
+		for (Card cards : enemy.getHand()) {
+			cards.getPicture().setLocation((101 * x) + 900, 0);
+			cards.getPicture().setSize(100, 200);
 			add(cards.getPicture());
 			x++;
 		}
 	}
 	
-	public void playerDamaged(int damageAmt) {
-		int newHp = player.getHp() - damageAmt;
-		if (newHp < 0)
-			newHp = 0;
-				
-		player.setHp(newHp);
+	public void changeEntityStats(Entity entity, int amt, boolean isHealth) {
+		boolean isPositive = amt > 0;
 		
-		playerHealthDamageBar.setSize((player.getHp()*PLAYER_BAR_WIDTH)/player.getMaxHp(), playerHealthDamageBar.getHeight());
-		
-		playerHealthText.setLabel(player.getHp() + "/" + player.getMaxHp());
-		
-		new Thread() {
-	        public void run() {
-	        	GLabel damageLabel = new GLabel("-" + damageAmt);
-	        	damageLabel.setColor(Color.RED);
-	        	damageLabel.setFont(statsFont);
-	        	damageLabel.setLocation(400, 50);
-	    		add(damageLabel);
-	    		for (int x = 0; x < 30; x++) {
-	    			damageLabel.move(0, 1);
-	    			pause(30);
-	    		}
-	    		
-	    		remove(damageLabel);
-	        }
-	    }.start();
-	}
-	
-	public void enemyDamaged(int damageAmt) {
-		int newHp = enemy.getHp() - damageAmt;
-		if (newHp < 0)
-			newHp = 0;
-				
-		enemy.setHp(newHp);
-		
-		enemyHealthBar.setSize((enemy.getHp()*ENEMY_BAR_WIDTH)/enemy.getMaxHp(), enemyHealthBar.getHeight());
-		
-		new Thread() {
-	        public void run() {
-	        	GLabel damageLabel = new GLabel("-" + damageAmt);
-	        	damageLabel.setColor(Color.RED);
-	        	damageLabel.setFont(statsFont);
-	        	damageLabel.setLocation(1050, 740);
-	    		add(damageLabel);
-	    		for (int x = 0; x < 30; x++) {
-	    			damageLabel.move(0, 1);
-	    			pause(30);
-	    		}
-	    		
-	    		remove(damageLabel);
-	        }
-	    }.start();
-	}
-	
-	public void playerHealed(int healAmt) {
-		int newHp = player.getHp() + healAmt;
-
-		if (newHp > player.getMaxHp())
-			newHp = player.getMaxHp();
-		
-		player.setHp(newHp);
-		
-		playerHealthDamageBar.setSize((newHp*PLAYER_BAR_WIDTH)/player.getMaxHp(), playerHealthDamageBar.getHeight());
-		
-		playerHealthText.setLabel(player.getHp() + "/" + player.getMaxHp());
-		
-		new Thread() {
-	        public void run() {
-	        	GLabel healLabel = new GLabel("+" + healAmt);
-	    		healLabel.setColor(Color.GREEN);
-	    		healLabel.setFont(statsFont);
-	    		healLabel.setLocation(400, 50);
-	    		add(healLabel);
-	    		for (int x = 0; x < 30; x++) {
-	    			healLabel.move(0, 1);
-	    			pause(30);
-	    		}
-	    		
-	    		remove(healLabel);
-	        }
-	    }.start();
-	}
-	
-	public void enemyHealed(int healAmt) {
-		int newHp = enemy.getHp() + healAmt;
-		if (newHp > enemy.getMaxHp())
-			newHp = enemy.getMaxHp();
-				
-		enemy.setHp(newHp);
-		
-		enemyHealthBar.setSize((enemy.getHp()*ENEMY_BAR_WIDTH)/enemy.getMaxHp(), enemyHealthBar.getHeight());
+		if (isHealth) {
+			int newHp = entity.getHp() + amt;
+			if (newHp > entity.getMaxHp())
+				newHp = entity.getMaxHp();
+			if (newHp < 0)
+				newHp = 0;
+					
+			entity.setHp(newHp);
 			
+			if (entity instanceof Player) {
+				playerHealthDamageBar.setSize((entity.getHp()*PLAYER_BAR_WIDTH)/entity.getMaxHp(), playerHealthDamageBar.getHeight());
+				playerHealthText.setLabel(entity.getHp() + "/" + entity.getMaxHp());
+			} else {
+				enemyHealthBar.setSize((entity.getHp()*ENEMY_BAR_WIDTH)/entity.getMaxHp(), enemyHealthBar.getHeight());
+			}
+		} else {
+			int newMana = entity.getMana() + amt;
+			if (newMana > entity.getMaxMana())
+				newMana = entity.getMaxMana();
+			if (newMana < 0)
+				newMana = 0;
+					
+			entity.setMana(newMana);
+			
+			if (entity instanceof Player) {
+				playerManaUseBar.setSize((entity.getMana()*PLAYER_BAR_WIDTH)/entity.getMaxMana(), playerManaUseBar.getHeight());
+				playerManaText.setLabel(entity.getMana() + "/" + entity.getMaxMana());
+			} else {
+				enemyManaBar.setSize((entity.getMana()*ENEMY_BAR_WIDTH)/entity.getMaxMana(), enemyManaBar.getHeight());
+			}
+		}
+		
+		
 		new Thread() {
 	        public void run() {
-	        	GLabel healLabel = new GLabel("+" + healAmt);
-	    		healLabel.setColor(Color.GREEN);
-	    		healLabel.setFont(statsFont);
-	    		healLabel.setLocation(1050, 740);
-	    		add(healLabel);
+	        	GLabel statLabel;
+	        	
+	        	if (isPositive) {
+	        		statLabel = new GLabel("+" + amt);
+	        		if (isHealth) {
+		        		statLabel.setColor(Color.GREEN);
+	        		} else {
+	        			statLabel.setColor(Color.BLUE);
+	        		}
+	        	} else {
+	        		statLabel = new GLabel("" + amt);
+	        		if (isHealth) {
+	        			statLabel.setColor(Color.RED);
+	        		} else {
+	        			statLabel.setColor(Color.MAGENTA);
+	        		}
+	        	}
+	        	
+	        	statLabel.setFont(statsFont);
+	        	if (entity instanceof Player) {
+	        		if (isHealth) {
+	        			statLabel.setLocation(400, 50);
+	        		} else {
+	        			statLabel.setLocation(400, 132);
+	        		}
+	        	} else {
+	        		if (isHealth) {
+	        			statLabel.setLocation(1050, 640);
+	        		} else {
+	        			statLabel.setLocation(1050, 660);
+	        		}
+	        	}
+	    		add(statLabel);
+	    		
 	    		for (int x = 0; x < 30; x++) {
-	    			healLabel.move(0, 1);
+	    			statLabel.move(0, 1);
 	    			pause(30);
 	    		}
 	    		
-	    		remove(healLabel);
+	    		remove(statLabel);
 	        }
 	    }.start();
+		
 	}
-
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
@@ -316,13 +302,29 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		}
 		if (cardToRemove != null)
 			player.getHand().remove(cardToRemove);
+		
 		reloadHand();
 		
-		//isPlayerTurn = !isPlayerTurn;
+		new Thread() {
+			public void run() {
+				playEnemyTurn();
+			}
+		}.start();
 	}
 	
-	public void playEnemyTurn(Player player, Card card) {
+	public void playEnemyTurn() {
+		pause(2000);
 		
+		isPlayerTurn = false;
+		
+		Card randomEnemyCard = enemy.getHand().get(new Random().nextInt(enemy.getHand().size()));
+		randomEnemyCard.play(this, isPlayerTurn, player, enemy);
+		remove(randomEnemyCard.getPicture());
+		enemy.getHand().remove(randomEnemyCard);
+		
+		reloadHand();
+		
+		isPlayerTurn = true;
 	}
 	
 }

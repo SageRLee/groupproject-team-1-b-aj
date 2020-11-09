@@ -16,9 +16,9 @@ public class Stick extends Card {
 	@Override
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {
 		if (isPlayerTurn) {
-			bG.enemyDamaged(1);
+			bG.changeEntityStats(enemy, -1, true);
 		} else {
-			bG.playerDamaged(1);
+			bG.changeEntityStats(player, -1, true);
 		}
 	}
 
