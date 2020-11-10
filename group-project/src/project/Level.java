@@ -17,6 +17,10 @@ public class Level {
 		this.complete = complete;
 	}
 	
+	public GImage getLevelImage() {
+		return levelImage;
+	}
+	
 	public Enemy getEnemy() {
 		return enemy;
 	}
