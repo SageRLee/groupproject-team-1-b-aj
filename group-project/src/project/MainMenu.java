@@ -1,17 +1,29 @@
 package project;
 
-public class MainMenu {
+import starter.GraphicsApplication;
+
+public class MainMenu extends GraphicsApplication {
 	public static final int RESOLUTION_X = 1920;
 	public static final int RESOLUTION_Y = 1080;
-	public static MainMenuGraphics mmGraphics = new MainMenuGraphics();
-	public static void main(String[] args) {
-			mmGraphics.start();
-			
+	
+	private MainMenuGraphics mainMenuPane;
+	private MapGraphics mapPane;
+	
+	public void init() {
+		setSize(RESOLUTION_X, RESOLUTION_Y);
+	}
+	
+	public void run() {
+		addMouseListeners();
 		
+		mainMenuPane = new MainMenuGraphics(this);
+		mapPane = new MapGraphics(this);
+		
+		switchToScreen(mainMenuPane);
 	}
 	
 	public void playGame() {
-		
+		switchToScreen(mapPane);
 	}
 	
 	public void openShop(){
