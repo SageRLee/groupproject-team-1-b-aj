@@ -21,6 +21,8 @@ import project.cards.Stick;
 
 public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
+	//TODO Player end button.
+	
 	private Font statsFont;
 	
 	private GImage background;
@@ -166,11 +168,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		player.getDeck().add(new Stick());
 		player.getDeck().add(new Slash());
 		player.getDeck().add(new Stab());
-		while (player.getHand().size() <= 3) {
-			int randCard = new Random().nextInt(player.getDeck().size());
-			player.getHand().add(player.getDeck().get(randCard));
-			player.getDeck().remove(randCard);
-		}
+		player.loadHand();
 		
 		enemy.getDeck().add(new SmallHealthPotion());
 		enemy.getDeck().add(new LargeHealthPotion());
@@ -178,19 +176,29 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		enemy.getDeck().add(new Stick());
 		enemy.getDeck().add(new Slash());
 		enemy.getDeck().add(new Stab());
-		while (enemy.getHand().size() <= 3) {
-			int randCard = new Random().nextInt(enemy.getDeck().size());
-			enemy.getHand().add(enemy.getDeck().get(randCard));
-			enemy.getDeck().remove(randCard);
-		}
+		enemy.loadHand();
 
+		entityDrawCard(player);
+	}
+	
+	private void entityDrawCard(Entity entity) {
+		if (entity.getHand().size() == 0) {
+			entity.resetDeck();
+		} else {
+			if (!entity.getDeck().isEmpty()) {
+				Card randomCardFromDeck = entity.getDeck().get(new Random().nextInt(entity.getDeck().size()));
+				entity.getHand().add(randomCardFromDeck);
+				entity.getDeck().remove(randomCardFromDeck);
+			}
+		}
 		reloadHand();
 	}
 	
 	private void reloadHand() {
 		int x = 0;
+		
 		for (Card cards : player.getHand()) {
-			cards.getPicture().setLocation((202 * x) + 400, 700);
+			cards.getPicture().setLocation((202 * x) + 400, 720);
 			add(cards.getPicture());
 			x++;
 		}
@@ -289,27 +297,25 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
-		Card cardToRemove = null;
 		for (Card cards : player.getHand()) {
 			if (getElementAt(e.getX(), e.getY()) == cards.getPicture()) {
 				cards.play(this, isPlayerTurn, player, enemy);
 				player.getDiscard().add(cards);
 				remove(cards.getPicture());
-				cardToRemove = cards;
+				
+				player.getHand().remove(cards);
+				
+				new Thread() {
+					public void run() {
+						playEnemyTurn();
+					}
+				}.start();
+				
+				entityDrawCard(enemy);
+				
 				break;
 			}
 		}
-		if (cardToRemove != null)
-			player.getHand().remove(cardToRemove);
-		
-		reloadHand();
-		
-		new Thread() {
-			public void run() {
-				playEnemyTurn();
-			}
-		}.start();
 	}
 	
 	public void playEnemyTurn() {
@@ -320,7 +326,10 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		Card randomEnemyCard = enemy.getHand().get(new Random().nextInt(enemy.getHand().size()));
 		randomEnemyCard.play(this, isPlayerTurn, player, enemy);
 		remove(randomEnemyCard.getPicture());
+		enemy.getDiscard().add(randomEnemyCard);
 		enemy.getHand().remove(randomEnemyCard);
+		
+		entityDrawCard(player);
 		
 		reloadHand();
 		
