@@ -16,12 +16,13 @@ import project.cards.Slash;
 import project.cards.SmallHealthPotion;
 import project.cards.Stab;
 import project.cards.Stick;
+import starter.GraphicsPane;
 
 //ANDREW
 
-public class BoardGraphics extends ProjectGraphics implements ActionListener {
-	
-	//TODO Player end button.
+public class BoardGraphics extends GraphicsPane {
+
+	private MainMenu program;
 	
 	private Font statsFont;
 	
@@ -30,14 +31,17 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	private GRect enemyHealthBar;
 	private GRect enemyManaBar;
 	private GRect enemyArmorBar;
-	private GLabel playerHealthText; //TODO
-	private GImage playerHealthBar; //TODO
-	private GRect playerHealthDamageBar; //TODO
-	private GLabel playerManaText; //TODO
-	private GImage playerManaBar; //TODO
-	private GRect playerManaUseBar; //TODO
+	private GLabel playerHealthText;
+	private GImage playerHealthBar;
+	private GRect playerHealthDamageBar;
+	private GLabel playerManaText;
+	private GImage playerManaBar;
+	private GRect playerManaUseBar;
+	
 	//private GLabel playerArmorText; //TODO
 	//private GImage playerArmorBar; //TODO
+	
+	//TODO Player end button.
 
 	private static int PLAYER_BAR_WIDTH;
 	private static int ENEMY_BAR_WIDTH;
@@ -47,19 +51,13 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
 	private boolean isPlayerTurn;
 	
-	public BoardGraphics() {
-		//todo idk why the fuck i need this
+	public BoardGraphics(MainMenu program) {
+		super();
+		this.program = program;
+		initializeObjects();
 	}
 	
-	public BoardGraphics(Player player, Enemy enemy) {
-		this.player = player;
-		this.enemy = enemy;
-	}
-	
-	public void run() {
-		addMouseListeners();
-		initializeApplet();
-		
+	public void initializeObjects() {
 		statsFont = new Font("TimesRoman", Font.PLAIN, 50);
 		
 		background = new GImage("media/images/DungeonBackground.jpg");
@@ -102,88 +100,35 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		playerArmorText = new GLabel("10"); //TODO getMana
 		playerArmorText.setLocation(82, 220);
 		playerArmorText.setFont(statsFont);
+		add(playerArmorBar);
+		add(playerArmorText);
 		*/
-
-		add(background);
-		
-		add(enemyHealthBar);
-		add(enemyManaBar);
-		add(enemyArmorBar);
-
-		add(playerHealthBar);
-		add(playerHealthDamageBar);
-		add(playerHealthText);
-		
-		add(playerManaBar);
-		add(playerManaUseBar);
-		add(playerManaText);
-		
-		//add(playerArmorBar);
-		//add(playerArmorText);
 		
 		PLAYER_BAR_WIDTH = (int) playerHealthDamageBar.getWidth();
 		ENEMY_BAR_WIDTH = (int) enemyHealthBar.getWidth();
 		
 		isPlayerTurn = true;
-		
-		testRun();
 	}
 	
-	private void testRun() {
-		
-		player = new Player();
-		player.setHp(10);
-		player.setMaxHp(10);
-		player.setMana(10);
-		player.setMaxMana(10);
-		enemy = new Enemy();
-		enemy.setHp(20);
-		enemy.setMaxHp(20);
-		enemy.setMana(10);
-		enemy.setMaxMana(10);
-		
-		loadTestCards();
-		/*changeEntityStats(player, -1, true);
-		pause(2000);
-		changeEntityStats(player, 1, true);
-		pause(2000);
-		changeEntityStats(enemy, -1, true);
-		pause(2000);
-		changeEntityStats(enemy, 1, true);
-		pause(2000);
-		changeEntityStats(player, -1, false);
-		pause(2000);
-		changeEntityStats(player, 1, false);
-		pause(2000);
-		changeEntityStats(enemy, -1, false);
-		pause(2000);
-		changeEntityStats(enemy, 1, false);
-		pause(2000);*/
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
-	private void loadTestCards() {
-		player.getDeck().add(new SmallHealthPotion());
-		player.getDeck().add(new LargeHealthPotion());
-		player.getDeck().add(new Revive());
-		player.getDeck().add(new Stick());
-		player.getDeck().add(new Slash());
-		player.getDeck().add(new Stab());
+	public void setEnemy(Enemy enemy) {
+		this.enemy = enemy;
+	}
+	
+	public void loadCards() {
 		player.loadHand();
-		
-		enemy.getDeck().add(new SmallHealthPotion());
-		enemy.getDeck().add(new LargeHealthPotion());
-		enemy.getDeck().add(new Revive());
-		enemy.getDeck().add(new Stick());
-		enemy.getDeck().add(new Slash());
-		enemy.getDeck().add(new Stab());
 		enemy.loadHand();
-
+		
 		entityDrawCard(player);
 	}
 	
 	private void entityDrawCard(Entity entity) {
 		if (entity.getHand().size() == 0) {
 			entity.resetDeck();
+			entityDrawCard(entity);
 		} else {
 			if (!entity.getDeck().isEmpty()) {
 				Card randomCardFromDeck = entity.getDeck().get(new Random().nextInt(entity.getDeck().size()));
@@ -196,10 +141,10 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	
 	private void reloadHand() {
 		int x = 0;
-		
+
 		for (Card cards : player.getHand()) {
 			cards.getPicture().setLocation((202 * x) + 400, 720);
-			add(cards.getPicture());
+			program.add(cards.getPicture());
 			x++;
 		}
 
@@ -207,7 +152,7 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		for (Card cards : enemy.getHand()) {
 			cards.getPicture().setLocation((101 * x) + 900, 0);
 			cards.getPicture().setSize(100, 200);
-			add(cards.getPicture());
+			program.add(cards.getPicture());
 			x++;
 		}
 	}
@@ -282,50 +227,55 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 	        			statLabel.setLocation(1050, 660);
 	        		}
 	        	}
-	    		add(statLabel);
+	        	program.add(statLabel);
 	    		
 	    		for (int x = 0; x < 30; x++) {
 	    			statLabel.move(0, 1);
-	    			pause(30);
+	    			program.pause(30);
 	    		}
 	    		
-	    		remove(statLabel);
+	    		program.remove(statLabel);
 	        }
 	    }.start();
 		
 	}
 	
+	boolean toggle = false;
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		for (Card cards : player.getHand()) {
-			if (getElementAt(e.getX(), e.getY()) == cards.getPicture()) {
-				cards.play(this, isPlayerTurn, player, enemy);
-				player.getDiscard().add(cards);
-				remove(cards.getPicture());
-				
-				player.getHand().remove(cards);
-				
-				new Thread() {
-					public void run() {
-						playEnemyTurn();
-					}
-				}.start();
-				
-				entityDrawCard(enemy);
-				
-				break;
+		toggle = !toggle;
+		if (isPlayerTurn && toggle) {
+			for (Card cards : player.getHand()) {
+				if (program.getElementAt(e.getX(), e.getY()) == cards.getPicture()) {
+					cards.play(this, isPlayerTurn, player, enemy);
+					player.getDiscard().add(cards);
+					program.remove(cards.getPicture());
+					
+					player.getHand().remove(cards);
+					
+					new Thread() {
+						public void run() {
+							playEnemyTurn();
+						}
+					}.start();
+					
+					entityDrawCard(enemy);
+					
+					break;
+				}
 			}
 		}
 	}
 	
 	public void playEnemyTurn() {
-		pause(2000);
+		program.pause(2000);
 		
 		isPlayerTurn = false;
 		
 		Card randomEnemyCard = enemy.getHand().get(new Random().nextInt(enemy.getHand().size()));
 		randomEnemyCard.play(this, isPlayerTurn, player, enemy);
-		remove(randomEnemyCard.getPicture());
+		program.remove(randomEnemyCard.getPicture());
 		enemy.getDiscard().add(randomEnemyCard);
 		enemy.getHand().remove(randomEnemyCard);
 		
@@ -334,6 +284,42 @@ public class BoardGraphics extends ProjectGraphics implements ActionListener {
 		reloadHand();
 		
 		isPlayerTurn = true;
+	}
+
+	@Override
+	public void showContents() {
+		program.add(background);
+		
+		program.add(enemyHealthBar);
+		program.add(enemyManaBar);
+		program.add(enemyArmorBar);
+
+		program.add(playerHealthBar);
+		program.add(playerHealthDamageBar);
+		program.add(playerHealthText);
+		
+		program.add(playerManaBar);
+		program.add(playerManaUseBar);
+		program.add(playerManaText);
+		
+		reloadHand();
+	}
+
+	@Override
+	public void hideContents() {
+		program.remove(background);
+		
+		program.remove(enemyHealthBar);
+		program.remove(enemyManaBar);
+		program.remove(enemyArmorBar);
+
+		program.remove(playerHealthBar);
+		program.remove(playerHealthDamageBar);
+		program.remove(playerHealthText);
+		
+		program.remove(playerManaBar);
+		program.remove(playerManaUseBar);
+		program.remove(playerManaText);
 	}
 	
 }

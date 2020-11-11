@@ -3,32 +3,53 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.program.GraphicsProgram;
+import starter.GraphicsPane;
 
-public class CharacterSelectGraphics extends ProjectGraphics implements ActionListener {
-//commit 2
-	GImage maleKnight;
-	GImage femaleKnight;
-	GImage maleMagician;
-	GImage femaleMagician;
+public class CharacterSelectGraphics extends GraphicsPane {
+
+	private MainMenu program;
 	
-	public void run() {
-		initializeApplet();
-		maleKnight = new GImage("media/images/MaleKnight.png", 0 * (ProjectGraphics.RESOLUTION_X / 4), 0);
-		maleKnight.setSize(ProjectGraphics.RESOLUTION_X / 4, ProjectGraphics.RESOLUTION_Y);
-		add(maleKnight);
-		femaleKnight = new GImage("media/images/FemaleKnight.png", 1 * (ProjectGraphics.RESOLUTION_X / 4), 0);
-		femaleKnight.setSize(ProjectGraphics.RESOLUTION_X / 4, ProjectGraphics.RESOLUTION_Y);
-		add(femaleKnight);
-		maleMagician = new GImage("media/images/MaleMagician.png", 2 * (ProjectGraphics.RESOLUTION_X / 4), 0);
-		maleMagician.setSize(ProjectGraphics.RESOLUTION_X / 4, ProjectGraphics.RESOLUTION_Y);
-		add(maleMagician);
-		femaleMagician = new GImage("media/images/FemaleMagician.png", 3 * (ProjectGraphics.RESOLUTION_X / 4), 0);
-		femaleMagician.setSize(ProjectGraphics.RESOLUTION_X / 4, ProjectGraphics.RESOLUTION_Y);
-		add(femaleMagician);
+	private GImage maleKnight;
+	private GImage femaleKnight;
+	private GImage maleMagician;
+	private GImage femaleMagician;
+
+	public CharacterSelectGraphics(MainMenu program) {
+		super();
+		this.program = program;
+		initializeObjects();
+	}
+	
+	public void initializeObjects() {
+		maleKnight = new GImage("media/images/MaleKnight.png", 0 * (MainMenu.RESOLUTION_X / 4), 0);
+		maleKnight.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
+		femaleKnight = new GImage("media/images/FemaleKnight.png", 1 * (MainMenu.RESOLUTION_X / 4), 0);
+		femaleKnight.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
+		maleMagician = new GImage("media/images/MaleMagician.png", 2 * (MainMenu.RESOLUTION_X / 4), 0);
+		maleMagician.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
+		femaleMagician = new GImage("media/images/FemaleMagician.png", 3 * (MainMenu.RESOLUTION_X / 4), 0);
+		femaleMagician.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
 	}
+
+	@Override
+	public void showContents() {
+		program.add(maleKnight);
+		program.add(femaleKnight);
+		program.add(maleMagician);
+		program.add(femaleMagician);
+	}
+
+	@Override
+	public void hideContents() {
+		program.remove(maleKnight);
+		program.remove(femaleKnight);
+		program.remove(maleMagician);
+		program.remove(femaleMagician);
+	}
+	
 }

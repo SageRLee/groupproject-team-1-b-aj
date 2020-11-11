@@ -26,7 +26,6 @@ public class MainMenuGraphics extends GraphicsPane {
 	private GImage charSelect;
 	private GImage background;
 	private GImage quit;
-	private AudioPlayer snd;
 	//private Timer someTimeVar = new Timer(33, this); TODO fix
 	
 	private GObject target;
@@ -51,7 +50,6 @@ public class MainMenuGraphics extends GraphicsPane {
 		lastY = 0;
 		transition = false;
 		
-		snd = AudioPlayer.getInstance();
 		background.setSize(MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);//Mess around with locations later to make them equal distance from each other
 		play.setSize(MainMenu.RESOLUTION_X / 6, MainMenu.RESOLUTION_Y / 6);
 		play.setLocation(MainMenu.RESOLUTION_X / 2 - play.getWidth()/2, MainMenu.RESOLUTION_Y / 3);
@@ -93,20 +91,21 @@ public class MainMenuGraphics extends GraphicsPane {
 			
 		} else {
 			program.add(blackscrn);
-			snd.playSound("media/sounds/", "select.mp3");
+			program.getAudioPlayer().playSound("media/sounds/", "select.mp3");
 			transition = true;
 			if(target == play) {
 			System.out.println("Playing game");	
 			
-			program.playGame();
+			program.openGame();
 			
 			} else if(target == shop){
 				System.out.println("Opening shop");
-				//shp.run();
 				
+				program.openShop();
 			} else if(target == charSelect) {
 				System.out.println("Opening character select");
-				//character.run();
+
+				program.openCharacterSelect();
 			}
 			}
 		}
@@ -123,6 +122,8 @@ public class MainMenuGraphics extends GraphicsPane {
 			}
 		}
 	}
+	
+	@Override
 	public void mouseMoved(MouseEvent e) {
 		//Mouse Hovering
 		
@@ -132,7 +133,7 @@ public class MainMenuGraphics extends GraphicsPane {
 			hover.setVisible(true);
 			target = program.getElementAt(e.getX(), e.getY());
 			if(program.getElementAt(e.getX(), e.getY()) != program.getElementAt(lastX, lastY)) {
-				snd.playSound("media/sounds/", "cardHover.mp3");
+				program.getAudioPlayer().playSound("media/sounds/", "cardHover.mp3");
 			}
 		}
 		else {
@@ -143,9 +144,7 @@ public class MainMenuGraphics extends GraphicsPane {
 		lastX = e.getX();
 		lastY = e.getY();
 	}
-	public void mouseEntered(MouseEvent e) {
-		//this.setCursor(c);
-	}
+	
 	@Override
 	public void showContents() {
 		CustomCursor();
@@ -159,6 +158,7 @@ public class MainMenuGraphics extends GraphicsPane {
 		program.add(charSelect);
 		program.add(quit);
 	}
+	
 	@Override
 	public void hideContents() {
 		program.remove(title);

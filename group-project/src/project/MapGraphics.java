@@ -14,6 +14,12 @@ import acm.graphics.GLine;
 import acm.graphics.GObject;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
+import project.cards.LargeHealthPotion;
+import project.cards.Revive;
+import project.cards.Slash;
+import project.cards.SmallHealthPotion;
+import project.cards.Stab;
+import project.cards.Stick;
 import starter.GraphicsPane;
 
 public class MapGraphics extends GraphicsPane {
@@ -46,6 +52,22 @@ public class MapGraphics extends GraphicsPane {
 		levelList = new ArrayList<>();
 
 		Enemy levelOneEnemy = new Enemy();
+		levelOneEnemy.setHp(20);
+		levelOneEnemy.setMaxHp(20);
+		levelOneEnemy.setMana(10);
+		levelOneEnemy.setMaxMana(10);
+
+		levelOneEnemy.getDeck().add(new SmallHealthPotion());
+		levelOneEnemy.getDeck().add(new SmallHealthPotion());
+		levelOneEnemy.getDeck().add(new SmallHealthPotion());
+		levelOneEnemy.getDeck().add(new SmallHealthPotion());
+		levelOneEnemy.getDeck().add(new SmallHealthPotion());
+		levelOneEnemy.getDeck().add(new Stab());
+		levelOneEnemy.getDeck().add(new Stab());
+		levelOneEnemy.getDeck().add(new Stab());
+		levelOneEnemy.getDeck().add(new Stab());
+		levelOneEnemy.getDeck().add(new Stab());
+		
 		Enemy levelTwoEnemy = new Enemy();
 		Enemy levelThreeEnemy = new Enemy();
 		Enemy levelFourEnemy = new Enemy();
@@ -96,7 +118,7 @@ public class MapGraphics extends GraphicsPane {
 		if (currElem instanceof GImage) {
 			for (Level level : levelList) {
 				if (level.getLevelImage() == currElem) {
-					
+					program.openBoard(level.getEnemy());
 				}
 			}
 		}
