@@ -77,47 +77,42 @@ public class MainMenuGraphics extends GraphicsPane {
 	}
 	
 	//Trying to get custom cursor to work, not working for some reason. Check back if you have time, if not just ignore Ask David maybe?
-	public void CustomCursor() {	
+	public void setCustomCursor() {	
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image img = toolkit.getImage("media/images/Cursor.png");
 		Point hotspot = new Point(0, 0);
 		Cursor cursor = toolkit.createCustomCursor(img, hotspot, "mainCursor");
 		program.setCursor(cursor);
-		
 	}
 	public void mousePressed(MouseEvent e) {
 		//Mouse event for all button options
-		if(target == null) {
-			
-		} else {
+		if (target != null) {
 			program.add(blackscrn);
 			program.getAudioPlayer().playSound("media/sounds/", "select.mp3");
 			transition = true;
-			if(target == play) {
-			System.out.println("Playing game");	
-			
-			program.openGame();
-			
+			if (target == play) {
+				System.out.println("Playing game");	
+				program.openGame();
 			} else if(target == shop){
 				System.out.println("Opening shop");
-				
 				program.openShop();
 			} else if(target == charSelect) {
 				System.out.println("Opening character select");
-
 				program.openCharacterSelect();
 			}
-			}
 		}
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if(transition) {
 			blackscrn.setFillColor(new Color(0, 0, 0, scrAlpha));
-			if(hover.isVisible()) {
+			if (hover.isVisible()) {
 				hover.setVisible(false);
-			}else {
+			} else {
 				hover.setVisible(true);
 			}
-			if(scrAlpha < 255) {
+			
+			if (scrAlpha < 255) {
 				scrAlpha+= 10;
 			}
 		}
@@ -132,11 +127,10 @@ public class MainMenuGraphics extends GraphicsPane {
 			hover.setLocation(program.getElementAt(e.getX(), e.getY()).getX() - 8,  program.getElementAt(e.getX(), e.getY()).getY() - 8);
 			hover.setVisible(true);
 			target = program.getElementAt(e.getX(), e.getY());
-			if(program.getElementAt(e.getX(), e.getY()) != program.getElementAt(lastX, lastY)) {
+			if (program.getElementAt(e.getX(), e.getY()) != program.getElementAt(lastX, lastY)) {
 				program.getAudioPlayer().playSound("media/sounds/", "cardHover.mp3");
 			}
-		}
-		else {
+		} else {
 			hover.setVisible(false);
 			target = null;
 		}
@@ -147,7 +141,7 @@ public class MainMenuGraphics extends GraphicsPane {
 	
 	@Override
 	public void showContents() {
-		CustomCursor();
+		setCustomCursor();
 		//someTimeVar.start(); TODO fix
 		program.add(title);
 		program.add(background);
