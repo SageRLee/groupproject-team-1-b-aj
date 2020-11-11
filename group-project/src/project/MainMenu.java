@@ -1,11 +1,18 @@
 package project;
 
 import project.cards.LargeHealthPotion;
+import project.cards.LargeManaPotion;
+import project.cards.LifeSteal;
+import project.cards.ManaRevive;
 import project.cards.Revive;
 import project.cards.Slash;
 import project.cards.SmallHealthPotion;
+import project.cards.SmallManaPotion;
+import project.cards.SoulSteal;
+import project.cards.Split;
 import project.cards.Stab;
 import project.cards.Stick;
+import project.cards.Suicide;
 import starter.AudioPlayer;
 import starter.GraphicsApplication;
 
@@ -53,13 +60,20 @@ public class MainMenu extends GraphicsApplication {
 		player.setMaxHp(10);
 		player.setMana(10);
 		player.setMaxMana(10);
-		
+
 		player.getDeck().add(new SmallHealthPotion());
 		player.getDeck().add(new LargeHealthPotion());
 		player.getDeck().add(new Revive());
 		player.getDeck().add(new Stick());
 		player.getDeck().add(new Slash());
 		player.getDeck().add(new Stab());
+		player.getDeck().add(new SmallManaPotion());
+		player.getDeck().add(new LargeManaPotion());
+		player.getDeck().add(new ManaRevive());
+		player.getDeck().add(new LifeSteal());
+		player.getDeck().add(new SoulSteal());
+		player.getDeck().add(new Suicide());
+		player.getDeck().add(new Split());
 	}
 	
 	public void openMainMenu() {

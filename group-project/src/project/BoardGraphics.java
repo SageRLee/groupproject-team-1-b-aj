@@ -269,9 +269,9 @@ public class BoardGraphics extends GraphicsPane {
 	}
 	
 	public void playEnemyTurn() {
-		program.pause(2000);
-		
 		isPlayerTurn = false;
+		
+		program.pause(2000);
 		
 		Card randomEnemyCard = enemy.getHand().get(new Random().nextInt(enemy.getHand().size()));
 		randomEnemyCard.play(this, isPlayerTurn, player, enemy);
