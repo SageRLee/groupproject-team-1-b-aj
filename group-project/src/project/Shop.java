@@ -21,6 +21,5 @@ public class Shop {
 	   return sellcards;
 }
 
-public void renew(){	
-}
+
 }

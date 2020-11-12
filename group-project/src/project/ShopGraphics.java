@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.Timer;
 import acm.graphics.*;
+import java.awt.Image;
+import java.util.Random;
 
 
 
@@ -85,5 +87,36 @@ public class ShopGraphics extends ProjectGraphics implements ActionListener {
 				}
 		
 		}
-}
+		
+		//public void RenewCards()
+	    //{
+	       // Random random = new Random();
+			//for(int i = 0; i < Card.length; i++)
+	       // {
+	          //  int a = random.nextInt(Card.length);
+	          // int cards;
+				//Card temp = cards[i];
+	            //cards[i] = cards[a];
+	            //cards[a] = temp;
+	       // }
+	   // }
+
+
+	   // public void getCard()
+	    //{
+	        //return Card.cards;
+	   // }
+	    
+	  //  public void show()
+	   // {
+	        //for(int i = 0; i < 80; i++)
+	        //{
+	            //cards[i].print();
+	       // }
+	       // System.out.println();
+	    //}
+		
+	} 
+
+
 
