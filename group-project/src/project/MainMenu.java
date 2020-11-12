@@ -77,7 +77,7 @@ public class MainMenu extends GraphicsApplication {
 	}
 	
 	public void openMainMenu() {
-		switchToScreen(mapPane);
+		switchToScreen(mainMenuPane);
 	}
 	
 	public void openGame() {
