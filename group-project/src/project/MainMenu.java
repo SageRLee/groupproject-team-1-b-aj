@@ -4,18 +4,18 @@ import java.awt.event.MouseEvent;
 
 import acm.graphics.GImage;
 import project.cards.LargeHealthPotion;
-import project.cards.LargeManaPotion;
-import project.cards.LifeSteal;
-import project.cards.ManaRevive;
+//import project.cards.LargeManaPotion;
+//import project.cards.LifeSteal;
+//import project.cards.ManaRevive;
 import project.cards.Revive;
 import project.cards.Slash;
 import project.cards.SmallHealthPotion;
-import project.cards.SmallManaPotion;
-import project.cards.SoulSteal;
-import project.cards.Split;
+//import project.cards.SmallManaPotion;
+//import project.cards.SoulSteal;
+//import project.cards.Split;
 import project.cards.Stab;
 import project.cards.Stick;
-import project.cards.Suicide;
+//import project.cards.Suicide;
 import starter.AudioPlayer;
 import starter.GraphicsApplication;
 
@@ -81,13 +81,13 @@ public class MainMenu extends GraphicsApplication {
 			case "stick": cardToAdd = new Stick(); break;
 			case "slash": cardToAdd = new Slash(); break;
 			case "stab": cardToAdd = new Stab(); break;
-			case "smallmanapotion": cardToAdd = new SmallManaPotion(); break;
-			case "largemanapotion": cardToAdd = new LargeManaPotion(); break;
-			case "manarevive": cardToAdd = new ManaRevive(); break;
-			case "lifesteal": cardToAdd = new LifeSteal(); break;
-			case "soulsteal": cardToAdd = new SoulSteal(); break;
-			case "suicide": cardToAdd = new Suicide(); break;
-			case "split": cardToAdd = new Split(); break;
+			//case "smallmanapotion": cardToAdd = new SmallManaPotion(); break;
+			//case "largemanapotion": cardToAdd = new LargeManaPotion(); break;
+			//case "manarevive": cardToAdd = new ManaRevive(); break;
+			//case "lifesteal": cardToAdd = new LifeSteal(); break;
+			//case "soulsteal": cardToAdd = new SoulSteal(); break;
+			//case "suicide": cardToAdd = new Suicide(); break;
+			//case "split": cardToAdd = new Split(); break;
 			}
 			player.getDeck().add(cardToAdd);
 		}

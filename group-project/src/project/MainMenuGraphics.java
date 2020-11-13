@@ -38,9 +38,6 @@ public class MainMenuGraphics extends GraphicsPane {
 	private int lastY = 0;
 	private boolean transition = false;
 	
-	//Classes
-	private Map mp = new Map();
-	//private Shop shp = new Shop();
 	private CharacterSelect character = new CharacterSelect();
 	
 	public MainMenuGraphics(MainMenu program) {
