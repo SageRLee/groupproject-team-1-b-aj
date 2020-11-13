@@ -38,6 +38,10 @@ public class BoardGraphics extends GraphicsPane {
 	private GImage playerManaBar;
 	private GRect playerManaUseBar;
 	
+	private GImage endTurnButton;
+	
+	private int turnNumber;
+	
 	//private GLabel playerArmorText; //TODO
 	//private GImage playerArmorBar; //TODO
 	
@@ -103,6 +107,9 @@ public class BoardGraphics extends GraphicsPane {
 		add(playerArmorBar);
 		add(playerArmorText);
 		*/
+		endTurnButton = new GImage("media/images/EndTurnButton.png", 1700, 900);
+		
+		turnNumber = 0;
 		
 		PLAYER_BAR_WIDTH = (int) playerHealthDamageBar.getWidth();
 		ENEMY_BAR_WIDTH = (int) enemyHealthBar.getWidth();
@@ -245,23 +252,34 @@ public class BoardGraphics extends GraphicsPane {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		toggle = !toggle;
+		
+		GImage currElem = (GImage) program.getElementAt(e.getX(), e.getY());
+		
 		if (isPlayerTurn && toggle) {
+			if (currElem == endTurnButton) {
+				new Thread() {
+					public void run() {
+						playEnemyTurn();
+					}
+				}.start();
+				
+				entityDrawCard(enemy);
+				
+				//todo hide statlabel?
+				changeEntityStats(player, player.getMaxMana() - player.getMana(), false);
+				
+				return;
+			}
 			for (Card cards : player.getHand()) {
-				if (program.getElementAt(e.getX(), e.getY()) == cards.getPicture()) {
-					cards.play(this, isPlayerTurn, player, enemy);
-					player.getDiscard().add(cards);
-					program.remove(cards.getPicture());
-					
-					player.getHand().remove(cards);
-					
-					new Thread() {
-						public void run() {
-							playEnemyTurn();
-						}
-					}.start();
-					
-					entityDrawCard(enemy);
-					
+				if (currElem == cards.getPicture()) {
+					if (player.getMana() - cards.getMana() >= 0) {
+						cards.play(this, isPlayerTurn, player, enemy);
+						player.getDiscard().add(cards);
+						program.remove(cards.getPicture());
+						
+						player.getHand().remove(cards);
+						changeEntityStats(player, -cards.getMana(), false);
+					}
 					break;
 				}
 			}
@@ -302,6 +320,8 @@ public class BoardGraphics extends GraphicsPane {
 		program.add(playerManaUseBar);
 		program.add(playerManaText);
 		
+		program.add(endTurnButton);
+		
 		reloadHand();
 	}
 
@@ -320,6 +340,8 @@ public class BoardGraphics extends GraphicsPane {
 		program.remove(playerManaBar);
 		program.remove(playerManaUseBar);
 		program.remove(playerManaText);
+		
+		program.remove(endTurnButton);
 	}
 	
 }

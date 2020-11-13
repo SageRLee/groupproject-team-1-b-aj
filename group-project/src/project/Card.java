@@ -46,6 +46,10 @@ public class Card {
 		return cost;
 	}
 	
+	public int getMana() {
+		return mana;
+	}
+	
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {
 		
 	}

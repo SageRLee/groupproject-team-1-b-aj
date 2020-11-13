@@ -38,8 +38,6 @@ public class MainMenuGraphics extends GraphicsPane {
 	private int lastY = 0;
 	private boolean transition = false;
 	
-	private CharacterSelect character = new CharacterSelect();
-	
 	public MainMenuGraphics(MainMenu program) {
 		super();
 		this.program = program;
