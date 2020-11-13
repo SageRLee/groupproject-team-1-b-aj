@@ -87,29 +87,6 @@ public class Entity {
 		return discard;
 	}
 	
-	/*
-	
-	public void shuffleDeck() {
-		int length = deck.size();
-		ArrayList<Card> temp = new ArrayList<Card>();
-		while(temp.size() <= length) {
-			int ran = rand.nextInt(deck.size());
-			temp.add(deck.get(ran));
-			deck.remove(ran);
-		}
-		deck = temp;
-	}
-	
-	public void resetDeck() {
-		if (deck.size() == 0) {
-			for(Card discardedCards : discard) {
-				deck.add(discardedCards);
-			}
-			shuffleDeck();
-		}
-	}
-	*/
-	
 	public void resetDeck() {
 		while (getDiscard().size() != 0) {
 			Card card = getDiscard().get(new Random().nextInt(getDiscard().size()));
@@ -120,7 +97,7 @@ public class Entity {
 	}
 	
 	public void loadHand() {
-		while (getHand().size() <= 3) {
+		while (getHand().size() <= 3 && !getDeck().isEmpty()) {
 			int randCard = new Random().nextInt(getDeck().size());
 			getHand().add(getDeck().get(randCard));
 			getDeck().remove(randCard);

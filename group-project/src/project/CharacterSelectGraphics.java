@@ -33,7 +33,12 @@ public class CharacterSelectGraphics extends GraphicsPane {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+		if (program.getElementAt(e.getX(), e.getY()) instanceof GImage) {
+			GImage clickedImage = (GImage) program.getElementAt(e.getX(), e.getY());
+			if (clickedImage == MainMenuGraphics.menuButton) {
+				program.openMainMenu();
+			}
+		}
 	}
 
 	@Override
@@ -42,6 +47,7 @@ public class CharacterSelectGraphics extends GraphicsPane {
 		program.add(femaleKnight);
 		program.add(maleMagician);
 		program.add(femaleMagician);
+		program.add(MainMenuGraphics.menuButton);
 	}
 
 	@Override
@@ -50,6 +56,7 @@ public class CharacterSelectGraphics extends GraphicsPane {
 		program.remove(femaleKnight);
 		program.remove(maleMagician);
 		program.remove(femaleMagician);
+		program.remove(MainMenuGraphics.menuButton);
 	}
 	
 }

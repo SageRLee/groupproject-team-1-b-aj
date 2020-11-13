@@ -71,17 +71,20 @@ public class ShopGraphics extends GraphicsPane {
 			program.getAudioPlayer().playSound("media/sounds", "select.mp3");
 		}
 		
-		if(target == sell) {
-		System.out.println("shop background.jpg");	
-		
-		} else if(target == buy){
-			System.out.println("sell-hi.png");
-			
-		} else if(target == back) {
-			System.out.println("back_button.png");
-			
+
+		GObject currElem = program.getElementAt(e.getX(), e.getY());
+		if (currElem instanceof GImage) {
+			if(target == sell) {
+				System.out.println("shop background.jpg");	
+				
+			} else if(target == buy){
+				System.out.println("sell-hi.png");
+					
+			} else if (currElem == MainMenuGraphics.menuButton) {
+				program.openMainMenu();
+			}
 		}
-	
+		
 	}
 	@Override
 	public void showContents() {
@@ -89,6 +92,7 @@ public class ShopGraphics extends GraphicsPane {
 		program.add(sell);
 		program.add(buy);
 		program.add(back);
+		program.add(MainMenuGraphics.menuButton);
 	}
 	
 	@Override
@@ -97,6 +101,7 @@ public class ShopGraphics extends GraphicsPane {
 		program.remove(sell);
 		program.remove(buy);
 		program.remove(back);
+		program.remove(MainMenuGraphics.menuButton);
 	}
 }
 

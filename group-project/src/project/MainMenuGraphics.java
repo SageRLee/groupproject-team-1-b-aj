@@ -20,12 +20,15 @@ public class MainMenuGraphics extends GraphicsPane {
 	
 	private MainMenu program;
 
+	public static GImage menuButton = new GImage("media/images/MenuButton.png", 1700, 810);
+	
 	private GImage title;
 	private GImage play;
 	private GImage shop;
 	private GImage charSelect;
 	private GImage background;
 	private GImage quit;
+	
 	//private Timer someTimeVar = new Timer(33, this); TODO fix
 	
 	private GObject target;
@@ -68,6 +71,7 @@ public class MainMenuGraphics extends GraphicsPane {
 		blackscrn.setFilled(true);
 		quit.setSize(128, 128);
 		quit.setLocation(MainMenu.RESOLUTION_X - quit.getWidth(), 0);
+		
 	}
 	
 	public MainMenuGraphics(MainMenu program) {
@@ -84,6 +88,8 @@ public class MainMenuGraphics extends GraphicsPane {
 		Cursor cursor = toolkit.createCustomCursor(img, hotspot, "mainCursor");
 		program.setCursor(cursor);
 	}
+	
+	@Override
 	public void mousePressed(MouseEvent e) {
 		//Mouse event for all button options
 		if (target != null) {
@@ -100,6 +106,7 @@ public class MainMenuGraphics extends GraphicsPane {
 				System.out.println("Opening character select");
 				program.openCharacterSelect();
 			}
+			target = null;
 		}
 	}
 	

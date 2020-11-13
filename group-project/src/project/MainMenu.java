@@ -1,5 +1,8 @@
 package project;
 
+import java.awt.event.MouseEvent;
+
+import acm.graphics.GImage;
 import project.cards.LargeHealthPotion;
 import project.cards.LargeManaPotion;
 import project.cards.LifeSteal;
@@ -36,8 +39,6 @@ public class MainMenu extends GraphicsApplication {
 	
 	public void run() {
 		addMouseListeners();
-
-		loadPlayer();
 		
 		mainMenuPane = new MainMenuGraphics(this);
 		mapPane = new MapGraphics(this);
@@ -46,6 +47,10 @@ public class MainMenu extends GraphicsApplication {
 		characterSelectPane = new CharacterSelectGraphics(this);
 		
 		audioPlayer = AudioPlayer.getInstance();
+
+		ConfigManager.initializeFile();
+		
+		loadPlayer();
 		
 		switchToScreen(mainMenuPane);
 	}
@@ -60,20 +65,32 @@ public class MainMenu extends GraphicsApplication {
 		player.setMaxHp(10);
 		player.setMana(10);
 		player.setMaxMana(10);
-
-		player.getDeck().add(new SmallHealthPotion());
-		player.getDeck().add(new LargeHealthPotion());
-		player.getDeck().add(new Revive());
-		player.getDeck().add(new Stick());
-		player.getDeck().add(new Slash());
-		player.getDeck().add(new Stab());
-		player.getDeck().add(new SmallManaPotion());
-		player.getDeck().add(new LargeManaPotion());
-		player.getDeck().add(new ManaRevive());
-		player.getDeck().add(new LifeSteal());
-		player.getDeck().add(new SoulSteal());
-		player.getDeck().add(new Suicide());
-		player.getDeck().add(new Split());
+		
+		loadPlayerDeck();
+	}
+	
+	private void loadPlayerDeck() {
+		String cards = ConfigManager.getPath("cards");
+		String[] cardsArray = cards.split(",");
+		for (String cardString : cardsArray) {
+			Card cardToAdd = null;
+			switch (cardString) {
+			case "smallhealthpotion": cardToAdd = new SmallHealthPotion(); break;
+			case "largehealthpotion": cardToAdd = new LargeHealthPotion(); break;
+			case "revive": cardToAdd = new Revive(); break;
+			case "stick": cardToAdd = new Stick(); break;
+			case "slash": cardToAdd = new Slash(); break;
+			case "stab": cardToAdd = new Stab(); break;
+			case "smallmanapotion": cardToAdd = new SmallManaPotion(); break;
+			case "largemanapotion": cardToAdd = new LargeManaPotion(); break;
+			case "manarevive": cardToAdd = new ManaRevive(); break;
+			case "lifesteal": cardToAdd = new LifeSteal(); break;
+			case "soulsteal": cardToAdd = new SoulSteal(); break;
+			case "suicide": cardToAdd = new Suicide(); break;
+			case "split": cardToAdd = new Split(); break;
+			}
+			player.getDeck().add(cardToAdd);
+		}
 	}
 	
 	public void openMainMenu() {

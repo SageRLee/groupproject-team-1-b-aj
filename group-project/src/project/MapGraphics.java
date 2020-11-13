@@ -121,6 +121,9 @@ public class MapGraphics extends GraphicsPane {
 					program.openBoard(level.getEnemy());
 				}
 			}
+			if (currElem == MainMenuGraphics.menuButton) {
+				program.openMainMenu();
+			}
 		}
 	}
 
@@ -156,6 +159,7 @@ public class MapGraphics extends GraphicsPane {
 		program.add(levelSix.getLevelImage());
 		program.add(levelSeven.getLevelImage());
 		program.add(levelEight.getLevelImage());
+		program.add(MainMenuGraphics.menuButton);
 	}
 	
 	@Override
@@ -169,7 +173,7 @@ public class MapGraphics extends GraphicsPane {
 		program.remove(levelSix.getLevelImage());
 		program.remove(levelSeven.getLevelImage());
 		program.remove(levelEight.getLevelImage());
-		
+		program.remove(MainMenuGraphics.menuButton);
 	}
 	
 }
