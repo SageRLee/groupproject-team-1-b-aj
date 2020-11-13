@@ -21,7 +21,7 @@ public class CharacterSelectGraphics extends GraphicsPane {
 	}
 	
 	public void initializeObjects() {
-		maleKnight = new GImage("media/images/MaleKnight.png", 0 * (MainMenu.RESOLUTION_X / 4), 0);
+		maleKnight = new GImage("media/images/MaleKnight.jpg", 0 * (MainMenu.RESOLUTION_X / 4), 0);
 		maleKnight.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
 		femaleKnight = new GImage("media/images/FemaleKnight.png", 1 * (MainMenu.RESOLUTION_X / 4), 0);
 		femaleKnight.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
