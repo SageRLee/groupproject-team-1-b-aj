@@ -15,6 +15,8 @@ public class Card {
 		HEALING
 	}
 
+	public static int length;
+
 	private GImage picture;
 	private String name;
 	private int mana;

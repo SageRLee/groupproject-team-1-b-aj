@@ -22,38 +22,37 @@ public class MainMenuGraphics extends GraphicsPane {
 
 	public static GImage menuButton = new GImage("media/images/MenuButton.png", 1700, 810);
 	
-	private GImage title;
-	private GImage play;
-	private GImage shop;
-	private GImage charSelect;
-	private GImage background;
-	private GImage quit;
+	private static GImage title = new GImage("media/images/Title.jpg");
+	private static GImage play = new GImage("media/images/PlayButton.png");
+	private static GImage shop = new GImage("media/images/Shop.png");
+	private static GImage charSelect = new GImage("media/images/CharacterSelect.png");
+	private static GImage background = new GImage("media/images/Background.png", 0, 0);//Yeah I know the background is low res, it's just a placeholder 
+	private static GImage quit = new GImage("media/images/Quit.png", 0, 0);
+	private AudioPlayer snd;
+
+	private static GObject target;
+	private GRect hover = new GRect(0, 0, MainMenu.RESOLUTION_X / 6, MainMenu.RESOLUTION_Y / 6);
+	private GRect blackscrn = new GRect(0, 0, MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y );//Black screen for fade out
+	private int scrAlpha = 5;
+	private int lastX = 0;
+	private int lastY = 0;
+	private boolean transition = false;
 	
-	//private Timer someTimeVar = new Timer(33, this); TODO fix
+	//Classes
+	private Map mp = new Map();
+	//private Shop shp = new Shop();
+	private CharacterSelect character = new CharacterSelect();
 	
-	private GObject target;
-	private GRect hover;
-	private GRect blackscrn;
-	private int scrAlpha;
-	private int lastX;
-	private int lastY;
-	private boolean transition;
+	public MainMenuGraphics(MainMenu program) {
+		super();
+		this.program = program;
+		initializeObjects();
+	}
 	
-	private void initializeObjects() {
-		title = new GImage("media/images/Title.jpg");
-		play = new GImage("media/images/PlayButton.png");
-		shop = new GImage("media/images/Shop.png");
-		charSelect = new GImage("media/images/CharacterSelect.png");
-		background = new GImage("media/images/Background.png", 0, 0);//Yeah I know the background is low res, it's just a placeholder 
-		quit = new GImage("media/images/Quit.png", 0, 0);
-		hover = new GRect(0, 0, MainMenu.RESOLUTION_X / 6, MainMenu.RESOLUTION_Y / 6);
-		blackscrn = new GRect(0, 0, MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y );//Black screen for fade out
-		scrAlpha = 5;
-		lastX = 0;
-		lastY = 0;
-		transition = false;
-		
-		background.setSize(MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);//Mess around with locations later to make them equal distance from each other
+	public void initializeObjects() {
+		snd = AudioPlayer.getInstance();
+		background.setSize(MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);
+		//Mess around with locations later to make them equal distance from each other
 		play.setSize(MainMenu.RESOLUTION_X / 6, MainMenu.RESOLUTION_Y / 6);
 		play.setLocation(MainMenu.RESOLUTION_X / 2 - play.getWidth()/2, MainMenu.RESOLUTION_Y / 3);
 		shop.setSize(MainMenu.RESOLUTION_X / 6, MainMenu.RESOLUTION_Y / 6);
@@ -71,15 +70,8 @@ public class MainMenuGraphics extends GraphicsPane {
 		blackscrn.setFilled(true);
 		quit.setSize(128, 128);
 		quit.setLocation(MainMenu.RESOLUTION_X - quit.getWidth(), 0);
-		
 	}
-	
-	public MainMenuGraphics(MainMenu program) {
-		super();
-		this.program = program;
-		initializeObjects();
-	}
-	
+
 	//Trying to get custom cursor to work, not working for some reason. Check back if you have time, if not just ignore Ask David maybe?
 	public void setCustomCursor() {	
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -171,6 +163,5 @@ public class MainMenuGraphics extends GraphicsPane {
 		program.remove(charSelect);
 		program.remove(quit);
 	}
-
 	
 }
