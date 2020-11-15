@@ -2,13 +2,15 @@ package project;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
+import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 import starter.GraphicsPane;
 
 public class CharacterSelectGraphics extends GraphicsPane {
 
 	private MainMenu program;
-	
+	//
+	//private GRect hover = new GRect();
 	private GImage maleKnight;
 	private GImage femaleKnight;
 	private GImage maleMagician;
@@ -39,6 +41,10 @@ public class CharacterSelectGraphics extends GraphicsPane {
 				program.openMainMenu();
 			}
 		}
+		//if statement for choosing character
+		//if() {
+			
+		//}
 	}
 
 	@Override
