@@ -1,6 +1,8 @@
 package project;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Random;
+
 import acm.program.GraphicsProgram;
 import starter.GraphicsPane;
 
@@ -103,5 +105,23 @@ public class ShopGraphics extends GraphicsPane {
 		program.remove(back);
 		program.remove(MainMenuGraphics.menuButton);
 	}
+	
+	public void scroll() {
+		Random random = new Random();
+		
+	        for(int i = 0; i < Card.length; i++)
+	        {
+	            int c = random.nextInt(Card.length);
+	            //Card temp = Card[i];
+	           // Card[i] = Card[c];
+	            //Card[c] = temp;
+	        }
 }
+	public void getCard()
+    {
+        //return Card.cards;
+    }
+}
+
+
 
