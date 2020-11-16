@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import javax.swing.Timer;
@@ -16,7 +17,7 @@ import acm.program.GraphicsProgram;
 import starter.AudioPlayer;
 import starter.GraphicsPane;
 
-public class MainMenuGraphics extends GraphicsPane {
+public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 	
 	private MainMenu program;
 
@@ -29,7 +30,7 @@ public class MainMenuGraphics extends GraphicsPane {
 	private static GImage background = new GImage("media/images/Background.png", 0, 0);//Yeah I know the background is low res, it's just a placeholder 
 	private static GImage quit = new GImage("media/images/Quit.png", 0, 0);
 	private AudioPlayer snd;
-
+	private Timer someTimeVar = new Timer(50, this);
 	private static GObject target;
 	private GRect hover = new GRect(0, 0, MainMenu.RESOLUTION_X / 6, MainMenu.RESOLUTION_Y / 6);
 	private GRect blackscrn = new GRect(0, 0, MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y );//Black screen for fade out
@@ -46,6 +47,7 @@ public class MainMenuGraphics extends GraphicsPane {
 	
 	public void initializeObjects() {
 		snd = AudioPlayer.getInstance();
+		someTimeVar.start();
 		background.setSize(MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);
 		//Mess around with locations later to make them equal distance from each other
 		play.setSize(MainMenu.RESOLUTION_X / 6, MainMenu.RESOLUTION_Y / 6);
@@ -80,25 +82,17 @@ public class MainMenuGraphics extends GraphicsPane {
 	public void mousePressed(MouseEvent e) {
 		//Mouse event for all button options
 		if (target != null) {
-			program.add(blackscrn);
+			
 			program.getAudioPlayer().playSound("media/sounds/", "select.mp3");
 			transition = true;
-			if (target == play) {
-				System.out.println("Playing game");	
-				program.openGame();
-			} else if(target == shop){
-				System.out.println("Opening shop");
-				program.openShop();
-			} else if(target == charSelect) {
-				System.out.println("Opening character select");
-				program.openCharacterSelect();
-			}
+			program.add(blackscrn);
 			target = null;
 		}
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(transition) {
+			
 			blackscrn.setFillColor(new Color(0, 0, 0, scrAlpha));
 			if (hover.isVisible()) {
 				hover.setVisible(false);
@@ -108,6 +102,18 @@ public class MainMenuGraphics extends GraphicsPane {
 			
 			if (scrAlpha < 255) {
 				scrAlpha+= 10;
+			}else {
+				//program.remove(blackscrn);
+				if (target == play) {
+					System.out.println("Playing game");	
+					program.openGame();
+				} else if(target == shop){
+					System.out.println("Opening shop");
+					program.openShop();
+				} else if(target == charSelect) {
+					System.out.println("Opening character select");
+					program.openCharacterSelect();
+				}
 			}
 		}
 	}
@@ -115,8 +121,8 @@ public class MainMenuGraphics extends GraphicsPane {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		//Mouse Hovering
-		
-		if(program.getElementAt(e.getX(), e.getY()) == play || program.getElementAt(e.getX(), e.getY()) == shop || program.getElementAt(e.getX(), e.getY()) == charSelect ) {
+		//TODO:Need to optimize
+		if(program.getElementAt(e.getX(), e.getY()) == play || program.getElementAt(e.getX(), e.getY()) == shop || program.getElementAt(e.getX(), e.getY()) == charSelect ){
 			//hover = getElementAt(e.getX(), e.getY());
 			hover.setLocation(program.getElementAt(e.getX(), e.getY()).getX() - 8,  program.getElementAt(e.getX(), e.getY()).getY() - 8);
 			hover.setVisible(true);
@@ -136,7 +142,7 @@ public class MainMenuGraphics extends GraphicsPane {
 	@Override
 	public void showContents() {
 		setCustomCursor();
-		//someTimeVar.start(); TODO fix
+		someTimeVar.start(); 
 		program.add(title);
 		program.add(background);
 		program.add(hover);
@@ -145,10 +151,13 @@ public class MainMenuGraphics extends GraphicsPane {
 		program.add(shop);
 		program.add(charSelect);
 		program.add(quit);
+		
 	}
 	
 	@Override
 	public void hideContents() {
+		program.remove(blackscrn);
+		someTimeVar.stop();
 		program.remove(title);
 		program.remove(background);
 		program.remove(hover);
@@ -157,6 +166,7 @@ public class MainMenuGraphics extends GraphicsPane {
 		program.remove(shop);
 		program.remove(charSelect);
 		program.remove(quit);
+		
 	}
 	
 }
