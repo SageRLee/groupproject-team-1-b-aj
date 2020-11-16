@@ -28,9 +28,8 @@ public class MainMenu extends GraphicsApplication {
 	private BoardGraphics boardPane;
 	private ShopGraphics shopPane;
 	private CharacterSelectGraphics characterSelectPane;
-
 	private AudioPlayer audioPlayer;
-	
+	private Decklist deck;
 	private Player player;
 	
 	public void init() {
@@ -39,19 +38,14 @@ public class MainMenu extends GraphicsApplication {
 	
 	public void run() {
 		addMouseListeners();
-		
 		mainMenuPane = new MainMenuGraphics(this);
 		mapPane = new MapGraphics(this);
 		boardPane = new BoardGraphics(this);
 		shopPane = new ShopGraphics(this);
-		characterSelectPane = new CharacterSelectGraphics(this);
-		
+		characterSelectPane = new CharacterSelectGraphics(this);	
 		audioPlayer = AudioPlayer.getInstance();
-
 		ConfigManager.initializeFile();
-		
-		loadPlayer();
-		
+		loadPlayer();		
 		switchToScreen(mainMenuPane);
 	}
 	
@@ -92,7 +86,9 @@ public class MainMenu extends GraphicsApplication {
 			player.getDeck().add(cardToAdd);
 		}
 	}
-	
+	public void openDeckList() {
+		deck.openDeckList();
+	}
 	public void openMainMenu() {
 		switchToScreen(mainMenuPane);
 	}
