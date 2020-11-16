@@ -86,47 +86,40 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 			program.getAudioPlayer().playSound("media/sounds/", "select.mp3");
 			transition = true;
 			program.add(blackscrn);
-			new Thread() {
-		        public void run() {
-		        	
-					if (hover.isVisible()) {
-						hover.setVisible(false);
-					} else {
-						hover.setVisible(true);
-					}
-					
-					while (scrAlpha < 255) {
-						scrAlpha+= 10;
-						blackscrn.setFillColor(new Color(0, 0, 0, scrAlpha));
-						program.pause(50);
-					}
-						program.remove(blackscrn);
-						
-						if (target == play) {
-							System.out.println("Playing game");	
-							program.openGame();
-						} else if(target == shop){
-							System.out.println("Opening shop");
-							program.openShop();
-						} else if(target == charSelect) {
-							System.out.println("Opening character select");
-							program.openCharacterSelect();
-						}
-						System.out.println("borked");
-						scrAlpha = 5; 
-						target = null;
-						transition = false;
-						someTimeVar.stop();
-		        }
-		    }.start();
+			
 		}
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(transition) {
+			if (hover.isVisible()) {
+				hover.setVisible(false);
+			} else {
+				hover.setVisible(true);
+			}
 			
-			
-		}
+			if (scrAlpha < 255) {
+				scrAlpha+= 10;
+				blackscrn.setFillColor(new Color(0, 0, 0, scrAlpha));
+			} else {
+				program.remove(blackscrn);
+				
+				if (target == play) {
+					System.out.println("Playing game");	
+					program.openGame();
+				} else if(target == shop){
+					System.out.println("Opening shop");
+					program.openShop();
+				} else if(target == charSelect) {
+					System.out.println("Opening character select");
+					program.openCharacterSelect();
+				}
+				scrAlpha = 5; 
+				target = null;
+				transition = false;
+				someTimeVar.stop();
+			}
+        }
 	}
 	
 	@Override
