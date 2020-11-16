@@ -86,35 +86,46 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 			program.getAudioPlayer().playSound("media/sounds/", "select.mp3");
 			transition = true;
 			program.add(blackscrn);
-			target = null;
+			new Thread() {
+		        public void run() {
+		        	
+					if (hover.isVisible()) {
+						hover.setVisible(false);
+					} else {
+						hover.setVisible(true);
+					}
+					
+					while (scrAlpha < 255) {
+						scrAlpha+= 10;
+						blackscrn.setFillColor(new Color(0, 0, 0, scrAlpha));
+						program.pause(50);
+					}
+						program.remove(blackscrn);
+						
+						if (target == play) {
+							System.out.println("Playing game");	
+							program.openGame();
+						} else if(target == shop){
+							System.out.println("Opening shop");
+							program.openShop();
+						} else if(target == charSelect) {
+							System.out.println("Opening character select");
+							program.openCharacterSelect();
+						}
+						System.out.println("borked");
+						scrAlpha = 5; 
+						target = null;
+						transition = false;
+						someTimeVar.stop();
+		        }
+		    }.start();
 		}
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(transition) {
 			
-			blackscrn.setFillColor(new Color(0, 0, 0, scrAlpha));
-			if (hover.isVisible()) {
-				hover.setVisible(false);
-			} else {
-				hover.setVisible(true);
-			}
 			
-			if (scrAlpha < 255) {
-				scrAlpha+= 10;
-			}else {
-				//program.remove(blackscrn);
-				if (target == play) {
-					System.out.println("Playing game");	
-					program.openGame();
-				} else if(target == shop){
-					System.out.println("Opening shop");
-					program.openShop();
-				} else if(target == charSelect) {
-					System.out.println("Opening character select");
-					program.openCharacterSelect();
-				}
-			}
 		}
 	}
 	
@@ -122,7 +133,8 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 	public void mouseMoved(MouseEvent e) {
 		//Mouse Hovering
 		//TODO:Need to optimize
-		if(program.getElementAt(e.getX(), e.getY()) == play || program.getElementAt(e.getX(), e.getY()) == shop || program.getElementAt(e.getX(), e.getY()) == charSelect ){
+		if(!transition) {
+		if((program.getElementAt(e.getX(), e.getY()) == play || program.getElementAt(e.getX(), e.getY()) == shop || program.getElementAt(e.getX(), e.getY()) == charSelect) ){
 			//hover = getElementAt(e.getX(), e.getY());
 			hover.setLocation(program.getElementAt(e.getX(), e.getY()).getX() - 8,  program.getElementAt(e.getX(), e.getY()).getY() - 8);
 			hover.setVisible(true);
@@ -137,6 +149,7 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 		
 		lastX = e.getX();
 		lastY = e.getY();
+	}
 	}
 	
 	@Override
@@ -156,8 +169,8 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 	
 	@Override
 	public void hideContents() {
+		
 		program.remove(blackscrn);
-		someTimeVar.stop();
 		program.remove(title);
 		program.remove(background);
 		program.remove(hover);
@@ -166,6 +179,7 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 		program.remove(shop);
 		program.remove(charSelect);
 		program.remove(quit);
+		someTimeVar.stop();
 		
 	}
 	
