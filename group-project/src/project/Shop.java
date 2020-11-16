@@ -6,6 +6,7 @@ public class Shop {
 	private int buycards;
 	private int sellcards;
 	  public int Card;
+	private String cardname;
 	
 	public Shop( int buycards, int sellcards, int Card) {
 		this.buycards = buycards;
@@ -21,5 +22,13 @@ public class Shop {
 	   return sellcards;
 }
 
+    public void hasCards( String cardname,String cost){  
+        this.cardname = cardname;
 
+        if(cardname == "Attack" || cardname == "Mana" || cardname == "Equipment"||cardname == "Action")
+        {
+            this.cardname = cost;
+        }
+    } 
+    
 }
