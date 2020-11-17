@@ -28,15 +28,17 @@ public class BoardGraphics extends GraphicsPane {
 	
 	private GImage background;
 	
-	private GRect enemyHealthBar;
-	private GRect enemyManaBar;
-	private GRect enemyArmorBar;
-	private GLabel playerHealthText;
-	private GImage playerHealthBar;
-	private GRect playerHealthDamageBar;
-	private GLabel playerManaText;
-	private GImage playerManaBar;
-	private GRect playerManaUseBar;
+	private static GRect enemyHealthBar = new GRect(843, 640, 193, 15);
+	private static GRect enemyManaBar = new GRect(843, 660, 193, 10);
+	private static GRect enemyArmorBar = new GRect(843, 680, 193, 5);
+	
+	private static GLabel playerHealthText = new GLabel("10/10");
+	private static GImage playerHealthBar = new GImage("media/images/PlayerHealth.png", 0, 0);
+	private static GRect playerHealthDamageBar = new GRect(80, 12, 273, 57);
+	
+	private static GLabel playerManaText = new GLabel("10/10");;
+	private static GImage playerManaBar = new GImage("media/images/PlayerMana.png", 0, 82);
+	private static GRect playerManaUseBar = new GRect(80, 94, 273, 57);
 	
 	private GImage endTurnButton;
 	
@@ -66,35 +68,26 @@ public class BoardGraphics extends GraphicsPane {
 		
 		background = new GImage("media/images/DungeonBackground.jpg");
 		
-		enemyHealthBar = new GRect(843, 640, 193, 15);
 		enemyHealthBar.setFillColor(Color.RED);
 		enemyHealthBar.setFilled(true);
 		
-		enemyManaBar = new GRect(843, 660, 193, 10);
 		enemyManaBar.setFillColor(Color.BLUE);
 		enemyManaBar.setFilled(true);
 		
-		enemyArmorBar = new GRect(843, 680, 193, 5);
 		enemyArmorBar.setFillColor(Color.GRAY);
 		enemyArmorBar.setFilled(true);
 		
-		playerHealthBar = new GImage("media/images/PlayerHealth.png", 0, 0);
 		playerHealthBar.setSize(366, 82);
-		playerHealthDamageBar = new GRect(80, 12, 273, 57);
 		playerHealthDamageBar.setFilled(true);
 		playerHealthDamageBar.setFillColor(Color.GREEN);
 		playerHealthDamageBar.setColor(Color.GREEN);
-		playerHealthText = new GLabel("10/10"); //TODO getHealth
 		playerHealthText.setLocation(176, 57);
 		playerHealthText.setFont(statsFont);
 		
-		playerManaBar = new GImage("media/images/PlayerMana.png", 0, 82);
 		playerManaBar.setSize(366, 82);
-		playerManaUseBar = new GRect(80, 94, 273, 57);
 		playerManaUseBar.setFilled(true);
 		playerManaUseBar.setFillColor(Color.BLUE);
 		playerManaUseBar.setColor(Color.BLUE);
-		playerManaText = new GLabel("10/10"); //TODO getMana
 		playerManaText.setLocation(176, 140);
 		playerManaText.setFont(statsFont);
 
@@ -107,7 +100,7 @@ public class BoardGraphics extends GraphicsPane {
 		add(playerArmorBar);
 		add(playerArmorText);
 		*/
-		endTurnButton = new GImage("media/images/EndTurnButton.png", 1700, 900);
+		endTurnButton = new GImage("media/images/EndTurnButton.png", 1700, 800);
 		
 		turnNumber = 0;
 		
@@ -123,6 +116,7 @@ public class BoardGraphics extends GraphicsPane {
 	
 	public void setEnemy(Enemy enemy) {
 		this.enemy = enemy;
+		enemy.getSprite().setBounds(500, 200, 900, 450);
 	}
 	
 	public void loadCards() {
@@ -322,6 +316,8 @@ public class BoardGraphics extends GraphicsPane {
 		
 		program.add(endTurnButton);
 		
+		program.add(enemy.getSprite());
+		
 		reloadHand();
 	}
 
@@ -342,6 +338,8 @@ public class BoardGraphics extends GraphicsPane {
 		program.remove(playerManaText);
 		
 		program.remove(endTurnButton);
+		
+		program.remove(enemy.getSprite());
 	}
 	
 }

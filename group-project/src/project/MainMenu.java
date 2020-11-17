@@ -1,6 +1,7 @@
 package project;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import acm.graphics.GImage;
 import project.cards.LargeHealthPotion;
@@ -60,16 +61,14 @@ public class MainMenu extends GraphicsApplication {
 	}
 	
 	private void loadPlayer() {
-		player = new Player();
-		player.setHp(10);
-		player.setMaxHp(10);
-		player.setMana(10);
-		player.setMaxMana(10);
-		
-		loadPlayerDeck();
+		ArrayList<Card> playerDeck = loadPlayerDeck();
+
+		//todo set sprite and gold
+		player = new Player(null, 10, 10, 10, 10, playerDeck);
 	}
 	
-	private void loadPlayerDeck() {
+	private ArrayList<Card> loadPlayerDeck() {
+		ArrayList<Card> playerDeck = new ArrayList<Card>();
 		String cards = ConfigManager.getPath("cards");
 		String[] cardsArray = cards.split(",");
 		for (String cardString : cardsArray) {
@@ -89,8 +88,9 @@ public class MainMenu extends GraphicsApplication {
 			case "suicide": cardToAdd = new Suicide(); break;
 			case "split": cardToAdd = new Split(); break;
 			}
-			player.getDeck().add(cardToAdd);
+			playerDeck.add(cardToAdd);
 		}
+		return playerDeck;
 	}
 	
 	public void openMainMenu() {
