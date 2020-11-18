@@ -2,14 +2,15 @@ package project;
 import java.util.ArrayList;
 import java.util.Objects;
 
+
 public class Shop {
 	private int buycards;
 	private int sellcards;
 	  public int Card;
 	private String cardname;
-	private int cost;
 	private String cardtypes;
 	private double money;
+	private int cardprice;
 	
 	public Shop( int buycards, int sellcards, int Card) {
 		this.buycards = buycards;
@@ -35,18 +36,33 @@ public class Shop {
         }
     } 
 
-    public void buyCards(String cardname, int cost, double money) {
+    public void buyCards(String cardname, int cardprice, double money) {
     	this.money=money;
-    	if(money>cost) {
+    	int PlayerDeck = 0;
+    	if(money>cardprice) {
     		System.out.println("You got"+cardname+"card");
-    		money=money-cost;
+    		money=money-cardprice;
+    		PlayerDeck=PlayerDeck+1;
     	}
-    	if(money<cost) {
+    	if(money<cardprice) {
     		System.out.println("Don't have enough money to buy this"+ cardname+"card");
     		this.money=money;
+    		PlayerDeck=PlayerDeck;
     	}
     }
     
-    public void sellCards(String cardname, int cost) {	
+    public void sellCards(String cardname, int cardprice, int oldcard) {
+    	this.cardprice=cardprice;
+        int PlayerDeck = 0;
+    	if(Card==oldcard){
+    		System.out.println("You sell"+cardname+"card");
+    		money=money+cardprice/2;
+    		PlayerDeck=PlayerDeck-1;
+    	}
+    	else {
+    		money=money;
+    		PlayerDeck=PlayerDeck;
+    	}
+    	
     }
-}
+    }
