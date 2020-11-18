@@ -1,4 +1,5 @@
 package project;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
@@ -9,8 +10,8 @@ import starter.GraphicsPane;
 public class CharacterSelectGraphics extends GraphicsPane {
 
 	private MainMenu program;
-	//
-	//private GRect hover = new GRect();
+	
+	private GRect outline = new GRect(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
 	private GImage maleKnight;
 	private GImage femaleKnight;
 	private GImage maleMagician;
@@ -23,7 +24,7 @@ public class CharacterSelectGraphics extends GraphicsPane {
 	}
 	
 	public void initializeObjects() {
-		maleKnight = new GImage("media/images/MaleKnight.jpg", 0 * (MainMenu.RESOLUTION_X / 4), 0);
+		maleKnight = new GImage("media/images/MaleKnight.png", 0 * (MainMenu.RESOLUTION_X / 4), 0);
 		maleKnight.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
 		femaleKnight = new GImage("media/images/FemaleKnight.png", 1 * (MainMenu.RESOLUTION_X / 4), 0);
 		femaleKnight.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
@@ -31,6 +32,11 @@ public class CharacterSelectGraphics extends GraphicsPane {
 		maleMagician.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
 		femaleMagician = new GImage("media/images/FemaleMagician.png", 3 * (MainMenu.RESOLUTION_X / 4), 0);
 		femaleMagician.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
+		outline.setSize(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y);
+		outline.setColor(new Color(0, 0, 0, 255));
+		outline.setFilled(true);
+		outline.setFillColor(new Color(0, 0, 0, 255));
+		outline.setVisible(true);
 	}
 	
 	@Override
@@ -41,14 +47,23 @@ public class CharacterSelectGraphics extends GraphicsPane {
 				program.openMainMenu();
 			}
 		}
-		//if statement for choosing character
-		//if() {
-			
-		//}
+
+		if(program.getElementAt(e.getX(), e.getY()) == maleKnight || 
+				program.getElementAt(e.getX(), e.getY()) == femaleKnight || 
+				program.getElementAt(e.getX(), e.getY()) == maleMagician || 
+				program.getElementAt(e.getX(), e.getY()) == femaleMagician) {
+			outline.setLocation(program.getElementAt(e.getX(), e.getY()).getX(), program.getElementAt(e.getX(), e.getY()).getY());
+			//System.out.print("no");
+			outline.setVisible(true);
+		}
+		else if(program.getElementAt(e.getX(), e.getY()) != outline){
+			outline.setVisible(false);
+		}
 	}
 
 	@Override
 	public void showContents() {
+		program.add(outline);
 		program.add(maleKnight);
 		program.add(femaleKnight);
 		program.add(maleMagician);
@@ -58,6 +73,7 @@ public class CharacterSelectGraphics extends GraphicsPane {
 
 	@Override
 	public void hideContents() {
+		program.remove(outline);
 		program.remove(maleKnight);
 		program.remove(femaleKnight);
 		program.remove(maleMagician);
