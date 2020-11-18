@@ -55,6 +55,20 @@ public class CharacterSelectGraphics extends GraphicsPane {
 			outline.setLocation(program.getElementAt(e.getX(), e.getY()).getX(), program.getElementAt(e.getX(), e.getY()).getY());
 			//System.out.print("no");
 			outline.setVisible(true);
+			String characterSelect = null;
+			if(program.getElementAt(e.getX(), e.getY()) == maleKnight) {
+				characterSelect = "maleknight";
+			}
+			else if(program.getElementAt(e.getX(), e.getY()) == femaleKnight) {
+				characterSelect = "femaleknight";
+			}
+			else if(program.getElementAt(e.getX(), e.getY()) == maleMagician) {
+				characterSelect = "malemagician";
+			}
+			else if(program.getElementAt(e.getX(), e.getY()) == femaleMagician) {
+				characterSelect = "femalemagician";
+			}
+			ConfigManager.setPath("character", characterSelect);
 		}
 		else if(program.getElementAt(e.getX(), e.getY()) != outline){
 			outline.setVisible(false);
