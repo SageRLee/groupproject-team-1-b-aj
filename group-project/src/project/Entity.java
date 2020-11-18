@@ -113,9 +113,8 @@ public class Entity {
 		}
 	}
 	
-	public boolean isAlive() {
-		if(hp <= 0) return false;
-		else return true;
+	public boolean isDead() {
+		return (hp <= 0);
 	}
 	
 }

@@ -40,6 +40,8 @@ public class MainMenu extends GraphicsApplication {
 	
 	public void run() {
 		addMouseListeners();
+
+		ConfigManager.initializeFile();
 		
 		mainMenuPane = new MainMenuGraphics(this);
 		mapPane = new MapGraphics(this);
@@ -49,7 +51,6 @@ public class MainMenu extends GraphicsApplication {
 		
 		audioPlayer = AudioPlayer.getInstance();
 
-		ConfigManager.initializeFile();
 		
 		loadPlayer();
 		
@@ -101,9 +102,10 @@ public class MainMenu extends GraphicsApplication {
 		switchToScreen(mapPane);
 	}
 	
-	public void openBoard(Enemy enemy) {
+	public void openBoard(Level level) {
 		boardPane.setPlayer(player);
-		boardPane.setEnemy(enemy);
+		boardPane.setEnemy(level.getEnemy());
+		boardPane.setLevelNumber(level.getLevelNumber());
 		boardPane.loadCards();
 		switchToScreen(boardPane);
 	}
@@ -116,4 +118,7 @@ public class MainMenu extends GraphicsApplication {
 		switchToScreen(characterSelectPane);
 	}
 
+	public MapGraphics getMapGraphics() {
+		return mapPane;
+	}
 }
