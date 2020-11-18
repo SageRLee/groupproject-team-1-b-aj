@@ -50,7 +50,6 @@ public class Shop {
     		PlayerDeck=PlayerDeck;
     	}
     }
-
     
     public void sellCards(String cardname, int cardprice, int oldcard) {
     	this.cardprice=cardprice;
