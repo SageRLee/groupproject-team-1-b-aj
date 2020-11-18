@@ -7,6 +7,9 @@ public class Shop {
 	private int sellcards;
 	  public int Card;
 	private String cardname;
+	private int cost;
+	private String cardtypes;
+	private double money;
 	
 	public Shop( int buycards, int sellcards, int Card) {
 		this.buycards = buycards;
@@ -22,13 +25,28 @@ public class Shop {
 	   return sellcards;
 }
 
-    public void hasCards( String cardname,String cost){  
+    public void hasCards( String cardname,String cardtypes){  
         this.cardname = cardname;
+        this.cardtypes=cardtypes;
 
-        if(cardname == "Attack" || cardname == "Mana" || cardname == "Equipment"||cardname == "Action")
+        if(cardtypes == "Attack" || cardtypes == "Mana" || cardtypes == "Equipment"||cardtypes == "Action")
         {
-            this.cardname = cost;
+            this.cardtypes = cardname;
         }
     } 
+
+    public void buyCards(String cardname, int cost, double money) {
+    	this.money=money;
+    	if(money>cost) {
+    		System.out.println("You got"+cardname+"card");
+    		money=money-cost;
+    	}
+    	if(money<cost) {
+    		System.out.println("Don't have enough money to buy this"+ cardname+"card");
+    		this.money=money;
+    	}
+    }
     
+    public void sellCards(String cardname, int cost) {	
+    }
 }

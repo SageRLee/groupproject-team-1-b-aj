@@ -1,6 +1,8 @@
 package project;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import acm.graphics.GImage;
 import project.cards.LargeHealthPotion;
@@ -8,6 +10,7 @@ import project.cards.LargeManaPotion;
 import project.cards.LifeSteal;
 import project.cards.ManaRevive;
 import project.cards.Revive;
+import project.cards.Settings;
 import project.cards.Slash;
 import project.cards.SmallHealthPotion;
 import project.cards.SmallManaPotion;
@@ -29,23 +32,27 @@ public class MainMenu extends GraphicsApplication {
 	private ShopGraphics shopPane;
 	private CharacterSelectGraphics characterSelectPane;
 	private AudioPlayer audioPlayer;
-	private Decklist deck;
+	private Settings setting;
 	private Player player;
+	
+	
 	
 	public void init() {
 		setSize(RESOLUTION_X, RESOLUTION_Y);
 	}
 	
 	public void run() {
-		addMouseListeners();
+		//addMouseListeners();
+		//addKeyListeners();
+		ConfigManager.initializeFile();
+		loadPlayer();	
+		setting = new Settings(this, player);
 		mainMenuPane = new MainMenuGraphics(this);
 		mapPane = new MapGraphics(this);
 		boardPane = new BoardGraphics(this);
 		shopPane = new ShopGraphics(this);
 		characterSelectPane = new CharacterSelectGraphics(this);	
 		audioPlayer = AudioPlayer.getInstance();
-		ConfigManager.initializeFile();
-		loadPlayer();		
 		switchToScreen(mainMenuPane);
 	}
 	
@@ -54,16 +61,14 @@ public class MainMenu extends GraphicsApplication {
 	}
 	
 	private void loadPlayer() {
-		player = new Player();
-		player.setHp(10);
-		player.setMaxHp(10);
-		player.setMana(10);
-		player.setMaxMana(10);
-		
-		loadPlayerDeck();
+		ArrayList<Card> playerDeck = loadPlayerDeck();
+
+		//todo set sprite and gold
+		player = new Player(null, 10, 10, 10, 10, playerDeck);
 	}
 	
-	private void loadPlayerDeck() {
+	private ArrayList<Card> loadPlayerDeck() {
+		ArrayList<Card> playerDeck = new ArrayList<Card>();
 		String cards = ConfigManager.getPath("cards");
 		String[] cardsArray = cards.split(",");
 		for (String cardString : cardsArray) {
@@ -83,12 +88,11 @@ public class MainMenu extends GraphicsApplication {
 			case "suicide": cardToAdd = new Suicide(); break;
 			case "split": cardToAdd = new Split(); break;
 			}
-			player.getDeck().add(cardToAdd);
+			playerDeck.add(cardToAdd);
 		}
+		return playerDeck;
 	}
-	public void openDeckList() {
-		deck.openDeckList();
-	}
+	
 	public void openMainMenu() {
 		switchToScreen(mainMenuPane);
 	}
@@ -97,9 +101,10 @@ public class MainMenu extends GraphicsApplication {
 		switchToScreen(mapPane);
 	}
 	
-	public void openBoard(Enemy enemy) {
+	public void openBoard(Level level) {
 		boardPane.setPlayer(player);
-		boardPane.setEnemy(enemy);
+		boardPane.setEnemy(level.getEnemy());
+		boardPane.setLevelNumber(level.getLevelNumber());
 		boardPane.loadCards();
 		switchToScreen(boardPane);
 	}
@@ -112,4 +117,18 @@ public class MainMenu extends GraphicsApplication {
 		switchToScreen(characterSelectPane);
 	}
 
+	public MapGraphics getMapGraphics() {
+		return mapPane;
+	}
+	@Override 
+	public void keyReleased(KeyEvent ke) {
+		if(ke.getKeyCode() == KeyEvent.VK_ESCAPE) {	
+			System.out.println("happens");
+			if(!setting.isEnabled()){
+				setting.openSettings();
+			} else {
+				setting.closeSettings();
+			}
+		}
+	}
 }

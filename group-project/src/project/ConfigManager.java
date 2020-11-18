@@ -20,6 +20,7 @@ public class ConfigManager {
 				FileWriter myWriter = new FileWriter(file.getName());
 				myWriter.write("character:maleknight" + System.lineSeparator());
 				myWriter.write("gold:0" + System.lineSeparator());
+				myWriter.write("level:1" + System.lineSeparator());
 				myWriter.write("cards:stick,smallhealthpotion" + System.lineSeparator());
 				
 				System.out.println("FILE" + file.getAbsolutePath());
@@ -60,9 +61,7 @@ public class ConfigManager {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			
             String line = reader.readLine();
-            
-            System.out.println("LINE:" + line);
-            
+                        
             while (line != null) {
             	if (line.startsWith(path + ":")) {
 					line = path + ":" + value;

@@ -105,13 +105,10 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 				program.remove(blackscrn);
 				
 				if (target == play) {
-					System.out.println("Playing game");	
 					program.openGame();
 				} else if(target == shop){
-					System.out.println("Opening shop");
 					program.openShop();
 				} else if(target == charSelect) {
-					System.out.println("Opening character select");
 					program.openCharacterSelect();
 				}
 				scrAlpha = 5; 

@@ -17,10 +17,19 @@ public class Entity {
 	private GImage sprite;
 	Random rand = new Random();
 	
-	public Entity() {
+	public Entity(GImage sprite, int hp, int maxHp, int mana, int maxMana, ArrayList<Card> deck) {
+		this.sprite = sprite;
+		this.hp = hp;
+		this.maxHp = maxHp;
+		this.mana = mana;
+		this.maxMana = maxMana;
+		this.deck = deck;
 		this.hand = new ArrayList<Card>();
-		this.deck = new ArrayList<Card>();
 		this.discard = new ArrayList<Card>();
+	}
+	
+	public GImage getSprite() {
+		return sprite;
 	}
 	
 	public int getHp() {
@@ -104,9 +113,8 @@ public class Entity {
 		}
 	}
 	
-	public boolean isAlive() {
-		if(hp <= 0) return false;
-		else return true;
+	public boolean isDead() {
+		return (hp <= 0);
 	}
 	
 }
