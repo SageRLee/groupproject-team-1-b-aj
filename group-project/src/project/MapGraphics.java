@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -203,5 +204,24 @@ public class MapGraphics extends GraphicsPane {
 		
 		program.remove(MainMenuGraphics.menuButton);
 	}
+	
+	
+	public void mouseWheelMoved(MouseWheelEvent e) {
+	    JFreeChart chart = this.chartPanel.getChart();
+	    if (chart == null) {
+	        return;
+	    }
+	    Plot plot = chart.getPlot();
+	    if (plot instanceof Zoomable) {
+	        Zoomable zoomable = (Zoomable) plot;
+	        handleZoomable(zoomable, e);
+	    }
+	    else if (plot instanceof PiePlot) {
+	        PiePlot pp = (PiePlot) plot;
+	        pp.handleMouseWheelRotation(e.getWheelRotation());
+	    }
+	}
+	 
+	
 	
 }
