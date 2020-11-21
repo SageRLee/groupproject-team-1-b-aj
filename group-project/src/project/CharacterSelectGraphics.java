@@ -37,6 +37,25 @@ public class CharacterSelectGraphics extends GraphicsPane {
 		outline.setFilled(true);
 		outline.setFillColor(new Color(0, 0, 0, 255));
 		outline.setVisible(true);
+		
+		setOutlineLocation();
+	}
+	
+	private void setOutlineLocation() {
+		String characterString = ConfigManager.getPath("character");
+		
+		GImage characterImage = null;
+		
+		if (characterString.equalsIgnoreCase("maleknight")) {
+			characterImage = maleKnight;
+		} else if (characterString.equalsIgnoreCase("femaleknight")) {
+			characterImage = femaleKnight;
+		} else if (characterString.equalsIgnoreCase("malemagician")) {
+			characterImage = maleMagician;
+		} else if (characterString.equalsIgnoreCase("femalemagician")) {
+			characterImage = femaleMagician;
+		}
+		outline.setLocation(characterImage.getX(), characterImage.getY());
 	}
 	
 	@Override
