@@ -3,6 +3,7 @@ package project;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
@@ -204,12 +205,5 @@ public class MapGraphics extends GraphicsPane {
 		
 		program.remove(MainMenuGraphics.menuButton);
 	}
-	
-	public void mouseWheelMoved(MouseWheelEvent e) {
-		System.out.printf("111");
-		System.out.print(e.getWheelRotation());
-	}
-	 
-	
 	
 }

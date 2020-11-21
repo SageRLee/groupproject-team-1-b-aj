@@ -28,22 +28,21 @@ public class BoardGraphics extends GraphicsPane {
 	
 	private GImage background = new GImage("media/images/DungeonBackground.jpg");
 	
-	private static GRect enemyHealthBar = new GRect(843, 640, 193, 15);
-	private static GRect enemyManaBar = new GRect(843, 660, 193, 10);
-	private static GRect enemyArmorBar = new GRect(843, 680, 193, 5);
+	private static GRect enemyHealthBar;
+	//private static GRect enemyArmorBar;
 	
-	private static GLabel playerHealthText = new GLabel("10/10");
+	private static GLabel playerHealthText;
 	private static GImage playerHealthBar = new GImage("media/images/PlayerHealth.png", 0, 0);
-	private static GRect playerHealthDamageBar = new GRect(80, 12, 273, 57);
+	private static GRect playerHealthDamageBar;
 	
-	private static GLabel playerManaText = new GLabel("10/10");;
+	private static GLabel playerManaText;
 	private static GImage playerManaBar = new GImage("media/images/PlayerMana.png", 0, 82);
-	private static GRect playerManaUseBar = new GRect(80, 94, 273, 57);
+	private static GRect playerManaUseBar;
 	
 	private static GImage endTurnButton = new GImage("media/images/EndTurnButton.png", 1700, 800);
 	
-	private static GLabel turnText = new GLabel("Turn: 1");
-	private int turnNumber = 1;
+	private static GLabel turnText;
+	private int turnNumber;
 	
 	private int levelNumber = 1;
 	
@@ -67,30 +66,35 @@ public class BoardGraphics extends GraphicsPane {
 	}
 	
 	public void initializeObjects() {
-		
+		enemyHealthBar = new GRect(843, 640, 193, 15);
 		enemyHealthBar.setFillColor(Color.RED);
 		enemyHealthBar.setFilled(true);
 		
-		enemyManaBar.setFillColor(Color.BLUE);
-		enemyManaBar.setFilled(true);
-		
-		enemyArmorBar.setFillColor(Color.GRAY);
-		enemyArmorBar.setFilled(true);
+		//enemyArmorBar = new GRect(843, 680, 193, 5);
+		//enemyArmorBar.setFillColor(Color.GRAY);
+		//enemyArmorBar.setFilled(true);
 		
 		playerHealthBar.setSize(366, 82);
+		playerHealthDamageBar = new GRect(80, 12, 273, 57);
 		playerHealthDamageBar.setFilled(true);
 		playerHealthDamageBar.setFillColor(Color.GREEN);
 		playerHealthDamageBar.setColor(Color.GREEN);
+		playerHealthText = new GLabel("10/10");
 		playerHealthText.setLocation(176, 57);
 		playerHealthText.setFont(statsFont);
 		
 		playerManaBar.setSize(366, 82);
+		playerManaUseBar = new GRect(80, 94, 273, 57);
 		playerManaUseBar.setFilled(true);
 		playerManaUseBar.setFillColor(Color.BLUE);
 		playerManaUseBar.setColor(Color.BLUE);
+		playerManaText = new GLabel("10/10");
 		playerManaText.setLocation(176, 140);
 		playerManaText.setFont(statsFont);
-
+		
+		turnNumber = 1;
+		
+		turnText = new GLabel("Turn: 1");
 		turnText.setFont(statsFont);
 		turnText.setLocation(1700, 50);
 		turnText.setColor(Color.WHITE);
@@ -115,9 +119,6 @@ public class BoardGraphics extends GraphicsPane {
 				ConfigManager.setPath("level", String.valueOf(levelNumber + 1));
 			}
 			program.getMapGraphics().loadLevels();
-			
-			turnNumber = 1;
-			turnText.setLabel("Turn: 1");
 			
 			isPlayerTurn = true;
 
@@ -157,7 +158,7 @@ public class BoardGraphics extends GraphicsPane {
 	}
 	
 	private void entityDrawCard(Entity entity) {
-		if (entity.getHand().size() == 0) {
+		if (entity.getHand().isEmpty() && entity.getDeck().isEmpty()) {
 			entity.resetDeck();
 			entityDrawCard(entity);
 		} else {
@@ -218,8 +219,6 @@ public class BoardGraphics extends GraphicsPane {
 			if (entity instanceof Player) {
 				playerManaUseBar.setSize((entity.getMana()*PLAYER_BAR_WIDTH)/entity.getMaxMana(), playerManaUseBar.getHeight());
 				playerManaText.setLabel(entity.getMana() + "/" + entity.getMaxMana());
-			} else {
-				enemyManaBar.setSize((entity.getMana()*ENEMY_BAR_WIDTH)/entity.getMaxMana(), enemyManaBar.getHeight());
 			}
 		}
 		
@@ -270,24 +269,19 @@ public class BoardGraphics extends GraphicsPane {
 	    }.start();
 		
 	}
-	
-	boolean toggle = false;
-	
+		
 	@Override
 	public void mousePressed(MouseEvent e) {
-		toggle = !toggle;
 		
 		GImage currElem = (GImage) program.getElementAt(e.getX(), e.getY());
 		
-		if (isPlayerTurn && toggle) {
+		if (isPlayerTurn) {
 			if (currElem == endTurnButton) {
 				new Thread() {
 					public void run() {
 						playEnemyTurn();
 					}
 				}.start();
-				
-				entityDrawCard(enemy);
 				
 				//todo hide statlabel?
 				changeEntityStats(player, player.getMaxMana() - player.getMana(), false);
@@ -299,12 +293,13 @@ public class BoardGraphics extends GraphicsPane {
 					if (player.getMana() - cards.getMana() >= 0) {
 						cards.play(this, isPlayerTurn, player, enemy);
 						
-						checkIfDead();
-						
 						player.getDiscard().add(cards);
 						program.remove(cards.getPicture());
 						
 						player.getHand().remove(cards);
+						
+						checkIfDead();
+						
 						changeEntityStats(player, -cards.getMana(), false);
 					}
 					break;
@@ -316,6 +311,8 @@ public class BoardGraphics extends GraphicsPane {
 	public void playEnemyTurn() {
 		isPlayerTurn = false;
 
+		entityDrawCard(enemy);
+		
 		increaseTurn();
 		program.pause(2000);
 		
@@ -341,8 +338,7 @@ public class BoardGraphics extends GraphicsPane {
 		program.add(background);
 		
 		program.add(enemyHealthBar);
-		program.add(enemyManaBar);
-		program.add(enemyArmorBar);
+		//program.add(enemyArmorBar);
 
 		program.add(playerHealthBar);
 		program.add(playerHealthDamageBar);
@@ -366,8 +362,7 @@ public class BoardGraphics extends GraphicsPane {
 		program.remove(background);
 		
 		program.remove(enemyHealthBar);
-		program.remove(enemyManaBar);
-		program.remove(enemyArmorBar);
+		//program.remove(enemyArmorBar);
 
 		program.remove(playerHealthBar);
 		program.remove(playerHealthDamageBar);
