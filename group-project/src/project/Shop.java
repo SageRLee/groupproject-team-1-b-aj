@@ -8,9 +8,9 @@ public class Shop {
 	private int sellcards;
 	  public int Card;
 	private String cardname;
-	private String cardtypes;
 	private double money;
 	private int cardprice;
+	private String card;
 	
 	public Shop( int buycards, int sellcards, int Card) {
 		this.buycards = buycards;
@@ -26,13 +26,12 @@ public class Shop {
 	   return sellcards;
 }
 
-    public void hasCards( String cardname,String cardtypes){  
+    public void hasCards( String cardname,int card){  
         this.cardname = cardname;
-        this.cardtypes=cardtypes;
 
-        if(cardtypes == "Attack" || cardtypes == "Mana" || cardtypes == "Equipment"||cardtypes == "Action")
+        if(cardname == "SmallHealthPotion" || cardname == "LargeHealthPotion" || cardname == "Equipment"||cardname == "Revive")
         {
-            this.cardtypes = cardname;
+            this.card = cardname;
         }
     } 
 
