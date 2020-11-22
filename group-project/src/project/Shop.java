@@ -2,7 +2,6 @@ package project;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
 public class Shop {
 	private int buycards;
 	private int sellcards;
