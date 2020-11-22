@@ -16,7 +16,7 @@ public class CharacterSelectGraphics extends GraphicsPane {
 	private GImage femaleKnight;
 	private GImage maleMagician;
 	private GImage femaleMagician;
-
+	
 	public CharacterSelectGraphics(MainMenu program) {
 		super();
 		this.program = program;
