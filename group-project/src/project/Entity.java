@@ -97,12 +97,11 @@ public class Entity {
 	}
 	
 	public void resetDeck() {
-		while (getDiscard().size() != 0) {
+		while (!getDiscard().isEmpty()) {
 			Card card = getDiscard().get(new Random().nextInt(getDiscard().size()));
 			getDeck().add(card);
 			getDiscard().remove(card);
 		}
-		loadHand();
 	}
 	
 	public void loadHand() {
