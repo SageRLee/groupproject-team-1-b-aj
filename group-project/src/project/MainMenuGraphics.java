@@ -82,12 +82,14 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 	public void mousePressed(MouseEvent e) {
 		//Mouse event for all button options
 		if (target != null) {
-			
 			program.getAudioPlayer().playSound("media/sounds/", "select.mp3");
 			transition = true;
 			program.add(blackscrn);
 			
 		}
+		if(program.getElementAt(e.getX(),e.getY()) == quit){
+			System.exit(0);
+				}
 	}
 	
 	public void actionPerformed(ActionEvent e) {

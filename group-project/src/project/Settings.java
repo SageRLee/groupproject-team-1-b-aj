@@ -8,7 +8,7 @@ import project.MainMenu;
 import project.Player;
 
 public class Settings {
-	private boolean enabled = true;
+	private boolean enabled = false;
 	//private String option[4][4];
 	
 	public boolean isEnabled() {
@@ -24,8 +24,9 @@ public class Settings {
 		this.program = program;
 		blackscrn.setFillColor(new Color(0, 0, 0, 125));
 		blackscrn.setFilled(true);
-		menu.setLocation(MainMenu.RESOLUTION_X / 4, MainMenu.RESOLUTION_Y / 6);
 		menu.setSize(MainMenu.RESOLUTION_X * 0.4, MainMenu.RESOLUTION_Y * 0.8);
+		menu.setLocation(MainMenu.RESOLUTION_X / 2 - menu.getWidth() / 2, MainMenu.RESOLUTION_Y / 6);
+		
 		menu.setFilled(true);
 	}
 	public void openSettings(){
