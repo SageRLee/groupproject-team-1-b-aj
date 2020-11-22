@@ -10,7 +10,6 @@ import project.cards.LargeManaPotion;
 import project.cards.LifeSteal;
 import project.cards.ManaRevive;
 import project.cards.Revive;
-import project.cards.Settings;
 import project.cards.Slash;
 import project.cards.SmallHealthPotion;
 import project.cards.SmallManaPotion;
@@ -63,7 +62,7 @@ public class MainMenu extends GraphicsApplication {
 	private void loadPlayer() {
 		ArrayList<Card> playerDeck = loadPlayerDeck();
 
-		//todo set sprite and gold
+		//TODO set sprite and gold
 		player = new Player(null, 10, 10, 10, 10, playerDeck);
 	}
 	
@@ -126,7 +125,7 @@ public class MainMenu extends GraphicsApplication {
 	@Override 
 	public void keyReleased(KeyEvent ke) {
 		if(ke.getKeyCode() == KeyEvent.VK_ESCAPE) {	
-			System.out.println("happens");
+			
 			if(!setting.isEnabled()){
 				setting.openSettings();
 			} else {

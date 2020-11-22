@@ -1,4 +1,4 @@
-package project.cards;
+package project;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -26,6 +26,7 @@ public class Settings {
 		program.add(blackscrn);
 	}
 	public void openSettings(){
+		System.out.println("happens");
 		blackscrn.setVisible(true);
 		enabled = true;
 		blackscrn.sendToFront();
