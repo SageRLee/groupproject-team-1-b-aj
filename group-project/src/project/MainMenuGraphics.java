@@ -39,6 +39,7 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 	private int lastY = 0;
 	private boolean transition = false;
 	
+	
 	public MainMenuGraphics(MainMenu program) {
 		super();
 		this.program = program;
