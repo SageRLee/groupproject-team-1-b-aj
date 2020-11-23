@@ -2,6 +2,7 @@ package project;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 
 import acm.graphics.GImage;
