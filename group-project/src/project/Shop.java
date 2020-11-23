@@ -24,7 +24,7 @@ public class Shop {
     public int getsellcards() {
 	   return sellcards;
 }
-
+    
     public void hasCards( String cardname,int card){  
         this.cardname = cardname;
 
