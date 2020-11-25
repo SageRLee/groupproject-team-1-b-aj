@@ -125,15 +125,15 @@ public class ShopGraphics extends GraphicsPane {
 		Random random = new Random();
 		
 	        for(int i = 0; i < Card.length; i++){
-	           // int c = random.nextInt(Card.length);
-	            //Card temp = Card[i];
+	           int c = random.nextInt(Card.length);
+				//Card temp = Card[i];
 	           // Card[i] = Card[c];
 	            //Card[c] = temp;
 	        }
 }
-	public void getCard()
+	public String getCard()
     {
-        //return Card.cards;
+        return Card.cards;
    }
 	
 }

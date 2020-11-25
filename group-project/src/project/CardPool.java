@@ -18,7 +18,6 @@ import project.cards.Stab;
 public class CardPool {
 	public ArrayList<Card> cardList = new ArrayList<Card>();
 	
-	
 	public CardPool() {
 		cardList.add(new SmallHealthPotion());
 		cardList.add(new LargeHealthPotion());
@@ -33,6 +32,5 @@ public class CardPool {
 		cardList.add(new SoulSteal());
 		cardList.add(new Suicide());
 		cardList.add(new Split());
-	}
-	
+	}	
 }
