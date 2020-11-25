@@ -205,6 +205,10 @@ public class MapGraphics extends GraphicsPane {
 		
 		program.remove(MainMenuGraphics.menuButton);
 	}
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
 	
-	
+		System.out.printf("111");
+		System.out.print(e.getWheelRotation());
+	}
 }
