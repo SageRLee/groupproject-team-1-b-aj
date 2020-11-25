@@ -134,6 +134,7 @@ public class ShopGraphics extends GraphicsPane {
 	public String getCard()
     {
         return Card.cards;
+        
    }
 	
 }

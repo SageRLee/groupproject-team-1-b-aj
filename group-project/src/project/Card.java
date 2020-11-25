@@ -16,7 +16,6 @@ public class Card {
 	}
 
 	public static final String cards = null;
-
 	public static int length;
 
 

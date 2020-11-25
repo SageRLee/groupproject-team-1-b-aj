@@ -32,5 +32,6 @@ public class CardPool {
 		cardList.add(new SoulSteal());
 		cardList.add(new Suicide());
 		cardList.add(new Split());
-	}	
+	}
+	
 }
