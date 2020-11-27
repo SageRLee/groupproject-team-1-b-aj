@@ -21,7 +21,7 @@ public class ConfigManager {
 				myWriter.write("character:maleknight" + System.lineSeparator());
 				myWriter.write("gold:0" + System.lineSeparator());
 				myWriter.write("level:1" + System.lineSeparator());
-				myWriter.write("cards:stab,smallhealthpotion" + System.lineSeparator());
+				myWriter.write("cards:stick,smallhealthpotion,smallmanapotion" + System.lineSeparator());
 				
 				System.out.println("FILE" + file.getAbsolutePath());
 				

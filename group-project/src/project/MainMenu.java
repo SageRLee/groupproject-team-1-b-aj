@@ -133,4 +133,8 @@ public class MainMenu extends GraphicsApplication {
 			}
 		}
 	}
+	
+	public Player getPlayer() {
+		return player;
+	}
 }
