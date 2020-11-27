@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import acm.graphics.GRect;
 import project.MainMenu;
 import project.Player;
-
+//Test
 public class Settings {
 	private boolean enabled = false;
 	private String option[][] = {
