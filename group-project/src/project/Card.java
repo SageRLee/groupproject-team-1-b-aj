@@ -15,7 +15,9 @@ public class Card {
 		HEALING
 	}
 
+	public static final String cards = null;
 	public static int length;
+
 
 	private GImage picture;
 	private String name;

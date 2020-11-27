@@ -2,7 +2,7 @@ package starter;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-
+import java.awt.event.MouseWheelEvent;
 import acm.graphics.GObject;
 
 public class MenuPane extends GraphicsPane {

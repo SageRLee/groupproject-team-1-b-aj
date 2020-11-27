@@ -3,6 +3,7 @@ package starter;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import acm.program.GraphicsProgram;
 
@@ -23,7 +24,7 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 	private void setupInteractions() {
 		requestFocus();
 		addKeyListeners();
-		//addMouseListeners();
+		addMouseListeners();
 	}
 	
 	/* switchToScreen(newGraphicsPane)
@@ -80,6 +81,12 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 			curScreen.mouseMoved(e);
 		}
 	}
+
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		if(curScreen != null) {
+			curScreen.mouseWheelMoved(e);
+		}
+	};
 	
 	@Override
 	public void keyPressed(KeyEvent e) {

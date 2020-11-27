@@ -14,6 +14,7 @@ package starter;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 public abstract class GraphicsPane implements Interfaceable {
 	@Override
@@ -62,5 +63,9 @@ public abstract class GraphicsPane implements Interfaceable {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 	}
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		
+	};
 
 }
