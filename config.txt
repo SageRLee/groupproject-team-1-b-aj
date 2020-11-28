@@ -1,0 +1,4 @@
+character:maleknight
+gold:0
+level:1
+cards:stick,smallhealthpotion

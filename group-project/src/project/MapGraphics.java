@@ -106,8 +106,8 @@ public class MapGraphics extends GraphicsPane {
 		levelTen = new Level(new GImage("media/images/level10.png", 5 * 175, 2 * 175), 10, levelTenEnemy, false, new Reward(program.getPlayer(), 100, new LifeSteal()));
 		levelEleven = new Level(new GImage("media/images/level11.png", 1 * 175, 3 * 175), 11, levelElevenEnemy, false, new Reward(program.getPlayer(), 110, null));
 		levelTwelve = new Level(new GImage("media/images/level12.png", 2 * 175, 3 * 175), 12, levelTwelveEnemy, false, new Reward(program.getPlayer(), 120, new Stab()));
-		levelThirteen = new Level(new GImage("media/images/leve13.png", 3 * 175, 3 * 175), 13, levelThirteenEnemy, false, new Reward(program.getPlayer(), 130, null));
-		levelFourteen = new Level(new GImage("media/images/leve14.png", 4 * 175, 3 * 175), 14, levelFourteenEnemy, false, new Reward(program.getPlayer(), 140, new ManaRevive()));
+		levelThirteen = new Level(new GImage("media/images/level13.png", 3 * 175, 3 * 175), 13, levelThirteenEnemy, false, new Reward(program.getPlayer(), 130, null));
+		levelFourteen = new Level(new GImage("media/images/level14.png", 4 * 175, 3 * 175), 14, levelFourteenEnemy, false, new Reward(program.getPlayer(), 140, new ManaRevive()));
 		levelFifteen = new Level(new GImage("media/images/level15.png", 5 * 175, 3 * 175), 15, levelFifteenEnemy, false, new Reward(program.getPlayer(), 150, null));
 		levelSixteen = new Level(new GImage("media/images/level16.png", 1 * 175, 4 * 175), 16, levelSixteenEnemy, false, new Reward(program.getPlayer(), 160, new Revive()));
 		levelSeventeen = new Level(new GImage("media/images/level17.png", 2 * 175, 4 * 175), 17, levelSeventeenEnemy, false, new Reward(program.getPlayer(), 170, null));
