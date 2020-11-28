@@ -94,7 +94,7 @@ public class MapGraphics extends GraphicsPane {
 		Enemy levelNineteenEnemy = new Enemy("Kraken", new GImage("media/images/monsters/LevelNineteen.png"), 23, 23, 10, 10, new ArrayList<Card>(Arrays.asList(new Stick())));
 		Enemy levelTwentyEnemy = new Enemy("Dragon", new GImage("media/images/monsters/LevelTwenty.png"), 24, 24, 10, 10, new ArrayList<Card>(Arrays.asList(new Stick())));
 
-		levelOne = new Level(new GImage("media/images/level1.png", 1 * 175, 1 * 175), 1, levelOneEnemy, false, new Reward(program.getPlayer(), 10, null));
+		levelOne = new Level(new GImage("media/images/level1.png", 1 * 175, 1 * 175), 1, levelOneEnemy, false, new Reward(program.getPlayer(), 10, new Slash()));
 		levelTwo = new Level(new GImage("media/images/level2.png", 2 * 175, 1 * 175), 2, levelTwoEnemy, false, new Reward(program.getPlayer(), 20, new Slash()));
 		levelThree = new Level(new GImage("media/images/level3.png", 3 * 175, 1 * 175), 3, levelThreeEnemy, false, new Reward(program.getPlayer(), 30, null));
 		levelFour = new Level(new GImage("media/images/level4.png", 4 * 175, 1 * 175), 4, levelFourEnemy, false, new Reward(program.getPlayer(), 40, new Split()));

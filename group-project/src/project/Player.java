@@ -24,17 +24,19 @@ public class Player extends Entity {
 	}
 	
 	public boolean hasCard(Card card) {
-		String[] cardsArray = ConfigManager.getPath("cards").split(",");
-		for (String cardString : cardsArray) {
-			if (cardString.equalsIgnoreCase(card.getName())) {
-				return true;
+		if (card != null) {
+			String[] cardsArray = ConfigManager.getPath("cards").split(",");
+			for (String cardString : cardsArray) {
+				if (cardString.equalsIgnoreCase(card.getName())) {
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 
 	public void addCard(Card card) {
-		if (!hasCard(card)) {
+		if (card != null && !hasCard(card)) {
 			getDeck().add(card);
 			ConfigManager.setPath("cards", ConfigManager.getPath("cards") + "," + card.getName().toLowerCase());
 		}

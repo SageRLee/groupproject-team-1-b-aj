@@ -14,15 +14,17 @@ public class Reward {
 		this.card = card;
 	}
 	
-	public void setRewardObjects(MainMenu program) {
-		GRect rewardRect = new GRect(0, 0);
-		rewardRect.setBounds(300, 300, 1620, 780);
-		program.add(rewardRect);
-	}
-	
 	public void giveReward() {
 		player.setGold(player.getGold() + gold);
 		player.addCard(card);
+	}
+	
+	public int getGold() {
+		return gold;
+	}
+	
+	public Card getCard() {
+		return card;
 	}
 
 }

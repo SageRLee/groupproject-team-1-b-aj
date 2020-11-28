@@ -104,8 +104,7 @@ public class MainMenu extends GraphicsApplication {
 		player.setHp(player.getMaxHp());
 		player.setMana(player.getMaxMana());
 		boardPane.setPlayer(player);
-		boardPane.setEnemy(level.getEnemy());
-		boardPane.setLevelNumber(level.getLevelNumber());
+		boardPane.setLevel(level);
 		boardPane.loadCards();
 		boardPane.initializeObjects();
 		switchToScreen(boardPane);

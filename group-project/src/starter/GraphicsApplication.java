@@ -24,7 +24,7 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 	private void setupInteractions() {
 		requestFocus();
 		addKeyListeners();
-		addMouseListeners();
+		//addMouseListeners();
 	}
 	
 	/* switchToScreen(newGraphicsPane)

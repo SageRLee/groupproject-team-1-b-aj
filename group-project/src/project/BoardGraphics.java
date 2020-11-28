@@ -44,7 +44,7 @@ public class BoardGraphics extends GraphicsPane {
 	private static GLabel turnText;
 	private int turnNumber;
 	
-	private int levelNumber = 1;
+	private Level level;
 	
 	//private GLabel playerArmorText; //TODO
 	//private GImage playerArmorBar; //TODO
@@ -115,8 +115,8 @@ public class BoardGraphics extends GraphicsPane {
 	
 	public void checkIfDead() {
 		if (enemy.isDead()) {
-			if (levelNumber >= Integer.parseInt(ConfigManager.getPath("level"))) {
-				ConfigManager.setPath("level", String.valueOf(levelNumber + 1));
+			if (level.getLevelNumber() >= Integer.parseInt(ConfigManager.getPath("level"))) {
+				ConfigManager.setPath("level", String.valueOf((level.getLevelNumber() + 1)));
 			}
 			program.getMapGraphics().loadLevels();
 			
@@ -124,7 +124,46 @@ public class BoardGraphics extends GraphicsPane {
 
 			player.resetDeck();
 			
-			program.openGame();
+			
+			new Thread() {
+				public void run() {
+					GRect rewardRect = new GRect(0, 0);
+					rewardRect.setBounds(500, 150, 920, 780);
+					rewardRect.setFillColor(Color.GRAY);
+					rewardRect.setFilled(true);
+					program.add(rewardRect);
+					
+					GRect goldRewardRect = new GRect(0, 0);
+					goldRewardRect.setBounds(600, 250, 720, 150);
+					goldRewardRect.setFillColor(Color.YELLOW);
+					goldRewardRect.setFilled(true);
+					GLabel goldRewardLabel = new GLabel("+" + level.getReward().getGold() + " Gold ");
+					goldRewardLabel.setLocation(850, 350);
+					goldRewardLabel.setFont(statsFont);
+					program.add(goldRewardRect);
+					program.add(goldRewardLabel);
+					
+					if (level.getReward().getCard() != null) {
+						GRect cardRewardRect = new GRect(0, 0);
+						cardRewardRect.setBounds(600, 450, 720, 350);
+						cardRewardRect.setFillColor(Color.GREEN);
+						cardRewardRect.setFilled(true);
+						GLabel cardRewardLabel = new GLabel("+" + level.getReward().getCard().getName() + " Card");
+						cardRewardLabel.setLocation(650, 550);
+						cardRewardLabel.setFont(statsFont);
+						GImage cardRewardImage = level.getReward().getCard().getPicture();
+						cardRewardImage.setLocation(1000, 475);
+						program.add(cardRewardRect);
+						program.add(cardRewardLabel);
+						program.add(cardRewardImage);
+					}
+					
+					level.getReward().giveReward();
+					
+					program.pause(4000);
+					program.openGame();
+				}
+			}.start();
 		}
 	}
 	
@@ -137,17 +176,14 @@ public class BoardGraphics extends GraphicsPane {
 		}
 	}
 	
-	public void setLevelNumber(int levelNumber) {
-		this.levelNumber = levelNumber;
+	public void setLevel(Level level) {
+		this.level = level;
+		this.enemy = level.getEnemy();
+		enemy.getSprite().setBounds(500, 200, 900, 450);
 	}
 	
 	public void setPlayer(Player player) {
 		this.player = player;
-	}
-	
-	public void setEnemy(Enemy enemy) {
-		this.enemy = enemy;
-		enemy.getSprite().setBounds(500, 200, 900, 450);
 	}
 	
 	public void loadCards() {
@@ -273,7 +309,10 @@ public class BoardGraphics extends GraphicsPane {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
-		GImage currElem = (GImage) program.getElementAt(e.getX(), e.getY());
+		GImage currElem = null;
+		
+		if (program.getElementAt(e.getX(), e.getY()) instanceof GImage)
+			currElem = (GImage) program.getElementAt(e.getX(), e.getY());
 		
 		if (isPlayerTurn) {
 			if (currElem == endTurnButton) {

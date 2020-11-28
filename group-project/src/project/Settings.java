@@ -56,7 +56,6 @@ public class Settings {
 		hover.setVisible(false);
 	}
 	public void openSettings(){
-		program.addMouseListeners();
 		program.add(blackscrn);
 		program.add(menu);
 		program.add(hover);
