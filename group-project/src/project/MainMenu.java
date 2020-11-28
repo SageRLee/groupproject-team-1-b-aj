@@ -43,7 +43,6 @@ public class MainMenu extends GraphicsApplication {
 	
 	public void run() {
 		addMouseListeners();
-		//addKeyListeners();
 		ConfigManager.initializeFile();
 		loadPlayer();	
 		setting = new Settings(this, player);
