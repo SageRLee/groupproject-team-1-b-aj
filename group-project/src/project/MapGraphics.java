@@ -208,13 +208,6 @@ public class MapGraphics extends GraphicsPane {
 		for (Level level : levelList) {
 			program.remove(level.getLevelImage());
 		}
-		
 		program.remove(MainMenuGraphics.menuButton);
-	}
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent e) {
-	
-		System.out.printf("111");
-		System.out.print(e.getWheelRotation());
 	}
 }
