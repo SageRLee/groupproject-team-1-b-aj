@@ -9,8 +9,8 @@ import project.Player;
 
 public class LargeManaPotion extends Card {	
 
-	public LargeManaPotion() {	
-		super(new GImage("media/images/cards/LargeManaPotionCard.png"), "Large Mana Potion", 0, 100);	
+	public LargeManaPotion() {
+		super(new GImage("media/images/cards/LargeManaPotionCard.png"), "Large Mana Potion", 0, 100);
 	}	
 
 	@Override	

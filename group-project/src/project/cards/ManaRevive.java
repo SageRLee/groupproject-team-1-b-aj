@@ -9,8 +9,8 @@ import project.Player;
 
 public class ManaRevive extends Card {	
 
-	public ManaRevive() {	
-		super(new GImage("media/images/cards/ManaReviveCard.png"), "Mana Revive", 0, 200);	
+	public ManaRevive() {
+		super(new GImage("media/images/cards/ManaReviveCard.png"), "Mana Revive", 0, 200);
 	}	
 
 	@Override	
