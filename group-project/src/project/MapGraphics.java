@@ -200,6 +200,13 @@ public class MapGraphics extends GraphicsPane {
 					return;
 				}
 			}
+			for (Level level : levelList2) {
+				if (level.getLevelImage() == currElem) {
+					levelHovered = level.getLevelImage();
+					levelHovered.setSize(140, 140);
+					return;
+				}
+			}
 		}
 		
 		if (levelHovered != null) {
