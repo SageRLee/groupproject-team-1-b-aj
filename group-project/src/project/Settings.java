@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
 import acm.graphics.GRect;
@@ -14,6 +15,7 @@ import project.Player;
 //Test
 public class Settings {
 	private boolean enabled = false;
+	private boolean decklistOpen = false;
 	private Font optionsFont = new Font ("Serif", Font.BOLD, 64); 
 	private String option[][] = {
 			new String[] {"Resume", "Options", "Deck List","Main Menu", "Quit Game"},
@@ -21,6 +23,7 @@ public class Settings {
 	};
 	private GRect hover = new GRect(2, 5);
 	private Pair<GLabel, GRect> optionBox[] = new Pair[option[0].length]; 
+	private GImage closeDeck = new GImage("media/images/back_button.png");
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -67,32 +70,69 @@ public class Settings {
 	}
 	public void closeSettings() {
 		enabled = false;
+		decklistOpen = false;
 		program.remove(blackscrn);	
 		program.remove(menu);
 		program.remove(hover);
+		program.remove(closeDeck);
 		for(Pair<GLabel, GRect> toRemove : optionBox) {
 			program.remove(toRemove.getValue());
 			program.remove(toRemove.getKey());
 		}
-
 	};
-	public void mouseMoved(MouseEvent e) {
-		program.mouseMoved(e);
+	public void overrideMouseMoved(MouseEvent e) {
+
 		boolean found = false;
 		GObject target = program.getElementAt(e.getX(), e.getY());
-		System.out.println("test...");
 		for(Pair<GLabel, GRect> hoverCheck : optionBox) {
-			if(target == hoverCheck.getValue()) {
+			if(target == hoverCheck.getValue() || target == hoverCheck.getKey()) {
 				hover.setVisible(true);
-				hover.setLocation(target.getX()- (hover.getWidth() - target.getWidth()), target.getY() - (hover.getHeight() - target.getHeight()));
+				hover.setLocation(hoverCheck.getValue().getX()- (hover.getWidth() - hoverCheck.getValue().getWidth()) / 2, hoverCheck.getValue().getY() - (hover.getHeight() - hoverCheck.getValue().getHeight()) / 2);
 				found = true;
-				System.out.println("test?");
 				break;
 			}
 		}
 		if(!found) {
 			hover.setVisible(false);
-			System.out.println("test!");
 		}
 	}
+	public void overrideMouseClicked(MouseEvent e) {
+		boolean found = false;
+		GObject target = program.getElementAt(e.getX(), e.getY());
+		for(int i = 0; i < optionBox.length; i++) {
+			if(target == optionBox[i].getValue() || target == optionBox[i].getKey()) {
+				switch(i) {
+				case 0:
+					//Resume
+					closeSettings();
+					break;
+				case 1:
+					//Options - probably fullscreen
+					break;
+				case 2:
+					//Deck List
+					decklistOpen = true;
+					program.remove(menu);
+					for(Pair<GLabel, GRect> toRemove : optionBox) {
+						program.remove(toRemove.getValue());
+						program.remove(toRemove.getKey());	
+					}
+					program.add(closeDeck);
+					break;
+				case 3:
+					//Main Menu
+					program.openMainMenu();
+					break;
+				case 4:
+					//Quit Game
+					System.exit(0);
+					break;
+				default:
+					//Absolutely nothing - give good grade on project please and thank you
+			
+				}	
+			}
+		}
+	}
+	
 }

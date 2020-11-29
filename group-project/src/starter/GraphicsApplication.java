@@ -8,7 +8,7 @@ import java.awt.event.MouseWheelEvent;
 import acm.program.GraphicsProgram;
 
 public abstract class GraphicsApplication extends GraphicsProgram {
-	private GraphicsPane curScreen;
+	protected GraphicsPane curScreen;
 	
 	public GraphicsApplication() {
 		super();
