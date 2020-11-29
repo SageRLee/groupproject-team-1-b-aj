@@ -139,9 +139,11 @@ public class MapGraphics extends GraphicsPane {
 		
 		for (Level level : levelList1) {
 			level.getLevelImage().setSize(150, 150);
+			level.getLevelImage().setVisible(false);
 		}
 		for (Level level : levelList2) {
 			level.getLevelImage().setSize(150, 150);
+			level.getLevelImage().setVisible(false);
 		}
 		
 		loadLevels();
@@ -150,20 +152,15 @@ public class MapGraphics extends GraphicsPane {
 	public void loadLevels() {
 		int currLevel = Integer.parseInt(ConfigManager.getPath("level"));
 
-		for (Level level : levelList1) {
-			if (level.getLevelNumber() < currLevel) {
-				level.getLevelImage().setVisible(false);
-			} else {
-				break;
+		if (currLevel > 10) {
+			for (Level level : levelList2) {
+				if (level.getLevelNumber() >= currLevel)
+					level.getLevelImage().setVisible(true);
 			}
-		}
-		for (Level level : levelList2) {
-			if (currLevel < 10) {
-				level.getLevelImage().setVisible(false);
-			} else if(currLevel==10) {
-				level.getLevelImage().setVisible(true);
-			}else if(level.getLevelNumber()<currLevel) {
-				level.getLevelImage().setVisible(false);
+		} else {
+			for (Level level : levelList1) {
+				if (level.getLevelNumber() >= currLevel)
+					level.getLevelImage().setVisible(true);
 			}
 		}
 		
@@ -174,7 +171,7 @@ public class MapGraphics extends GraphicsPane {
 		GObject currElem = program.getElementAt(e.getX(), e.getY());
 		if (currElem instanceof GImage) {
 			for (Level level : levelList1) {
-				if (level.getLevelImage() == currElem) {
+				if (level.getLevelImage() == currElem && Integer.parseInt(ConfigManager.getPath("level")) == level.getLevelNumber()) {
 					program.openBoard(level);
 				}
 			}
@@ -208,8 +205,11 @@ public class MapGraphics extends GraphicsPane {
 	@Override
 	public void showContents() {
 		program.add(background);
-		
+
 		for (Level level : levelList1) {
+			program.add(level.getLevelImage());
+		}
+		for (Level level : levelList2) {
 			program.add(level.getLevelImage());
 		}
 
@@ -219,10 +219,14 @@ public class MapGraphics extends GraphicsPane {
 	@Override
 	public void hideContents() {
 		program.remove(background);
-		
+
 		for (Level level : levelList1) {
 			program.remove(level.getLevelImage());
 		}
+		for (Level level : levelList2) {
+			program.remove(level.getLevelImage());
+		}
+		
 		program.remove(MainMenuGraphics.menuButton);
 	}
 }

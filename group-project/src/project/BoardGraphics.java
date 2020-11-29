@@ -169,7 +169,8 @@ public class BoardGraphics extends GraphicsPane {
 	
 	public void increaseTurn() {
 		if (isPlayerTurn) {
-			turnText.setLabel("Turn: " + turnNumber++);
+			turnNumber = turnNumber + 1;
+			turnText.setLabel("Turn: " + turnNumber);
 			turnText.setColor(Color.WHITE);
 		} else {
 			turnText.setColor(Color.RED);
@@ -308,40 +309,41 @@ public class BoardGraphics extends GraphicsPane {
 		
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
-		GImage currElem = null;
-		
-		if (program.getElementAt(e.getX(), e.getY()) instanceof GImage)
-			currElem = (GImage) program.getElementAt(e.getX(), e.getY());
-		
-		if (isPlayerTurn) {
-			if (currElem == endTurnButton) {
-				new Thread() {
-					public void run() {
-						playEnemyTurn();
+		if (!enemy.isDead() && !player.isDead()) {
+			GImage currElem = null;
+			
+			if (program.getElementAt(e.getX(), e.getY()) instanceof GImage)
+				currElem = (GImage) program.getElementAt(e.getX(), e.getY());
+			
+			if (isPlayerTurn) {
+				if (currElem == endTurnButton) {
+					new Thread() {
+						public void run() {
+							playEnemyTurn();
+						}
+					}.start();
+					
+					//todo hide statlabel?
+					changeEntityStats(player, player.getMaxMana() - player.getMana(), false);
+					
+					return;
+				}
+				for (Card cards : player.getHand()) {
+					if (currElem == cards.getPicture()) {
+						if (player.getMana() - cards.getMana() >= 0) {
+							cards.play(this, isPlayerTurn, player, enemy);
+							
+							player.getDiscard().add(cards);
+							program.remove(cards.getPicture());
+							
+							player.getHand().remove(cards);
+							
+							checkIfDead();
+							
+							changeEntityStats(player, -cards.getMana(), false);
+						}
+						break;
 					}
-				}.start();
-				
-				//todo hide statlabel?
-				changeEntityStats(player, player.getMaxMana() - player.getMana(), false);
-				
-				return;
-			}
-			for (Card cards : player.getHand()) {
-				if (currElem == cards.getPicture()) {
-					if (player.getMana() - cards.getMana() >= 0) {
-						cards.play(this, isPlayerTurn, player, enemy);
-						
-						player.getDiscard().add(cards);
-						program.remove(cards.getPicture());
-						
-						player.getHand().remove(cards);
-						
-						checkIfDead();
-						
-						changeEntityStats(player, -cards.getMana(), false);
-					}
-					break;
 				}
 			}
 		}

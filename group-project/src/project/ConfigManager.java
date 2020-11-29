@@ -20,7 +20,7 @@ public class ConfigManager {
 				FileWriter myWriter = new FileWriter(file.getName());
 				myWriter.write("character:maleknight" + System.lineSeparator());
 				myWriter.write("gold:0" + System.lineSeparator());
-				myWriter.write("level:1" + System.lineSeparator());
+				myWriter.write("level:10" + System.lineSeparator());
 				myWriter.write("cards:stab,smallhealthpotion,smallmanapotion" + System.lineSeparator());
 				
 				System.out.println("FILE" + file.getAbsolutePath());
