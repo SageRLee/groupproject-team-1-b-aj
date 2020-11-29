@@ -36,8 +36,11 @@ public class Player extends Entity {
 
 	public void addCard(Card card) {
 		if (card != null && !hasCard(card)) {
+			String comma = "";
+			if (getDeck().size() == 0)
+				comma = ",";
+			ConfigManager.setPath("cards", ConfigManager.getPath("cards") + comma + card.getName().toLowerCase().replaceAll(" ", ""));
 			getDeck().add(card);
-			ConfigManager.setPath("cards", ConfigManager.getPath("cards") + "," + card.getName().toLowerCase());
 		}
 	}
 	

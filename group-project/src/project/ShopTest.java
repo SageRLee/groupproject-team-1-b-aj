@@ -103,6 +103,7 @@ public class ShopTest extends GraphicsPane {
 								shopNote = "PURCHASED CARD";
 								shopNoteColor = Color.GREEN;
 								program.getPlayer().addCard(selectCard);
+								program.getPlayer().setGold(program.getPlayer().getGold() - (selectCard.getCost()));
 							} else {
 								shopNote = "NOT ENOUGH GOLD";
 								shopNoteColor = Color.RED;
