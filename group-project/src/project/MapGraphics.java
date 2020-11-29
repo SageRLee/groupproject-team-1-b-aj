@@ -137,6 +137,12 @@ public class MapGraphics extends GraphicsPane {
 		levelList2.add(levelNineteen);
 		levelList2.add(levelTwenty);
 		
+		loadLevels();
+	}
+	
+	public void loadLevels() {
+		int currLevel = Integer.parseInt(ConfigManager.getPath("level"));
+		
 		for (Level level : levelList1) {
 			level.getLevelImage().setSize(150, 150);
 			level.getLevelImage().setVisible(false);
@@ -146,12 +152,6 @@ public class MapGraphics extends GraphicsPane {
 			level.getLevelImage().setVisible(false);
 		}
 		
-		loadLevels();
-	}
-	
-	public void loadLevels() {
-		int currLevel = Integer.parseInt(ConfigManager.getPath("level"));
-
 		if (currLevel > 10) {
 			for (Level level : levelList2) {
 				if (level.getLevelNumber() >= currLevel) {

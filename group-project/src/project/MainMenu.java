@@ -97,6 +97,7 @@ public class MainMenu extends GraphicsApplication {
 	}
 	
 	public void openGame() {
+		mapPane.loadLevels();
 		switchToScreen(mapPane);
 	}
 	
