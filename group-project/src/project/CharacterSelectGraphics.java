@@ -55,6 +55,7 @@ public class CharacterSelectGraphics extends GraphicsPane {
 		} else if (characterString.equalsIgnoreCase("femalemagician")) {
 			characterImage = femaleMagician;
 		}
+		
 		outline.setLocation(characterImage.getX(), characterImage.getY());
 	}
 	
@@ -89,9 +90,7 @@ public class CharacterSelectGraphics extends GraphicsPane {
 			}
 			ConfigManager.setPath("character", characterSelect);
 		}
-		else if(program.getElementAt(e.getX(), e.getY()) != outline){
-			outline.setVisible(false);
-		}
+		
 	}
 
 	@Override
@@ -102,6 +101,7 @@ public class CharacterSelectGraphics extends GraphicsPane {
 		program.add(maleMagician);
 		program.add(femaleMagician);
 		program.add(MainMenuGraphics.menuButton);
+		setOutlineLocation();
 	}
 
 	@Override
