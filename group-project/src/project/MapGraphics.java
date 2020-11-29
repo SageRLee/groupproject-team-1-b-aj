@@ -95,26 +95,26 @@ public class MapGraphics extends GraphicsPane {
 		Enemy levelTwentyEnemy = new Enemy("Dragon", new GImage("media/images/monsters/LevelTwenty.png"), 24, 24, 10, 10, new ArrayList<Card>(Arrays.asList(new Stick())));
 
 
-		levelOne = new Level(new GImage("media/images/level1.png", 1 * 300, 1 * 400), 1, levelOneEnemy, false, new Reward(program.getPlayer(), 10, null));
-		levelTwo = new Level(new GImage("media/images/level2.png", 2 * 300, 1 * 400), 2, levelTwoEnemy, false, new Reward(program.getPlayer(), 20, new Slash()));
-		levelThree = new Level(new GImage("media/images/level3.png", 3 * 300, 1 * 400), 3, levelThreeEnemy, false, new Reward(program.getPlayer(), 30, null));
-		levelFour = new Level(new GImage("media/images/level4.png", 4 * 300, 1 * 400), 4, levelFourEnemy, false, new Reward(program.getPlayer(), 40, new Split()));
-		levelFive = new Level(new GImage("media/images/level5.png", 5 * 300, 1 * 400), 5, levelFiveEnemy, false, new Reward(program.getPlayer(), 50, null));
-		levelSix = new Level(new GImage("media/images/level6.png", 1 * 300, 2 * 400), 6, levelSixEnemy, false, new Reward(program.getPlayer(), 60, new LargeManaPotion()));
-		levelSeven = new Level(new GImage("media/images/level7.png", 2 * 300, 2 * 400), 7, levelSevenEnemy, false, new Reward(program.getPlayer(), 70, null));
-		levelEight = new Level(new GImage("media/images/level8.png", 3 * 300, 2 * 400), 8, levelEightEnemy, false, new Reward(program.getPlayer(), 80, new LargeHealthPotion()));
-		levelNine = new Level(new GImage("media/images/level9.png", 4 * 300, 2 * 400), 9, levelNineEnemy, false, new Reward(program.getPlayer(), 90, null));
-		levelTen = new Level(new GImage("media/images/level10.png", 5 * 300, 2 * 400), 10, levelTenEnemy, false, new Reward(program.getPlayer(), 100, new LifeSteal()));
-		levelEleven = new Level(new GImage("media/images/level11.png", 1 * 300, 1 * 200), 11, levelElevenEnemy, false, new Reward(program.getPlayer(), 110, null));
-		levelTwelve = new Level(new GImage("media/images/level12.png", 2 * 300, 1 * 200), 12, levelTwelveEnemy, false, new Reward(program.getPlayer(), 120, new Stab()));
-		levelThirteen = new Level(new GImage("media/images/level13.png", 3 * 300, 1 * 200), 13, levelThirteenEnemy, false, new Reward(program.getPlayer(), 130, null));
-		levelFourteen = new Level(new GImage("media/images/level14.png", 4 * 300, 1 * 200), 14, levelFourteenEnemy, false, new Reward(program.getPlayer(), 140, new ManaRevive()));
-		levelFifteen = new Level(new GImage("media/images/level15.png", 5 * 300, 1 * 200), 15, levelFifteenEnemy, false, new Reward(program.getPlayer(), 150, null));
-		levelSixteen = new Level(new GImage("media/images/level16.png", 1 * 300, 2 * 200), 16, levelSixteenEnemy, false, new Reward(program.getPlayer(), 160, new Revive()));
-		levelSeventeen = new Level(new GImage("media/images/level17.png", 2 * 300, 2 * 200), 17, levelSeventeenEnemy, false, new Reward(program.getPlayer(), 170, null));
-		levelEighteen = new Level(new GImage("media/images/level18.png", 3 * 300, 2 * 200), 18, levelEighteenEnemy, false, new Reward(program.getPlayer(), 180, new SoulSteal()));
-		levelNineteen = new Level(new GImage("media/images/level19.png", 4 * 300, 2 * 200), 19, levelNineteenEnemy, false, new Reward(program.getPlayer(), 190, null));
-		levelTwenty = new Level(new GImage("media/images/level20.png", 5 * 300, 2 * 200), 20, levelTwentyEnemy, false, new Reward(program.getPlayer(), 200, new Suicide()));
+		levelOne = new Level(new GImage("media/images/level1.png", 1 * 300, 1 * 200), 1, levelOneEnemy, false, new Reward(program.getPlayer(), 10, null));
+		levelTwo = new Level(new GImage("media/images/level2.png", 2 * 300, 1 * 200), 2, levelTwoEnemy, false, new Reward(program.getPlayer(), 20, new Slash()));
+		levelThree = new Level(new GImage("media/images/level3.png", 3 * 300, 1 * 200), 3, levelThreeEnemy, false, new Reward(program.getPlayer(), 30, null));
+		levelFour = new Level(new GImage("media/images/level4.png", 4 * 300, 1 * 200), 4, levelFourEnemy, false, new Reward(program.getPlayer(), 40, new Split()));
+		levelFive = new Level(new GImage("media/images/level5.png", 5 * 300, 1 * 200), 5, levelFiveEnemy, false, new Reward(program.getPlayer(), 50, null));
+		levelSix = new Level(new GImage("media/images/level6.png", 1 * 300, 3 * 200), 6, levelSixEnemy, false, new Reward(program.getPlayer(), 60, new LargeManaPotion()));
+		levelSeven = new Level(new GImage("media/images/level7.png", 2 * 300, 3 * 200), 7, levelSevenEnemy, false, new Reward(program.getPlayer(), 70, null));
+		levelEight = new Level(new GImage("media/images/level8.png", 3 * 300, 3 * 200), 8, levelEightEnemy, false, new Reward(program.getPlayer(), 80, new LargeHealthPotion()));
+		levelNine = new Level(new GImage("media/images/level9.png", 4 * 300, 3 * 200), 9, levelNineEnemy, false, new Reward(program.getPlayer(), 90, null));
+		levelTen = new Level(new GImage("media/images/level10.png", 5 * 300, 3 * 200), 10, levelTenEnemy, false, new Reward(program.getPlayer(), 100, new LifeSteal()));
+		levelEleven = new Level(new GImage("media/images/level11.png", 1 * 300, 2 * 200), 11, levelElevenEnemy, false, new Reward(program.getPlayer(), 110, null));
+		levelTwelve = new Level(new GImage("media/images/level12.png", 2 * 300, 2 * 200), 12, levelTwelveEnemy, false, new Reward(program.getPlayer(), 120, new Stab()));
+		levelThirteen = new Level(new GImage("media/images/level13.png", 3 * 300, 2 * 200), 13, levelThirteenEnemy, false, new Reward(program.getPlayer(), 130, null));
+		levelFourteen = new Level(new GImage("media/images/level14.png", 4 * 300, 2 * 200), 14, levelFourteenEnemy, false, new Reward(program.getPlayer(), 140, new ManaRevive()));
+		levelFifteen = new Level(new GImage("media/images/level15.png", 5 * 300, 2 * 200), 15, levelFifteenEnemy, false, new Reward(program.getPlayer(), 150, null));
+		levelSixteen = new Level(new GImage("media/images/level16.png", 1 * 300, 4 * 200), 16, levelSixteenEnemy, false, new Reward(program.getPlayer(), 160, new Revive()));
+		levelSeventeen = new Level(new GImage("media/images/level17.png", 2 * 300, 4 * 200), 17, levelSeventeenEnemy, false, new Reward(program.getPlayer(), 170, null));
+		levelEighteen = new Level(new GImage("media/images/level18.png", 3 * 300, 4 * 200), 18, levelEighteenEnemy, false, new Reward(program.getPlayer(), 180, new SoulSteal()));
+		levelNineteen = new Level(new GImage("media/images/level19.png", 4 * 300, 4 * 200), 19, levelNineteenEnemy, false, new Reward(program.getPlayer(), 190, null));
+		levelTwenty = new Level(new GImage("media/images/level20.png", 5 * 300, 4 * 200), 20, levelTwentyEnemy, false, new Reward(program.getPlayer(), 200, new Suicide()));
 
 		levelList1.add(levelOne);
 		levelList1.add(levelTwo);
@@ -154,13 +154,15 @@ public class MapGraphics extends GraphicsPane {
 
 		if (currLevel > 10) {
 			for (Level level : levelList2) {
-				if (level.getLevelNumber() >= currLevel)
+				if (level.getLevelNumber() >= currLevel) {
 					level.getLevelImage().setVisible(true);
+				}
 			}
 		} else {
 			for (Level level : levelList1) {
-				if (level.getLevelNumber() >= currLevel)
+				if (level.getLevelNumber() >= currLevel) {
 					level.getLevelImage().setVisible(true);
+				}
 			}
 		}
 		
@@ -171,6 +173,11 @@ public class MapGraphics extends GraphicsPane {
 		GObject currElem = program.getElementAt(e.getX(), e.getY());
 		if (currElem instanceof GImage) {
 			for (Level level : levelList1) {
+				if (level.getLevelImage() == currElem && Integer.parseInt(ConfigManager.getPath("level")) == level.getLevelNumber()) {
+					program.openBoard(level);
+				}
+			}
+			for (Level level : levelList2) {
 				if (level.getLevelImage() == currElem && Integer.parseInt(ConfigManager.getPath("level")) == level.getLevelNumber()) {
 					program.openBoard(level);
 				}
