@@ -25,9 +25,8 @@ public class Player extends Entity {
 	
 	public boolean hasCard(Card card) {
 		if (card != null) {
-			String[] cardsArray = ConfigManager.getPath("cards").split(",");
-			for (String cardString : cardsArray) {
-				if (cardString.equalsIgnoreCase(card.getName())) {
+			for (Card cardsInDeck : getDeck()) {
+				if (cardsInDeck.getName().equalsIgnoreCase(card.getName())) {
 					return true;
 				}
 			}
@@ -39,6 +38,22 @@ public class Player extends Entity {
 		if (card != null && !hasCard(card)) {
 			getDeck().add(card);
 			ConfigManager.setPath("cards", ConfigManager.getPath("cards") + "," + card.getName().toLowerCase());
+		}
+	}
+	
+	public void removeCard(Card card) {
+		if (card != null) {
+			Card cardToRemove = null;
+			for (Card cardsInDeck : getDeck()) {
+				if (cardsInDeck.getName().equalsIgnoreCase(card.getName())) {
+					String cardName = card.getName().toLowerCase().replaceAll(" ", "");
+					ConfigManager.setPath("cards", ConfigManager.getPath("cards").replace("," + cardName, "")
+							.replace(cardName + ",", "").replace(cardName, ""));
+					cardToRemove = cardsInDeck;
+					break;
+				}
+			}
+			getDeck().remove(cardToRemove);
 		}
 	}
 

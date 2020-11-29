@@ -29,7 +29,7 @@ public class MainMenu extends GraphicsApplication {
 	private MainMenuGraphics mainMenuPane;
 	private MapGraphics mapPane;
 	private BoardGraphics boardPane;
-	private ShopGraphics shopPane;
+	private ShopTest shopPane;
 	private CharacterSelectGraphics characterSelectPane;
 	private AudioPlayer audioPlayer;
 	private Settings setting;
@@ -49,7 +49,7 @@ public class MainMenu extends GraphicsApplication {
 		mainMenuPane = new MainMenuGraphics(this);
 		mapPane = new MapGraphics(this);
 		boardPane = new BoardGraphics(this);
-		shopPane = new ShopGraphics(this);
+		shopPane = new ShopTest(this);
 		characterSelectPane = new CharacterSelectGraphics(this);	
 		audioPlayer = AudioPlayer.getInstance();
 		switchToScreen(mainMenuPane);
