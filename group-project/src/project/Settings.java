@@ -77,6 +77,7 @@ public class Settings {
 
 	};
 	public void mouseMoved(MouseEvent e) {
+		program.mouseMoved(e);
 		boolean found = false;
 		GObject target = program.getElementAt(e.getX(), e.getY());
 		System.out.println("test...");
