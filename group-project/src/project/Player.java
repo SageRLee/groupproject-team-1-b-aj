@@ -26,7 +26,7 @@ public class Player extends Entity {
 	public boolean hasCard(Card card) {
 		if (card != null) {
 			for (Card cardsInDeck : getDeck()) {
-				if (cardsInDeck.getName().equalsIgnoreCase(card.getName())) {
+				if (cardsInDeck != null && cardsInDeck.getName().equalsIgnoreCase(card.getName())) {
 					return true;
 				}
 			}
@@ -36,9 +36,10 @@ public class Player extends Entity {
 
 	public void addCard(Card card) {
 		if (card != null && !hasCard(card)) {
-			String comma = "";
+			String comma = ",";
+			System.out.println("deck size:" + getDeck().size());
 			if (getDeck().size() == 0)
-				comma = ",";
+				comma = "";
 			ConfigManager.setPath("cards", ConfigManager.getPath("cards") + comma + card.getName().toLowerCase().replaceAll(" ", ""));
 			getDeck().add(card);
 		}
