@@ -143,11 +143,15 @@ public class BoardGraphics extends GraphicsPane {
 					program.add(goldRewardRect);
 					program.add(goldRewardLabel);
 					
-					GRect cardRewardRect = new GRect(0, 0);
-					GLabel cardRewardLabel = new GLabel("+" + level.getReward().getCard().getName() + " Card");
-					GImage cardRewardImage = level.getReward().getCard().getPicture();
+					GRect cardRewardRect = null;
+					GLabel cardRewardLabel = null;
+					GImage cardRewardImage = null;
 
 					if (level.getReward().getCard() != null) {
+						cardRewardRect = new GRect(0, 0);
+						cardRewardLabel = new GLabel("+" + level.getReward().getCard().getName() + " Card");
+						cardRewardImage = level.getReward().getCard().getPicture();
+						
 						cardRewardRect.setBounds(600, 450, 720, 350);
 						cardRewardRect.setFillColor(Color.GREEN);
 						cardRewardRect.setFilled(true);
