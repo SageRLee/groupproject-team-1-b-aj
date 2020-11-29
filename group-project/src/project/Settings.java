@@ -74,24 +74,52 @@ public class Settings {
 			program.remove(toRemove.getValue());
 			program.remove(toRemove.getKey());
 		}
-
 	};
-	public void mouseMoved(MouseEvent e) {
+	public void overrideMouseMoved(MouseEvent e) {
 		boolean found = false;
 		GObject target = program.getElementAt(e.getX(), e.getY());
-		System.out.println("test...");
 		for(Pair<GLabel, GRect> hoverCheck : optionBox) {
-			if(target == hoverCheck.getValue()) {
+			if(target == hoverCheck.getValue() || target == hoverCheck.getKey()) {
 				hover.setVisible(true);
-				hover.setLocation(target.getX()- (hover.getWidth() - target.getWidth()), target.getY() - (hover.getHeight() - target.getHeight()));
+				hover.setLocation(hoverCheck.getValue().getX()- (hover.getWidth() - hoverCheck.getValue().getWidth()) / 2, hoverCheck.getValue().getY() - (hover.getHeight() - hoverCheck.getValue().getHeight()) / 2);
 				found = true;
-				System.out.println("test?");
 				break;
 			}
 		}
 		if(!found) {
 			hover.setVisible(false);
-			System.out.println("test!");
 		}
 	}
+	public void overrideMouseClicked(MouseEvent e) {
+		boolean found = false;
+		GObject target = program.getElementAt(e.getX(), e.getY());
+		for(int i = 0; i < optionBox.length; i++) {
+			if(target == optionBox[i].getValue() || target == optionBox[i].getKey()) {
+				switch(i) {
+				case 0:
+					//Resume
+					closeSettings();
+					break;
+				case 1:
+					//Options
+					break;
+				case 2:
+					//Deck List
+					break;
+				case 3:
+					//Main Menu
+					program.openMainMenu();
+					break;
+				case 4:
+					//Quit Game
+					System.exit(0);
+					break;
+				default:
+					//Absolutely nothing - give good grade on project please and thank you
+			
+				}	
+			}
+		}
+	}
+	
 }

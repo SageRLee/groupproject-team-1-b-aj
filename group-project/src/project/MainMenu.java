@@ -132,7 +132,22 @@ public class MainMenu extends GraphicsApplication {
 			}
 		}
 	}
-	
+	@Override
+	public  void mouseMoved(MouseEvent e) {
+		if(setting != null && setting.isEnabled()){
+			setting.overrideMouseMoved(e);
+		} else if(curScreen != null) {
+			curScreen.mouseMoved(e);
+		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(setting != null && setting.isEnabled()){
+			setting.overrideMouseClicked(e);
+		} else if(curScreen != null) {
+			curScreen.mouseClicked(e);
+		}
+	}
 	public Player getPlayer() {
 		return player;
 	}
