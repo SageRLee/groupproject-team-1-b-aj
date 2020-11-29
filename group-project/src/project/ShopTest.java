@@ -62,7 +62,7 @@ public class ShopTest extends GraphicsPane {
 		updateOwnedCards();
 	}
 	
-	private void updateOwnedCards() {
+	public void updateOwnedCards() {
 		for (Card card : shopCardList) {
 			if (program.getPlayer().hasCard(card)) {
 				card.getPicture().setSize(100, 150);
@@ -72,7 +72,7 @@ public class ShopTest extends GraphicsPane {
 		}
 	}
 	
-	private void updateGoldAmount() {
+	public void updateGoldAmount() {
 		goldAmount.setLabel("GOLD: " + ConfigManager.getPath("gold"));
 	}
 	

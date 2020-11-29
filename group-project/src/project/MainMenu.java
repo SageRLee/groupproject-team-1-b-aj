@@ -111,6 +111,8 @@ public class MainMenu extends GraphicsApplication {
 	}
 	
 	public void openShop() {
+		shopPane.updateGoldAmount();
+		shopPane.updateOwnedCards();
 		switchToScreen(shopPane);
 	}
 	
