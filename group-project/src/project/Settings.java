@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
 import acm.graphics.GRect;
@@ -14,6 +15,7 @@ import project.Player;
 //Test
 public class Settings {
 	private boolean enabled = false;
+	private boolean decklistOpen = false;
 	private Font optionsFont = new Font ("Serif", Font.BOLD, 64); 
 	private String option[][] = {
 			new String[] {"Resume", "Options", "Deck List","Main Menu", "Quit Game"},
@@ -21,6 +23,7 @@ public class Settings {
 	};
 	private GRect hover = new GRect(2, 5);
 	private Pair<GLabel, GRect> optionBox[] = new Pair[option[0].length]; 
+	private GImage closeDeck = new GImage("media/images/back_button.png");
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -67,15 +70,18 @@ public class Settings {
 	}
 	public void closeSettings() {
 		enabled = false;
+		decklistOpen = false;
 		program.remove(blackscrn);	
 		program.remove(menu);
 		program.remove(hover);
+		program.remove(closeDeck);
 		for(Pair<GLabel, GRect> toRemove : optionBox) {
 			program.remove(toRemove.getValue());
 			program.remove(toRemove.getKey());
 		}
 	};
 	public void overrideMouseMoved(MouseEvent e) {
+
 		boolean found = false;
 		GObject target = program.getElementAt(e.getX(), e.getY());
 		for(Pair<GLabel, GRect> hoverCheck : optionBox) {
@@ -101,10 +107,17 @@ public class Settings {
 					closeSettings();
 					break;
 				case 1:
-					//Options
+					//Options - probably fullscreen
 					break;
 				case 2:
 					//Deck List
+					decklistOpen = true;
+					program.remove(menu);
+					for(Pair<GLabel, GRect> toRemove : optionBox) {
+						program.remove(toRemove.getValue());
+						program.remove(toRemove.getKey());	
+					}
+					program.add(closeDeck);
 					break;
 				case 3:
 					//Main Menu

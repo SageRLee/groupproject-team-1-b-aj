@@ -143,15 +143,16 @@ public class BoardGraphics extends GraphicsPane {
 					program.add(goldRewardRect);
 					program.add(goldRewardLabel);
 					
+					GRect cardRewardRect = new GRect(0, 0);
+					GLabel cardRewardLabel = new GLabel("+" + level.getReward().getCard().getName() + " Card");
+					GImage cardRewardImage = level.getReward().getCard().getPicture();
+
 					if (level.getReward().getCard() != null) {
-						GRect cardRewardRect = new GRect(0, 0);
 						cardRewardRect.setBounds(600, 450, 720, 350);
 						cardRewardRect.setFillColor(Color.GREEN);
 						cardRewardRect.setFilled(true);
-						GLabel cardRewardLabel = new GLabel("+" + level.getReward().getCard().getName() + " Card");
 						cardRewardLabel.setLocation(650, 550);
 						cardRewardLabel.setFont(statsFont);
-						GImage cardRewardImage = level.getReward().getCard().getPicture();
 						cardRewardImage.setLocation(1000, 475);
 						program.add(cardRewardRect);
 						program.add(cardRewardLabel);
@@ -161,6 +162,16 @@ public class BoardGraphics extends GraphicsPane {
 					level.getReward().giveReward();
 					
 					program.pause(4000);
+
+					program.remove(rewardRect);
+					program.remove(goldRewardRect);
+					program.remove(goldRewardLabel);
+					if (level.getReward().getCard() != null) {
+						program.remove(cardRewardRect);
+						program.remove(cardRewardLabel);
+						program.remove(cardRewardImage);
+					}
+					
 					program.openGame();
 				}
 			}.start();
@@ -418,6 +429,13 @@ public class BoardGraphics extends GraphicsPane {
 		program.remove(turnText);
 		
 		program.remove(enemy.getSprite());
+		for (Card cards : player.getHand()) {
+			program.remove(cards.getPicture());
+		}
+
+		for (Card cards : enemy.getHand()) {
+			program.remove(cards.getPicture());
+		}
 	}
 	
 }

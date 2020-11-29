@@ -187,7 +187,8 @@ public class ShopTest extends GraphicsPane {
 		for (Card card : shopCardList) {
 			program.remove(card.getPicture());
 		}
-		program.remove(selectCard.getPicture());
+		if (selectCard != null)
+			program.remove(selectCard.getPicture());
 	}
 
 }
