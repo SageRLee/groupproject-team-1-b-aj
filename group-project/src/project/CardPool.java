@@ -36,5 +36,4 @@ public class CardPool {
 		cardList.add(new Split());
 		return cardList;
 	}
-	
 }
