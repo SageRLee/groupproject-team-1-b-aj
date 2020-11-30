@@ -25,6 +25,7 @@ public class Settings {
 	private GRect hover = new GRect(2, 5);
 	private Pair<GLabel, GRect> optionBox[] = new Pair[option[0].length]; 
 	private GImage closeDeck = new GImage("media/images/back_button.png");
+	private ArrayList<GImage> cardImages;
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -36,7 +37,7 @@ public class Settings {
 	MainMenu program;
 	public Settings(MainMenu program, Player player){
 		ArrayList<Card> playerDeck = program.getPlayer().getDeck();
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < playerDeck.size(); i++) {
 			
 		};
 		this.program = program;
