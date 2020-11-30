@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
@@ -34,7 +35,12 @@ public class Settings {
 	private GRect menu = new GRect(0, 0, MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);
 	MainMenu program;
 	public Settings(MainMenu program, Player player){
+		ArrayList<Card> playerDeck = program.getPlayer().getDeck();
+		for(int i = 0; i < 4; i++) {
+			
+		};
 		this.program = program;
+		closeDeck.setSize(closeDeck.getWidth() / 2, closeDeck.getHeight() / 2);
 		blackscrn.setFillColor(new Color(0, 0, 0, 125));
 		blackscrn.setFilled(true);
 		menu.setSize(MainMenu.RESOLUTION_X * 0.35, MainMenu.RESOLUTION_Y * 0.75);
@@ -96,6 +102,19 @@ public class Settings {
 			hover.setVisible(false);
 		}
 	}
+	private void toggleDeckList() {
+		//Deck List
+		if(decklistOpen) {
+			decklistOpen = true;
+			program.remove(menu);
+			for(Pair<GLabel, GRect> toRemove : optionBox) {
+				program.remove(toRemove.getValue());
+				program.remove(toRemove.getKey());	
+			}
+			program.add(closeDeck);
+			
+		}
+	}
 	public void overrideMouseClicked(MouseEvent e) {
 		boolean found = false;
 		GObject target = program.getElementAt(e.getX(), e.getY());
@@ -110,17 +129,11 @@ public class Settings {
 					//Options - probably fullscreen
 					break;
 				case 2:
-					//Deck List
-					decklistOpen = true;
-					program.remove(menu);
-					for(Pair<GLabel, GRect> toRemove : optionBox) {
-						program.remove(toRemove.getValue());
-						program.remove(toRemove.getKey());	
-					}
-					program.add(closeDeck);
+					toggleDeckList();
 					break;
 				case 3:
 					//Main Menu
+					closeSettings();
 					program.openMainMenu();
 					break;
 				case 4:

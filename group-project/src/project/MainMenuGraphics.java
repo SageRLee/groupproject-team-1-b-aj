@@ -82,13 +82,11 @@ public class MainMenuGraphics extends GraphicsPane implements ActionListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		//Mouse event for all button options
-		if (target != null) {
+		if((program.getElementAt(e.getX(), e.getY()) == play || program.getElementAt(e.getX(), e.getY()) == shop || program.getElementAt(e.getX(), e.getY()) == charSelect) ){
 			program.getAudioPlayer().playSound("media/sounds/", "select.mp3");
 			transition = true;
 			program.add(blackscrn);
-			
-		}
-		if(program.getElementAt(e.getX(),e.getY()) == quit){
+		} else if(program.getElementAt(e.getX(),e.getY()) == quit){
 			System.exit(0);
 				}
 	}
