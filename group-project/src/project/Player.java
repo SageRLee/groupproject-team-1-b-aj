@@ -26,7 +26,7 @@ public class Player extends Entity {
 	public boolean hasCard(Card card) {
 		if (card != null) {
 			for (Card cardsInDeck : getDeck()) {
-				if (cardsInDeck != null && cardsInDeck.getName().equalsIgnoreCase(card.getName())) {
+				if (cardsInDeck != null && cardsInDeck.getName().equalsIgnoreCase(card.getName().toLowerCase().replaceAll(" ", ""))) {
 					return true;
 				}
 			}
