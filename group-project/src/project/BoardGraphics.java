@@ -114,71 +114,89 @@ public class BoardGraphics extends GraphicsPane {
 	}
 	
 	public void checkIfDead() {
-		if (enemy.isDead()) {
-			if (level.getLevelNumber() >= Integer.parseInt(ConfigManager.getPath("level"))) {
-				ConfigManager.setPath("level", String.valueOf((level.getLevelNumber() + 1)));
-			}
-			program.getMapGraphics().loadLevels();
-			
-			isPlayerTurn = true;
-
-			player.resetDeck();
-			
-			
+		if (player.isDead() || enemy.isDead()) {
 			new Thread() {
 				public void run() {
-					GRect rewardRect = new GRect(0, 0);
-					rewardRect.setBounds(500, 150, 920, 780);
-					rewardRect.setFillColor(Color.GRAY);
-					rewardRect.setFilled(true);
-					program.add(rewardRect);
-					
-					GRect goldRewardRect = new GRect(0, 0);
-					goldRewardRect.setBounds(600, 250, 720, 150);
-					goldRewardRect.setFillColor(Color.YELLOW);
-					goldRewardRect.setFilled(true);
-					GLabel goldRewardLabel = new GLabel("+" + level.getReward().getGold() + " Gold ");
-					goldRewardLabel.setLocation(850, 350);
-					goldRewardLabel.setFont(statsFont);
-					program.add(goldRewardRect);
-					program.add(goldRewardLabel);
-					
-					GRect cardRewardRect = null;
-					GLabel cardRewardLabel = null;
-					GImage cardRewardImage = null;
 
-					if (level.getReward().getCard() != null) {
-						cardRewardRect = new GRect(0, 0);
-						cardRewardLabel = new GLabel("+" + level.getReward().getCard().getName() + " Card");
-						cardRewardImage = level.getReward().getCard().getPicture();
+					GRect mainRect = new GRect(0, 0);
+					mainRect.setBounds(500, 150, 920, 780);
+					mainRect.setFillColor(Color.GRAY);
+					mainRect.setFilled(true);
+					program.add(mainRect);
+					
+					if (player.isDead()) {
+						GRect gameOverRect = new GRect(0, 0);
+						gameOverRect.setBounds(600, 250, 720, 150);
+						gameOverRect.setFillColor(Color.RED);
+						gameOverRect.setFilled(true);
+						GLabel gameOverLabel = new GLabel("GAME OVER");
+						gameOverLabel.setLocation(850, 350);
+						gameOverLabel.setFont(statsFont);
 						
-						cardRewardRect.setBounds(600, 450, 720, 350);
-						cardRewardRect.setFillColor(Color.GREEN);
-						cardRewardRect.setFilled(true);
-						cardRewardLabel.setLocation(650, 550);
-						cardRewardLabel.setFont(statsFont);
-						cardRewardImage.setLocation(1000, 475);
-						program.add(cardRewardRect);
-						program.add(cardRewardLabel);
-						program.add(cardRewardImage);
-					}
-					
-					level.getReward().giveReward();
-					
-					program.pause(4000);
+						program.add(gameOverRect);
+						program.add(gameOverLabel);
+						
+						program.pause(4000);
+						
+						program.remove(gameOverRect);
+						program.remove(gameOverLabel);
+					} else if (enemy.isDead()) {
+						if (level.getLevelNumber() >= Integer.parseInt(ConfigManager.getPath("level"))) {
+							ConfigManager.setPath("level", String.valueOf((level.getLevelNumber() + 1)));
+						}
+						program.getMapGraphics().loadLevels();
+						
+						GRect goldRewardRect = new GRect(0, 0);
+						goldRewardRect.setBounds(600, 250, 720, 150);
+						goldRewardRect.setFillColor(Color.YELLOW);
+						goldRewardRect.setFilled(true);
+						GLabel goldRewardLabel = new GLabel("+" + level.getReward().getGold() + " Gold ");
+						goldRewardLabel.setLocation(850, 350);
+						goldRewardLabel.setFont(statsFont);
+						program.add(goldRewardRect);
+						program.add(goldRewardLabel);
+						
+						GRect cardRewardRect = null;
+						GLabel cardRewardLabel = null;
+						GImage cardRewardImage = null;
 
-					program.remove(rewardRect);
-					program.remove(goldRewardRect);
-					program.remove(goldRewardLabel);
-					if (level.getReward().getCard() != null) {
-						program.remove(cardRewardRect);
-						program.remove(cardRewardLabel);
-						program.remove(cardRewardImage);
+						if (level.getReward().getCard() != null) {
+							cardRewardRect = new GRect(0, 0);
+							cardRewardLabel = new GLabel("+" + level.getReward().getCard().getName() + " Card");
+							cardRewardImage = level.getReward().getCard().getPicture();
+							
+							cardRewardRect.setBounds(600, 450, 720, 350);
+							cardRewardRect.setFillColor(Color.GREEN);
+							cardRewardRect.setFilled(true);
+							cardRewardLabel.setLocation(650, 550);
+							cardRewardLabel.setFont(statsFont);
+							cardRewardImage.setLocation(1000, 475);
+							program.add(cardRewardRect);
+							program.add(cardRewardLabel);
+							program.add(cardRewardImage);
+						}
+						
+						level.getReward().giveReward();
+						
+						program.pause(4000);
+						
+						program.remove(goldRewardRect);
+						program.remove(goldRewardLabel);
+						if (level.getReward().getCard() != null) {
+							program.remove(cardRewardRect);
+							program.remove(cardRewardLabel);
+							program.remove(cardRewardImage);
+						}
 					}
-					
+
+					program.remove(mainRect);
+
 					program.openGame();
 				}
 			}.start();
+			
+			isPlayerTurn = true;
+			player.resetDeck();
 		}
 	}
 	

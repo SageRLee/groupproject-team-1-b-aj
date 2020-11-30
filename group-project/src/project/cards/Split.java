@@ -17,8 +17,11 @@ public class Split extends Card {
 	@Override	
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {	
 		//TODO fix
+		
+		
+		
 		for (int x = 0; x < 5; x++) {
-			int rand = new Random().nextInt(1);
+			int rand = new Random().nextInt(2);
 			if (rand == 0) {
 				bG.changeEntityStats(player, -1, true);
 			} else {
