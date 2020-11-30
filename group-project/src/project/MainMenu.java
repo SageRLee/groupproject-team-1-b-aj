@@ -44,14 +44,14 @@ public class MainMenu extends GraphicsApplication {
 	public void run() {
 		addMouseListeners();
 		ConfigManager.initializeFile();
-		loadPlayer();	
-		setting = new Settings(this, player);
+		loadPlayer();		
 		mainMenuPane = new MainMenuGraphics(this);
 		mapPane = new MapGraphics(this);
 		boardPane = new BoardGraphics(this);
 		shopPane = new ShopTest(this);
 		characterSelectPane = new CharacterSelectGraphics(this);	
 		audioPlayer = AudioPlayer.getInstance();
+		setting = new Settings(this);
 		switchToScreen(mainMenuPane);
 	}
 	
