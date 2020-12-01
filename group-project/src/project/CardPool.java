@@ -17,6 +17,7 @@ import project.cards.Suicide;
 import project.cards.Slash;
 import project.cards.Stab;
 
+
 public class CardPool {
 	
 	public static ArrayList<Card> getCardList() {
