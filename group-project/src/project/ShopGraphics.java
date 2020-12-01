@@ -2,10 +2,8 @@ package project;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.Random;
-
 import acm.program.GraphicsProgram;
 import starter.GraphicsPane;
-
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Component;

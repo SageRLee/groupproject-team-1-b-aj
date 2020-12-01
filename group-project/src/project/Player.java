@@ -45,6 +45,7 @@ public class Player extends Entity {
 	public void removeCard(Card card) {
 		if (card != null) {
 			Card cardToRemove = null;
+			
 			for (Card cardsInDeck : getDeck()) {
 				if (cardsInDeck.getName().equalsIgnoreCase(card.getName())) {
 					String cardName = card.getName().toLowerCase().replaceAll(" ", "");
