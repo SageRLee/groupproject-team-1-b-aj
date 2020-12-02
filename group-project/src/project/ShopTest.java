@@ -18,7 +18,6 @@ public class ShopTest extends GraphicsPane {
 	private MainMenu program;
 	
 	private ArrayList<Card> shopCardList;
-	private ArrayList<GRect> shopCardOwnedList;
 	
 	private Font shopFont = new Font("TimesRoman", Font.PLAIN, 50);
 	
@@ -28,16 +27,29 @@ public class ShopTest extends GraphicsPane {
 	private GImage sellButton = new GImage("media/images/SellButton.png");
 	private GLabel goldAmount = new GLabel("");
 	
+	
 	public ShopTest(MainMenu program) {
 		super();
 		this.program = program;
 		initializeObjects();
 	}
 	
+	
 	public void initializeObjects() {
 		
 		shopCardList = CardPool.getCardList();
-		shopCardOwnedList = new ArrayList<>();
+		
+		int x = 0;
+		int y = 0;
+		for (Card card : shopCardList) {
+			if (x == 5) {
+				x = 0;
+				y++;
+			}
+			
+			card.getPicture().setLocation(25 + (210 * x), 25 + (310 * y));
+			x++;
+		}
 
 		buyButton.setLocation(1300, 600);
 		sellButton.setLocation(1600, 600);
@@ -50,39 +62,14 @@ public class ShopTest extends GraphicsPane {
 		updateOwnedCards();
 	}
 	
-	private void removeOwnedCards() {
-		for (GRect rect : shopCardOwnedList) {
-			program.remove(rect);
-		}
-		shopCardOwnedList.clear();
-	}
-	
 	public void updateOwnedCards() {
-		removeOwnedCards();
-		
 		for (Card card : shopCardList) {
 			if (program.getPlayer().hasCard(card)) {
-				GRect ownedCardOverlay = new GRect(card.getPicture().getX() - 5, card.getPicture().getY() - 5, card.getPicture().getWidth() + 10, card.getPicture().getHeight() + 10);
-				ownedCardOverlay.setFilled(true);
-				ownedCardOverlay.setFillColor(new Color(255, 255, 0));
-				program.add(ownedCardOverlay);
-				shopCardOwnedList.add(ownedCardOverlay);
+				card.getPicture().setSize(100, 150);
+			} else {
+				card.getPicture().setSize(200, 300);
 			}
 		}
-		
-		int x = 0;
-		int y = 0;
-		for (Card card : shopCardList) {
-			if (x == 5) {
-				x = 0;
-				y++;
-			}
-			
-			card.getPicture().setLocation(25 + (210 * x), 25 + (310 * y));
-			x++;
-			program.add(card.getPicture());
-		}
-		
 	}
 	
 	public void updateGoldAmount() {
@@ -106,41 +93,45 @@ public class ShopTest extends GraphicsPane {
 				if (selectCard == null) {
 					shopNote = "CARD NOT SELECTED";
 					shopNoteColor = Color.RED;
-				} else {
-					if (currElem == buyButton || currElem == sellButton) {
-						if (currElem == buyButton) {
-							if (program.getPlayer().hasCard(selectCard)) {
-								shopNote = "ALREADY OWN CARD";
-								shopNoteColor = Color.RED;
-							} else {
-								if (program.getPlayer().getGold() >= selectCard.getCost()) {
-									shopNote = "PURCHASED CARD";
-									shopNoteColor = Color.GREEN;
-									program.getPlayer().addCard(selectCard);
-									program.getPlayer().setGold(program.getPlayer().getGold() - (selectCard.getCost()));
-								} else {
-									shopNote = "NOT ENOUGH GOLD";
-									shopNoteColor = Color.RED;
-								}
-							}
-						} else if (currElem == sellButton) {
-							if (program.getPlayer().hasCard(selectCard)) {
-								shopNote = "SOLD CARD";
+				}
+				else {
+					if (currElem == buyButton) {
+						if (program.getPlayer().hasCard(selectCard)) {
+							shopNote = "ALREADY OWN CARD";
+							shopNoteColor = Color.RED;
+						} 
+						else {
+							
+							if (program.getPlayer().getGold() >= selectCard.getCost()) {
+								shopNote = "PURCHASED CARD";
 								shopNoteColor = Color.GREEN;
-								program.getPlayer().removeCard(selectCard);
-								program.getPlayer().setGold(program.getPlayer().getGold() + (selectCard.getCost()/2));
-								selectCard.getPicture().setSize(200, 300);
-							} else {
-								shopNote = "DON'T OWN CARD";
+								program.getPlayer().addCard(selectCard);
+								program.getPlayer().setGold(program.getPlayer().getGold() - (selectCard.getCost()));
+							} 
+							else {
+								shopNote = "NOT ENOUGH GOLD";
 								shopNoteColor = Color.RED;
 							}
 						}
-						selectCard.getPicture().setLocation(selectCardPrevPoint);
+					} 
+					else if (currElem == sellButton) {
+						
+						if (program.getPlayer().hasCard(selectCard)) {
+							shopNote = "SOLD CARD";
+							shopNoteColor = Color.GREEN;
+							program.getPlayer().removeCard(selectCard);
+							program.getPlayer().setGold(program.getPlayer().getGold() + (selectCard.getCost()/2));
+							selectCard.getPicture().setSize(200, 300);
+						} 
+						
+						else {
+							shopNote = "DON'T OWN CARD";
+							shopNoteColor = Color.RED;
+						}
 					}
 				}
-				
-				updateOwnedCards();
 				updateGoldAmount();
+				updateOwnedCards();
 
 				final String finalShopNote = shopNote;
 				final Color finalShopNoteColor = shopNoteColor;
@@ -155,8 +146,7 @@ public class ShopTest extends GraphicsPane {
 						shopLabel.setLabel(finalShopNote);
 						shopLabel.setColor(finalShopNoteColor);
 						shopLabel.setFont(shopFont);
-						shopLabel.setLocation(1300, 120);
-						
+						shopLabel.setLocation(1300, 120);	
 						program.add(shopLabel);
 						
 						for (int x = 0; x < 10; x++) {
@@ -176,6 +166,7 @@ public class ShopTest extends GraphicsPane {
 					if (selectCard != null) {
 						selectCard.getPicture().setLocation(selectCardPrevPoint);
 					}
+					
 					selectCard = card;
 					selectCardPrevPoint = currElem.getLocation();
 					selectCard.getPicture().setLocation(1450, 250);
@@ -190,7 +181,9 @@ public class ShopTest extends GraphicsPane {
 		program.add(buyButton);
 		program.add(sellButton);
 		program.add(goldAmount);
-		updateOwnedCards();
+		for (Card card : shopCardList) {
+			program.add(card.getPicture());
+		}
 	}
 	
 	@Override
@@ -204,7 +197,6 @@ public class ShopTest extends GraphicsPane {
 		}
 		if (selectCard != null)
 			program.remove(selectCard.getPicture());
-		removeOwnedCards();
 	}
 	
 

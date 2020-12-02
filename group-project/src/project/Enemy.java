@@ -6,7 +6,6 @@ import acm.graphics.GImage;
 
 //ignore
 public class Enemy extends Entity {
-
 	private String name;
 
 	public Enemy(String name, GImage sprite, int hp, int maxHp, int mana, int maxMana, ArrayList<Card> deck) {

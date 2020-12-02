@@ -98,13 +98,8 @@ public class Entity {
 	}
 	
 	public void resetDeck() {
-		while (!getHand().isEmpty()) {
-			Card card = getHand().get(getHand().size() - 1);
-			getDeck().add(card);
-			getHand().remove(card);
-		}
 		while (!getDiscard().isEmpty()) {
-			Card card = getDiscard().get(getDiscard().size() - 1);
+			Card card = getDiscard().get(new Random().nextInt(getDiscard().size()));
 			getDeck().add(card);
 			getDiscard().remove(card);
 		}
@@ -115,19 +110,6 @@ public class Entity {
 			int randCard = new Random().nextInt(getDeck().size());
 			getHand().add(getDeck().get(randCard));
 			getDeck().remove(randCard);
-		}
-	}
-	
-	public void drawCard() {
-		if (getHand().isEmpty() && getDeck().isEmpty()) {
-			resetDeck();
-			drawCard();
-		} else {
-			if (!getDeck().isEmpty() && getHand().size() <= 3) {
-				Card randomCardFromDeck = getDeck().get(new Random().nextInt(getDeck().size()));
-				getHand().add(randomCardFromDeck);
-				getDeck().remove(randomCardFromDeck);
-			}
 		}
 	}
 	
