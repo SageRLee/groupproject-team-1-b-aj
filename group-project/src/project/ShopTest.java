@@ -93,38 +93,45 @@ public class ShopTest extends GraphicsPane {
 				if (selectCard == null) {
 					shopNote = "CARD NOT SELECTED";
 					shopNoteColor = Color.RED;
-				} else {
+				}
+				else {
 					if (currElem == buyButton) {
 						if (program.getPlayer().hasCard(selectCard)) {
 							shopNote = "ALREADY OWN CARD";
 							shopNoteColor = Color.RED;
-						} else {
+						} 
+						else {
+							
 							if (program.getPlayer().getGold() >= selectCard.getCost()) {
 								shopNote = "PURCHASED CARD";
 								shopNoteColor = Color.GREEN;
 								program.getPlayer().addCard(selectCard);
 								program.getPlayer().setGold(program.getPlayer().getGold() - (selectCard.getCost()));
-							} else {
+							} 
+							else {
 								shopNote = "NOT ENOUGH GOLD";
 								shopNoteColor = Color.RED;
 							}
 						}
-					} else if (currElem == sellButton) {
+					} 
+					else if (currElem == sellButton) {
+						
 						if (program.getPlayer().hasCard(selectCard)) {
 							shopNote = "SOLD CARD";
 							shopNoteColor = Color.GREEN;
 							program.getPlayer().removeCard(selectCard);
 							program.getPlayer().setGold(program.getPlayer().getGold() + (selectCard.getCost()/2));
 							selectCard.getPicture().setSize(200, 300);
-						} else {
+						} 
+						
+						else {
 							shopNote = "DON'T OWN CARD";
 							shopNoteColor = Color.RED;
 						}
 					}
 				}
-				
-				updateOwnedCards();
 				updateGoldAmount();
+				updateOwnedCards();
 
 				final String finalShopNote = shopNote;
 				final Color finalShopNoteColor = shopNoteColor;
@@ -139,8 +146,7 @@ public class ShopTest extends GraphicsPane {
 						shopLabel.setLabel(finalShopNote);
 						shopLabel.setColor(finalShopNoteColor);
 						shopLabel.setFont(shopFont);
-						shopLabel.setLocation(1300, 120);
-						
+						shopLabel.setLocation(1300, 120);	
 						program.add(shopLabel);
 						
 						for (int x = 0; x < 10; x++) {
@@ -160,6 +166,7 @@ public class ShopTest extends GraphicsPane {
 					if (selectCard != null) {
 						selectCard.getPicture().setLocation(selectCardPrevPoint);
 					}
+					
 					selectCard = card;
 					selectCardPrevPoint = currElem.getLocation();
 					selectCard.getPicture().setLocation(1450, 250);
