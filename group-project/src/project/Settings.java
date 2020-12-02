@@ -78,7 +78,9 @@ public class Settings {
 	}
 	public void closeSettings() {
 		enabled = false;
-		decklistOpen = false;
+		if(decklistOpen) {
+			toggleDeckList();
+		}
 		program.remove(blackscrn);	
 		program.remove(menu);
 		program.remove(hover);
@@ -87,6 +89,7 @@ public class Settings {
 			program.remove(toRemove.getValue());
 			program.remove(toRemove.getKey());
 		}
+		
 	};
 	public void overrideMouseMoved(MouseEvent e) {
 
@@ -107,24 +110,38 @@ public class Settings {
 	private void toggleDeckList() {
 		//Deck List
 		if(!decklistOpen) {
-			//Reload decklist - if the decklist changed, we have to redraw
 			cardImages.clear();
+			//Reload decklist - if the decklist changed, we have to redraw
 			if(playerDeck.size() > 0) {
 				for(int i = 0; i < playerDeck.size(); i++) {
-					cardImages.add(playerDeck.get(i).getPicture());
-					cardImages.get(i).setLocation(MainMenu.RESOLUTION_X * 0.1 + i * cardImages.get(i).getWidth() * 1.5, MainMenu.RESOLUTION_Y * 0.1);
-				};
-				for(int i = 0; i < playerDeck.size(); i++) {
+						cardImages.add(new GImage(playerDeck.get(i).getPicture().getImage()));	
+						cardImages.get(i).setLocation(MainMenu.RESOLUTION_X * 0.1 + (i % 5) * cardImages.get(i).getWidth() * 1.5,
+								 MainMenu.RESOLUTION_Y * 0.05 + (Math.floor((i / 5) * (cardImages.get(i).getHeight() + MainMenu.RESOLUTION_Y * 0.005))) );
+				}
+				for(int i = 0; i < cardImages.size(); i++) {
 					program.add(cardImages.get(i));
 				}
 			}
 			decklistOpen = true;
 			program.remove(menu);
+			program.remove(hover);
 			for(Pair<GLabel, GRect> toRemove : optionBox) {
 				program.remove(toRemove.getValue());
 				program.remove(toRemove.getKey());	
 			}
 			program.add(closeDeck);	
+		} else {
+			decklistOpen = false;
+			for(int i = 0; i < cardImages.size(); i++) {
+				program.remove(cardImages.get(i));
+			}
+			program.remove(closeDeck);
+			program.add(menu);
+			program.add(hover);
+			for(Pair<GLabel, GRect> toRemove : optionBox) {
+				program.add(toRemove.getValue());
+				program.add(toRemove.getKey());	
+			}
 		}
 	}
 	public void overrideMouseClicked(MouseEvent e) {
@@ -157,6 +174,9 @@ public class Settings {
 			
 				}	
 			}
+		}
+		if(target == closeDeck) {
+			toggleDeckList();
 		}
 	}
 	
