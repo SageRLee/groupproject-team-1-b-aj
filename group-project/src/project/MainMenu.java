@@ -87,7 +87,8 @@ public class MainMenu extends GraphicsApplication {
 			case "suicide": cardToAdd = new Suicide(); break;
 			case "split": cardToAdd = new Split(); break;
 			}
-			playerDeck.add(cardToAdd);
+			if (cardToAdd != null)
+				playerDeck.add(cardToAdd);
 		}
 		return playerDeck;
 	}

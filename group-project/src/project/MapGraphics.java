@@ -174,18 +174,46 @@ public class MapGraphics extends GraphicsPane {
 		if (currElem instanceof GImage) {
 			for (Level level : levelList1) {
 				if (level.getLevelImage() == currElem && Integer.parseInt(ConfigManager.getPath("level")) == level.getLevelNumber()) {
-					program.openBoard(level);
+					if (!checkIfDeckEmpty())
+						program.openBoard(level);
 				}
 			}
 			for (Level level : levelList2) {
 				if (level.getLevelImage() == currElem && Integer.parseInt(ConfigManager.getPath("level")) == level.getLevelNumber()) {
-					program.openBoard(level);
+					if (!checkIfDeckEmpty())
+						program.openBoard(level);
 				}
 			}
 			if (currElem == MainMenuGraphics.menuButton) {
 				program.openMainMenu();
 			}
 		}
+	}
+	
+	//todo fix
+	private boolean checkIfDeckEmpty() {
+		if (program.getPlayer().getDeck().isEmpty()) {
+			new Thread() {
+				public void run() {
+					
+					GLabel emptyLabel = new GLabel("DECK IS EMPTY");
+					emptyLabel.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+					
+					emptyLabel.setLocation(1920/2 - 75, 1080/2 - 25);
+					
+					program.add(emptyLabel);
+					
+					for (int x = 0; x < 30; x++) {
+						emptyLabel.move(0, 10);
+						program.pause(100);
+					}
+					
+					program.remove(emptyLabel);
+				}
+			}.start();
+			return true;
+		}
+		return false;
 	}
 
 	@Override

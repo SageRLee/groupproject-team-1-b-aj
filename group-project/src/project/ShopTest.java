@@ -38,18 +38,6 @@ public class ShopTest extends GraphicsPane {
 		
 		shopCardList = CardPool.getCardList();
 		shopCardOwnedList = new ArrayList<>();
-		
-		int x = 0;
-		int y = 0;
-		for (Card card : shopCardList) {
-			if (x == 5) {
-				x = 0;
-				y++;
-			}
-			
-			card.getPicture().setLocation(25 + (210 * x), 25 + (310 * y));
-			x++;
-		}
 
 		buyButton.setLocation(1300, 600);
 		sellButton.setLocation(1600, 600);
@@ -81,9 +69,20 @@ public class ShopTest extends GraphicsPane {
 				shopCardOwnedList.add(ownedCardOverlay);
 			}
 		}
+		
+		int x = 0;
+		int y = 0;
 		for (Card card : shopCardList) {
+			if (x == 5) {
+				x = 0;
+				y++;
+			}
+			
+			card.getPicture().setLocation(25 + (210 * x), 25 + (310 * y));
+			x++;
 			program.add(card.getPicture());
 		}
+		
 	}
 	
 	public void updateGoldAmount() {
@@ -108,33 +107,35 @@ public class ShopTest extends GraphicsPane {
 					shopNote = "CARD NOT SELECTED";
 					shopNoteColor = Color.RED;
 				} else {
-					if (currElem == buyButton) {
-						if (program.getPlayer().hasCard(selectCard)) {
-							shopNote = "ALREADY OWN CARD";
-							shopNoteColor = Color.RED;
-						} else {
-							if (program.getPlayer().getGold() >= selectCard.getCost()) {
-								shopNote = "PURCHASED CARD";
-								shopNoteColor = Color.GREEN;
-								program.getPlayer().addCard(selectCard);
-								program.getPlayer().setGold(program.getPlayer().getGold() - (selectCard.getCost()));
-								selectCard.getPicture().setLocation(selectCardPrevPoint);
+					if (currElem == buyButton || currElem == sellButton) {
+						if (currElem == buyButton) {
+							if (program.getPlayer().hasCard(selectCard)) {
+								shopNote = "ALREADY OWN CARD";
+								shopNoteColor = Color.RED;
 							} else {
-								shopNote = "NOT ENOUGH GOLD";
+								if (program.getPlayer().getGold() >= selectCard.getCost()) {
+									shopNote = "PURCHASED CARD";
+									shopNoteColor = Color.GREEN;
+									program.getPlayer().addCard(selectCard);
+									program.getPlayer().setGold(program.getPlayer().getGold() - (selectCard.getCost()));
+								} else {
+									shopNote = "NOT ENOUGH GOLD";
+									shopNoteColor = Color.RED;
+								}
+							}
+						} else if (currElem == sellButton) {
+							if (program.getPlayer().hasCard(selectCard)) {
+								shopNote = "SOLD CARD";
+								shopNoteColor = Color.GREEN;
+								program.getPlayer().removeCard(selectCard);
+								program.getPlayer().setGold(program.getPlayer().getGold() + (selectCard.getCost()/2));
+								selectCard.getPicture().setSize(200, 300);
+							} else {
+								shopNote = "DON'T OWN CARD";
 								shopNoteColor = Color.RED;
 							}
 						}
-					} else if (currElem == sellButton) {
-						if (program.getPlayer().hasCard(selectCard)) {
-							shopNote = "SOLD CARD";
-							shopNoteColor = Color.GREEN;
-							program.getPlayer().removeCard(selectCard);
-							program.getPlayer().setGold(program.getPlayer().getGold() + (selectCard.getCost()/2));
-							selectCard.getPicture().setSize(200, 300);
-						} else {
-							shopNote = "DON'T OWN CARD";
-							shopNoteColor = Color.RED;
-						}
+						selectCard.getPicture().setLocation(selectCardPrevPoint);
 					}
 				}
 				

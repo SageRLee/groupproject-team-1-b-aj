@@ -196,6 +196,11 @@ public class BoardGraphics extends GraphicsPane {
 			}.start();
 			
 			isPlayerTurn = true;
+			
+			for (Card cards : player.getHand()) {
+				program.remove(cards.getPicture());
+			}
+			
 			player.resetDeck();
 		}
 	}
@@ -224,20 +229,7 @@ public class BoardGraphics extends GraphicsPane {
 		player.loadHand();
 		enemy.loadHand();
 		
-		entityDrawCard(player);
-	}
-	
-	private void entityDrawCard(Entity entity) {
-		if (entity.getHand().isEmpty() && entity.getDeck().isEmpty()) {
-			entity.resetDeck();
-			entityDrawCard(entity);
-		} else {
-			if (!entity.getDeck().isEmpty()) {
-				Card randomCardFromDeck = entity.getDeck().get(new Random().nextInt(entity.getDeck().size()));
-				entity.getHand().add(randomCardFromDeck);
-				entity.getDeck().remove(randomCardFromDeck);
-			}
-		}
+		player.drawCard();
 		reloadHand();
 	}
 	
@@ -385,7 +377,8 @@ public class BoardGraphics extends GraphicsPane {
 	public void playEnemyTurn() {
 		isPlayerTurn = false;
 
-		entityDrawCard(enemy);
+		enemy.drawCard();
+		reloadHand();
 		
 		increaseTurn();
 		program.pause(2000);
@@ -399,8 +392,7 @@ public class BoardGraphics extends GraphicsPane {
 		enemy.getDiscard().add(randomEnemyCard);
 		enemy.getHand().remove(randomEnemyCard);
 		
-		entityDrawCard(player);
-		
+		player.drawCard();
 		reloadHand();
 		
 		isPlayerTurn = true;
@@ -454,7 +446,7 @@ public class BoardGraphics extends GraphicsPane {
 		for (Card cards : player.getHand()) {
 			program.remove(cards.getPicture());
 		}
-
+		
 		for (Card cards : enemy.getHand()) {
 			program.remove(cards.getPicture());
 		}
