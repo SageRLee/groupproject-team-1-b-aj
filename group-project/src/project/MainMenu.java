@@ -35,8 +35,6 @@ public class MainMenu extends GraphicsApplication {
 	private Settings setting;
 	private Player player;
 	
-	
-	
 	public void init() {
 		setSize(RESOLUTION_X, RESOLUTION_Y);
 	}

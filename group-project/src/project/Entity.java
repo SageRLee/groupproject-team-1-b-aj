@@ -15,6 +15,7 @@ public class Entity {
 	private ArrayList<Card> deck;
 	private ArrayList<Card> discard;
 	private GImage sprite;
+	
 	Random rand = new Random();
 	
 	public Entity(GImage sprite, int hp, int maxHp, int mana, int maxMana, ArrayList<Card> deck) {

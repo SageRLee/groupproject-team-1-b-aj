@@ -206,5 +206,6 @@ public class ShopTest extends GraphicsPane {
 			program.remove(selectCard.getPicture());
 		removeOwnedCards();
 	}
+	
 
 }

@@ -30,7 +30,7 @@ public class BoardGraphics extends GraphicsPane {
 	
 	private static GRect enemyHealthBar;
 	//private static GRect enemyArmorBar;
-	
+
 	private static GLabel playerHealthText;
 	private static GImage playerHealthBar = new GImage("media/images/PlayerHealth.png", 0, 0);
 	private static GRect playerHealthDamageBar;
@@ -48,7 +48,6 @@ public class BoardGraphics extends GraphicsPane {
 	
 	//private GLabel playerArmorText; //TODO
 	//private GImage playerArmorBar; //TODO
-	
 	//TODO Player end button.
 
 	private static int PLAYER_BAR_WIDTH;
