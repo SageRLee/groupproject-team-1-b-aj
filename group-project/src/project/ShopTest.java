@@ -18,6 +18,7 @@ public class ShopTest extends GraphicsPane {
 	private MainMenu program;
 	
 	private ArrayList<Card> shopCardList;
+	private ArrayList<GRect> shopCardOwnedList;
 	
 	private Font shopFont = new Font("TimesRoman", Font.PLAIN, 50);
 	
@@ -27,17 +28,16 @@ public class ShopTest extends GraphicsPane {
 	private GImage sellButton = new GImage("media/images/SellButton.png");
 	private GLabel goldAmount = new GLabel("");
 	
-	
 	public ShopTest(MainMenu program) {
 		super();
 		this.program = program;
 		initializeObjects();
 	}
 	
-	
 	public void initializeObjects() {
 		
 		shopCardList = CardPool.getCardList();
+		shopCardOwnedList = new ArrayList<>();
 		
 		int x = 0;
 		int y = 0;
@@ -62,13 +62,27 @@ public class ShopTest extends GraphicsPane {
 		updateOwnedCards();
 	}
 	
+	private void removeOwnedCards() {
+		for (GRect rect : shopCardOwnedList) {
+			program.remove(rect);
+		}
+		shopCardOwnedList.clear();
+	}
+	
 	public void updateOwnedCards() {
+		removeOwnedCards();
+		
 		for (Card card : shopCardList) {
 			if (program.getPlayer().hasCard(card)) {
-				card.getPicture().setSize(100, 150);
-			} else {
-				card.getPicture().setSize(200, 300);
+				GRect ownedCardOverlay = new GRect(card.getPicture().getX() - 5, card.getPicture().getY() - 5, card.getPicture().getWidth() + 10, card.getPicture().getHeight() + 10);
+				ownedCardOverlay.setFilled(true);
+				ownedCardOverlay.setFillColor(new Color(255, 255, 0));
+				program.add(ownedCardOverlay);
+				shopCardOwnedList.add(ownedCardOverlay);
 			}
+		}
+		for (Card card : shopCardList) {
+			program.add(card.getPicture());
 		}
 	}
 	
@@ -104,6 +118,7 @@ public class ShopTest extends GraphicsPane {
 								shopNoteColor = Color.GREEN;
 								program.getPlayer().addCard(selectCard);
 								program.getPlayer().setGold(program.getPlayer().getGold() - (selectCard.getCost()));
+								selectCard.getPicture().setLocation(selectCardPrevPoint);
 							} else {
 								shopNote = "NOT ENOUGH GOLD";
 								shopNoteColor = Color.RED;
@@ -174,9 +189,7 @@ public class ShopTest extends GraphicsPane {
 		program.add(buyButton);
 		program.add(sellButton);
 		program.add(goldAmount);
-		for (Card card : shopCardList) {
-			program.add(card.getPicture());
-		}
+		updateOwnedCards();
 	}
 	
 	@Override
@@ -190,6 +203,7 @@ public class ShopTest extends GraphicsPane {
 		}
 		if (selectCard != null)
 			program.remove(selectCard.getPicture());
+		removeOwnedCards();
 	}
 
 }
