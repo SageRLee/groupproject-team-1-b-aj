@@ -5,11 +5,11 @@ import java.util.Objects;
 public class Shop {
 	private int buycards;
 	private int sellcards;
-	  public int Card;
 	private String cardname;
 	private double money;
 	private int cardprice;
 	private String card;
+	public int Card;
 	
 	public Shop( int buycards, int sellcards, int Card) {
 		this.buycards = buycards;
@@ -57,6 +57,7 @@ public class Shop {
     		money=money+cardprice/2;
     		PlayerDeck=PlayerDeck-1;
     	}
+    	
     	else {
     		money=money;
     		PlayerDeck=PlayerDeck;

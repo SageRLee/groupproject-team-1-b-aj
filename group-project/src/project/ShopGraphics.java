@@ -2,10 +2,8 @@ package project;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.Random;
-
 import acm.program.GraphicsProgram;
 import starter.GraphicsPane;
-
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Component;
@@ -20,7 +18,6 @@ public class ShopGraphics extends GraphicsPane {
 	private GImage buy;
 	private GImage back;
 	private GObject target;
-	//private GRect hover = new GRect(0, 0, 3, 3 );
 	private int lastX = 0;
 	private int lastY = 0;
 	
@@ -37,20 +34,16 @@ public class ShopGraphics extends GraphicsPane {
 	
 	public void initializeObjects() {
 		shopbackground = new GImage("media/images/shop background.jpg", 0, 0);
-		shopbackground.setSize(MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);
-		
+		shopbackground.setSize(MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);	
 		sell= new GImage("media/images/sell-hi.png", 188, 388);
-		sell.setSize(MainMenu.RESOLUTION_X/5, MainMenu.RESOLUTION_Y/5);
-		
+		sell.setSize(MainMenu.RESOLUTION_X/5, MainMenu.RESOLUTION_Y/5);	
 		buy= new GImage("media/images/buy-20clipart-buy-md.png", 666, 388);
 		buy.setSize(MainMenu.RESOLUTION_X/5, MainMenu.RESOLUTION_Y/5);
-		
 		back= new GImage("media/images/back_button.png", 1377, 388);
 		back.setSize(MainMenu.RESOLUTION_X/5, MainMenu.RESOLUTION_Y/5);
+        hover.setSize(MainMenu.RESOLUTION_X / 5, MainMenu.RESOLUTION_Y / 5);
 		
-			
-		hover.setSize(MainMenu.RESOLUTION_X / 5, MainMenu.RESOLUTION_Y / 5);
-		hover.setColor(new Color( 0,0,0,8));
+        hover.setColor(new Color( 0,0,0,8));
 		hover.setFilled(true);
 		hover.setFillColor(new Color(8));
 		hover.setVisible(false);

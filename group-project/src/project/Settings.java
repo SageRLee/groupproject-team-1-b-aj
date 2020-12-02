@@ -25,7 +25,9 @@ public class Settings {
 	private GRect hover = new GRect(2, 5);
 	private Pair<GLabel, GRect> optionBox[] = new Pair[option[0].length]; 
 	private GImage closeDeck = new GImage("media/images/back_button.png");
-	private ArrayList<GImage> cardImages;
+	
+	private ArrayList<GImage> cardImages = new ArrayList<GImage>();
+	ArrayList<Card> playerDeck; 
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -35,11 +37,10 @@ public class Settings {
 	private GRect blackscrn = new GRect(0, 0, MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);
 	private GRect menu = new GRect(0, 0, MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);
 	MainMenu program;
-	public Settings(MainMenu program, Player player){
-		ArrayList<Card> playerDeck = program.getPlayer().getDeck();
-		for(int i = 0; i < playerDeck.size(); i++) {
-			
-		};
+	public Settings(MainMenu program){
+		//Initialize deck images
+		playerDeck = program.getPlayer().getDeck();
+		
 		this.program = program;
 		closeDeck.setSize(closeDeck.getWidth() / 2, closeDeck.getHeight() / 2);
 		blackscrn.setFillColor(new Color(0, 0, 0, 125));
@@ -105,15 +106,25 @@ public class Settings {
 	}
 	private void toggleDeckList() {
 		//Deck List
-		if(decklistOpen) {
+		if(!decklistOpen) {
+			//Reload decklist - if the decklist changed, we have to redraw
+			cardImages.clear();
+			if(playerDeck.size() > 0) {
+				for(int i = 0; i < playerDeck.size(); i++) {
+					cardImages.add(playerDeck.get(i).getPicture());
+					cardImages.get(i).setLocation(MainMenu.RESOLUTION_X * 0.1 + i * cardImages.get(i).getWidth() * 1.5, MainMenu.RESOLUTION_Y * 0.1);
+				};
+				for(int i = 0; i < playerDeck.size(); i++) {
+					program.add(cardImages.get(i));
+				}
+			}
 			decklistOpen = true;
 			program.remove(menu);
 			for(Pair<GLabel, GRect> toRemove : optionBox) {
 				program.remove(toRemove.getValue());
 				program.remove(toRemove.getKey());	
 			}
-			program.add(closeDeck);
-			
+			program.add(closeDeck);	
 		}
 	}
 	public void overrideMouseClicked(MouseEvent e) {

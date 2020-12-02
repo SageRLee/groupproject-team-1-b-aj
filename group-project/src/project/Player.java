@@ -1,12 +1,10 @@
 package project;
 
 import java.util.ArrayList;
-
 import acm.graphics.GImage;
 
 //ignore
-public class Player extends Entity {
-	
+public class Player extends Entity {	
 	private int gold;
 	
 	public Player(GImage sprite, int hp, int maxHp, int mana, int maxMana, ArrayList<Card> deck) {
@@ -47,6 +45,7 @@ public class Player extends Entity {
 	public void removeCard(Card card) {
 		if (card != null) {
 			Card cardToRemove = null;
+			
 			for (Card cardsInDeck : getDeck()) {
 				if (cardsInDeck.getName().equalsIgnoreCase(card.getName())) {
 					String cardName = card.getName().toLowerCase().replaceAll(" ", "");
