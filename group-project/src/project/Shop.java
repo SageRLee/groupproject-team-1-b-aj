@@ -11,10 +11,10 @@ public class Shop {
 	private String card;
 	public int Card;
 	
-	public Shop( int buycards, int sellcards, int Card) {
+	public Shop( int buycards, int sellcards) {
 		this.buycards = buycards;
 		this.sellcards = sellcards;
-		this.Card = Card;
+		this.card = card;
 	}
 	
 	public int getbuycards() {
