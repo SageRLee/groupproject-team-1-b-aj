@@ -155,4 +155,8 @@ public class MainMenu extends GraphicsApplication {
 	public Player getPlayer() {
 		return player;
 	}
+	
+	public Settings getSettings() {
+		return setting;
+	}
 }

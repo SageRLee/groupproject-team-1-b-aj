@@ -206,6 +206,8 @@ public class BoardGraphics extends GraphicsPane {
 
 					program.remove(mainRect);
 
+					program.getSettings().closeSettings();
+					
 					program.openGame();
 				}
 			}.start();
