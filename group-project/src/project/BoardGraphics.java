@@ -256,6 +256,7 @@ public class BoardGraphics extends GraphicsPane {
 			x++;
 		}
 
+		/*
 		x = 0;
 		for (Card cards : enemy.getHand()) {
 			cards.getPicture().setLocation((101 * x) + 900, 0);
@@ -263,6 +264,7 @@ public class BoardGraphics extends GraphicsPane {
 			program.add(cards.getPicture());
 			x++;
 		}
+		*/
 	}
 	
 	public void changeEntityStats(Entity entity, int amt, boolean isHealth, boolean isVisible) {
