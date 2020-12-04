@@ -47,7 +47,6 @@ public class ShopTest extends GraphicsPane {
 		goldAmount.setFont(shopFont);
 		goldAmount.setColor(Color.YELLOW);
 
-		updateOwnedCards();
 	}
 	
 	private void removeOwnedCards() {
@@ -202,8 +201,10 @@ public class ShopTest extends GraphicsPane {
 		for (Card card : shopCardList) {
 			program.remove(card.getPicture());
 		}
-		if (selectCard != null)
+		if (selectCard != null) {
 			program.remove(selectCard.getPicture());
+			selectCard = null;
+		}
 		removeOwnedCards();
 	}
 

@@ -28,6 +28,10 @@ public class Entity {
 		this.discard = new ArrayList<Card>();
 	}
 	
+	public void setSprite(GImage sprite) {
+		this.sprite = new GImage(sprite.getImage());
+	}
+	
 	public GImage getSprite() {
 		return sprite;
 	}

@@ -16,9 +16,9 @@ public class Stab extends Card {
 	@Override
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {
 		if (isPlayerTurn) {
-			bG.changeEntityStats(enemy, -5, true);
+			bG.changeEntityStats(enemy, -5, true, true);
 		} else {
-			bG.changeEntityStats(player, -5, true);
+			bG.changeEntityStats(player, -5, true, true);
 		}
 	}
 

@@ -16,9 +16,9 @@ public class ManaRevive extends Card {
 	@Override	
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {	
 		if (isPlayerTurn) {	
-			bG.changeEntityStats(player, 10, false);	
+			bG.changeEntityStats(player, 10, false, true);	
 		} else {	
-			bG.changeEntityStats(enemy, 10, false);	
+			bG.changeEntityStats(enemy, 10, false, true);	
 		}	
 	}	
 

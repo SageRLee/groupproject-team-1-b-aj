@@ -16,9 +16,9 @@ public class SmallManaPotion extends Card {
 	@Override	
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {	
 		if (isPlayerTurn) {	
-			bG.changeEntityStats(player, 2, false);	
+			bG.changeEntityStats(player, 2, false, true);	
 		} else {	
-			bG.changeEntityStats(enemy, 2, false);	
+			bG.changeEntityStats(enemy, 2, false, true);	
 		}	
 	}	
 

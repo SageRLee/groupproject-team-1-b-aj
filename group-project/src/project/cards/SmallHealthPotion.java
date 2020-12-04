@@ -16,9 +16,9 @@ public class SmallHealthPotion extends Card {
 	@Override
 	public void play(BoardGraphics bG, boolean isPlayerTurn, Player player, Enemy enemy) {
 		if (isPlayerTurn) {
-			bG.changeEntityStats(player, 2, true);
+			bG.changeEntityStats(player, 2, true, true);
 		} else {
-			bG.changeEntityStats(enemy, 2, true);
+			bG.changeEntityStats(enemy, 2, true, true);
 		}
 	}
 

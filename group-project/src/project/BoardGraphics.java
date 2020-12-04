@@ -159,21 +159,33 @@ public class BoardGraphics extends GraphicsPane {
 						GRect cardRewardRect = null;
 						GLabel cardRewardLabel = null;
 						GImage cardRewardImage = null;
+						
+						GLabel alreadyOwnedLabel = null;
 
+						player.resetDeck();
+						
 						if (level.getReward().getCard() != null) {
 							cardRewardRect = new GRect(0, 0);
 							cardRewardLabel = new GLabel("+" + level.getReward().getCard().getName() + " Card");
 							cardRewardImage = level.getReward().getCard().getPicture();
 							
-							cardRewardRect.setBounds(600, 450, 720, 350);
+							cardRewardRect.setBounds(600, 450, 720, 450);
 							cardRewardRect.setFillColor(Color.GREEN);
 							cardRewardRect.setFilled(true);
 							cardRewardLabel.setLocation(650, 550);
 							cardRewardLabel.setFont(statsFont);
-							cardRewardImage.setLocation(1000, 475);
+							cardRewardImage.setLocation(850, 575);
 							program.add(cardRewardRect);
 							program.add(cardRewardLabel);
 							program.add(cardRewardImage);
+							
+							if (player.hasCard(level.getReward().getCard())) {
+								alreadyOwnedLabel = new GLabel("ALREADY OWNED");
+								alreadyOwnedLabel.setColor(Color.RED);
+								alreadyOwnedLabel.setLocation(650, 500);
+								alreadyOwnedLabel.setFont(statsFont);
+								program.add(alreadyOwnedLabel);
+							}
 						}
 						
 						level.getReward().giveReward();
@@ -186,6 +198,9 @@ public class BoardGraphics extends GraphicsPane {
 							program.remove(cardRewardRect);
 							program.remove(cardRewardLabel);
 							program.remove(cardRewardImage);
+						}
+						if (alreadyOwnedLabel != null) {
+							program.remove(alreadyOwnedLabel);
 						}
 					}
 
@@ -201,7 +216,6 @@ public class BoardGraphics extends GraphicsPane {
 				program.remove(cards.getPicture());
 			}
 			
-			player.resetDeck();
 		}
 	}
 	
@@ -251,7 +265,7 @@ public class BoardGraphics extends GraphicsPane {
 		}
 	}
 	
-	public void changeEntityStats(Entity entity, int amt, boolean isHealth) {
+	public void changeEntityStats(Entity entity, int amt, boolean isHealth, boolean isVisible) {
 		boolean isPositive = amt > 0;
 		
 		if (isHealth) {
@@ -284,52 +298,52 @@ public class BoardGraphics extends GraphicsPane {
 			}
 		}
 		
-		
-		new Thread() {
-	        public void run() {
-	        	GLabel statLabel;
-	        	
-	        	if (isPositive) {
-	        		statLabel = new GLabel("+" + amt);
-	        		if (isHealth) {
-		        		statLabel.setColor(Color.GREEN);
-	        		} else {
-	        			statLabel.setColor(Color.BLUE);
-	        		}
-	        	} else {
-	        		statLabel = new GLabel("" + amt);
-	        		if (isHealth) {
-	        			statLabel.setColor(Color.RED);
-	        		} else {
-	        			statLabel.setColor(Color.MAGENTA);
-	        		}
-	        	}
-	        	
-	        	statLabel.setFont(statsFont);
-	        	if (entity instanceof Player) {
-	        		if (isHealth) {
-	        			statLabel.setLocation(400, 50);
-	        		} else {
-	        			statLabel.setLocation(400, 132);
-	        		}
-	        	} else {
-	        		if (isHealth) {
-	        			statLabel.setLocation(1050, 640);
-	        		} else {
-	        			statLabel.setLocation(1050, 660);
-	        		}
-	        	}
-	        	program.add(statLabel);
-	    		
-	    		for (int x = 0; x < 30; x++) {
-	    			statLabel.move(0, 1);
-	    			program.pause(30);
-	    		}
-	    		
-	    		program.remove(statLabel);
-	        }
-	    }.start();
-		
+		if (isVisible && amt != 0) {
+			new Thread() {
+		        public void run() {
+		        	GLabel statLabel;
+		        	
+		        	if (isPositive) {
+		        		statLabel = new GLabel("+" + amt);
+		        		if (isHealth) {
+			        		statLabel.setColor(Color.GREEN);
+		        		} else {
+		        			statLabel.setColor(Color.BLUE);
+		        		}
+		        	} else {
+		        		statLabel = new GLabel("" + amt);
+		        		if (isHealth) {
+		        			statLabel.setColor(Color.RED);
+		        		} else {
+		        			statLabel.setColor(Color.MAGENTA);
+		        		}
+		        	}
+		        	
+		        	statLabel.setFont(statsFont);
+		        	if (entity instanceof Player) {
+		        		if (isHealth) {
+		        			statLabel.setLocation(400, 50);
+		        		} else {
+		        			statLabel.setLocation(400, 132);
+		        		}
+		        	} else {
+		        		if (isHealth) {
+		        			statLabel.setLocation(1050, 640);
+		        		} else {
+		        			statLabel.setLocation(1050, 660);
+		        		}
+		        	}
+		        	program.add(statLabel);
+		    		
+		    		for (int x = 0; x < 30; x++) {
+		    			statLabel.move(0, 1);
+		    			program.pause(30);
+		    		}
+		    		
+		    		program.remove(statLabel);
+		        }
+		    }.start();
+		}
 	}
 		
 	@Override
@@ -349,7 +363,7 @@ public class BoardGraphics extends GraphicsPane {
 					}.start();
 					
 					//todo hide statlabel?
-					changeEntityStats(player, player.getMaxMana() - player.getMana(), false);
+					changeEntityStats(player, player.getMaxMana() - player.getMana(), false, false);
 					
 					return;
 				}
@@ -365,7 +379,7 @@ public class BoardGraphics extends GraphicsPane {
 							
 							checkIfDead();
 							
-							changeEntityStats(player, -cards.getMana(), false);
+							changeEntityStats(player, -cards.getMana(), false, true);
 						}
 						break;
 					}
@@ -382,26 +396,36 @@ public class BoardGraphics extends GraphicsPane {
 		
 		increaseTurn();
 		program.pause(2000);
-		
-		Card randomEnemyCard = enemy.getHand().get(new Random().nextInt(enemy.getHand().size()));
-		randomEnemyCard.play(this, isPlayerTurn, player, enemy);
-		
-		checkIfDead();
-		
-		program.remove(randomEnemyCard.getPicture());
-		enemy.getDiscard().add(randomEnemyCard);
-		enemy.getHand().remove(randomEnemyCard);
-		
-		player.drawCard();
-		reloadHand();
-		
-		isPlayerTurn = true;
-		increaseTurn();
+
+		if (program.getCurScreen().equals(this)) {
+			Card randomEnemyCard = enemy.getHand().get(new Random().nextInt(enemy.getHand().size()));
+			randomEnemyCard.play(this, isPlayerTurn, player, enemy);
+			
+			checkIfDead();
+			
+			program.remove(randomEnemyCard.getPicture());
+			enemy.getDiscard().add(randomEnemyCard);
+			enemy.getHand().remove(randomEnemyCard);
+	
+			player.drawCard();
+			reloadHand();
+			
+			isPlayerTurn = true;
+			increaseTurn();
+		}
+	}
+	
+	private void loadPlayerSprite() {
+		player.getSprite().setLocation(0, 480);
+		player.getSprite().setSize(400, 600);
 	}
 
 	@Override
 	public void showContents() {
 		program.add(background);
+
+		program.add(enemy.getSprite());
+		program.add(player.getSprite());
 		
 		program.add(enemyHealthBar);
 		//program.add(enemyArmorBar);
@@ -418,7 +442,8 @@ public class BoardGraphics extends GraphicsPane {
 		
 		program.add(turnText);
 		
-		program.add(enemy.getSprite());
+		
+		loadPlayerSprite();
 		
 		reloadHand();
 	}
@@ -450,6 +475,13 @@ public class BoardGraphics extends GraphicsPane {
 		for (Card cards : enemy.getHand()) {
 			program.remove(cards.getPicture());
 		}
+		
+		player.resetDeck();
+		enemy.resetDeck();
+		enemy.setHp(enemy.getMaxHp());
+		enemy.setMana(enemy.getMaxMana());
+		
+		program.remove(player.getSprite());
 	}
 	
 }

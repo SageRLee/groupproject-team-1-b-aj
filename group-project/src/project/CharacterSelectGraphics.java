@@ -56,6 +56,8 @@ public class CharacterSelectGraphics extends GraphicsPane {
 			characterImage = femaleMagician;
 		}
 		
+		setPlayerSprite(characterImage);
+		
 		outline.setLocation(characterImage.getX(), characterImage.getY());
 	}
 	
@@ -76,21 +78,32 @@ public class CharacterSelectGraphics extends GraphicsPane {
 			//System.out.print("no");
 			outline.setVisible(true);
 			String characterSelect = null;
+			
+			GImage characterImage = null;
+
 			if(program.getElementAt(e.getX(), e.getY()) == maleKnight) {
 				characterSelect = "maleknight";
+				characterImage = maleKnight;
 			}
 			else if(program.getElementAt(e.getX(), e.getY()) == femaleKnight) {
 				characterSelect = "femaleknight";
+				characterImage = femaleKnight;
 			}
 			else if(program.getElementAt(e.getX(), e.getY()) == maleMagician) {
 				characterSelect = "malemagician";
+				characterImage = maleMagician;
 			}
 			else if(program.getElementAt(e.getX(), e.getY()) == femaleMagician) {
 				characterSelect = "femalemagician";
+				characterImage = femaleMagician;
 			}
 			ConfigManager.setPath("character", characterSelect);
+			setPlayerSprite(characterImage);
 		}
-		
+	}
+	
+	public void setPlayerSprite(GImage playerSprite) {
+		program.getPlayer().setSprite(playerSprite);
 	}
 
 	@Override

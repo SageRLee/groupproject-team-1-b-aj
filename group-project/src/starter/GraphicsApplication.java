@@ -14,6 +14,11 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 		super();
 		setupInteractions();
 	}
+
+	public GraphicsPane getCurScreen() {
+		return curScreen;
+	}
+	
 	
 	/* Method: setupInteractions
 	 * -------------------------
@@ -21,6 +26,8 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 	 * pane to make sure that interactivity
 	 * is setup and ready to go.
 	 */
+	
+	
 	private void setupInteractions() {
 		requestFocus();
 		addKeyListeners();
