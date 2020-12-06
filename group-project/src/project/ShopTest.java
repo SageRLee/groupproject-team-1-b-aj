@@ -27,6 +27,9 @@ public class ShopTest extends GraphicsPane {
 	private GImage buyButton = new GImage("media/images/BuyButton.png");
 	private GImage sellButton = new GImage("media/images/SellButton.png");
 	private GLabel goldAmount = new GLabel("");
+	private GLabel costAmount = new GLabel("");
+	
+	private GImage shopBackground;
 	
 	public ShopTest(MainMenu program) {
 		super();
@@ -47,6 +50,12 @@ public class ShopTest extends GraphicsPane {
 		goldAmount.setFont(shopFont);
 		goldAmount.setColor(Color.YELLOW);
 
+		costAmount.setLocation(1400, 100);
+		costAmount.setFont(shopFont);
+		costAmount.setColor(Color.WHITE);
+		
+		shopBackground = new GImage("media/images/shop background.jpg", 0, 0);
+		shopBackground.setSize(MainMenu.RESOLUTION_X, MainMenu.RESOLUTION_Y);	
 	}
 	
 	private void removeOwnedCards() {
@@ -178,6 +187,7 @@ public class ShopTest extends GraphicsPane {
 					selectCard = card;
 					selectCardPrevPoint = currElem.getLocation();
 					selectCard.getPicture().setLocation(1450, 250);
+					costAmount.setLabel("BUY: " + selectCard.getCost() + " | SELL: " + selectCard.getCost()/2);
 				}
 			}
 		}
@@ -185,25 +195,30 @@ public class ShopTest extends GraphicsPane {
 	
 	@Override
 	public void showContents() {
+		program.add(shopBackground);
 		program.add(MainMenuGraphics.menuButton);
 		program.add(buyButton);
 		program.add(sellButton);
 		program.add(goldAmount);
+		program.add(costAmount);
 		updateOwnedCards();
 	}
 	
 	@Override
 	public void hideContents() {
+		program.remove(shopBackground);
 		program.remove(MainMenuGraphics.menuButton);
 		program.remove(buyButton);
 		program.remove(sellButton);
 		program.remove(goldAmount);
+		program.remove(costAmount);
 		for (Card card : shopCardList) {
 			program.remove(card.getPicture());
 		}
 		if (selectCard != null) {
 			program.remove(selectCard.getPicture());
 			selectCard = null;
+			costAmount.setLabel("");
 		}
 		removeOwnedCards();
 	}
