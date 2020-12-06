@@ -242,10 +242,9 @@ public class BoardGraphics extends GraphicsPane {
 	}
 	
 	public void loadCards() {
-		player.loadHand();
-		enemy.loadHand();
-		
 		player.drawCard();
+		enemy.drawCard();
+		
 		reloadHand();
 	}
 	
@@ -376,7 +375,7 @@ public class BoardGraphics extends GraphicsPane {
 						if (player.getMana() - cards.getMana() >= 0) {
 							cards.play(this, isPlayerTurn, player, enemy);
 							
-							player.getDiscard().add(cards);
+							player.getDeck().add(cards);
 							program.remove(cards.getPicture());
 							
 							player.getHand().remove(cards);
@@ -408,7 +407,7 @@ public class BoardGraphics extends GraphicsPane {
 			checkIfDead();
 			
 			program.remove(randomEnemyCard.getPicture());
-			enemy.getDiscard().add(randomEnemyCard);
+			enemy.getDeck().add(randomEnemyCard);
 			enemy.getHand().remove(randomEnemyCard);
 	
 			player.drawCard();

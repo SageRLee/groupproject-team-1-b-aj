@@ -13,7 +13,7 @@ public class Entity {
 	private int maxMana;
 	private ArrayList<Card> hand;
 	private ArrayList<Card> deck;
-	private ArrayList<Card> discard;
+	//private ArrayList<Card> discard;
 	private GImage sprite;
 	Random rand = new Random();
 	
@@ -25,7 +25,7 @@ public class Entity {
 		this.maxMana = maxMana;
 		this.deck = deck;
 		this.hand = new ArrayList<Card>();
-		this.discard = new ArrayList<Card>();
+		//this.discard = new ArrayList<Card>();
 	}
 	
 	public void setSprite(GImage sprite) {
@@ -92,13 +92,13 @@ public class Entity {
 		return deck;
 	}
 	
-	public void setDiscard(ArrayList<Card> discard) {
-		this.discard = discard;
-	}
+	//public void setDiscard(ArrayList<Card> discard) {
+	//	this.discard = discard;
+	//}
 	
-	public ArrayList<Card> getDiscard() {
-		return discard;
-	}
+	//public ArrayList<Card> getDiscard() {
+	//	return discard;
+	//}
 	
 	public void resetDeck() {
 		while (!getHand().isEmpty()) {
@@ -106,31 +106,13 @@ public class Entity {
 			getDeck().add(card);
 			getHand().remove(card);
 		}
-		while (!getDiscard().isEmpty()) {
-			Card card = getDiscard().get(getDiscard().size() - 1);
-			getDeck().add(card);
-			getDiscard().remove(card);
-		}
-	}
-	
-	public void loadHand() {
-		while (getHand().size() <= 3 && !getDeck().isEmpty()) {
-			int randCard = new Random().nextInt(getDeck().size());
-			getHand().add(getDeck().get(randCard));
-			getDeck().remove(randCard);
-		}
 	}
 	
 	public void drawCard() {
-		if (getHand().isEmpty() && getDeck().isEmpty()) {
-			resetDeck();
-			drawCard();
-		} else {
-			if (!getDeck().isEmpty() && getHand().size() <= 3) {
-				Card randomCardFromDeck = getDeck().get(new Random().nextInt(getDeck().size()));
-				getHand().add(randomCardFromDeck);
-				getDeck().remove(randomCardFromDeck);
-			}
+		while (!getDeck().isEmpty() && getHand().size() <= 3) {
+			int randCard = new Random().nextInt(getDeck().size());
+			getHand().add(getDeck().get(randCard));
+			getDeck().remove(randCard);
 		}
 	}
 	
