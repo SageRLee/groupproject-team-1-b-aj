@@ -155,17 +155,14 @@ public class Settings {
 					closeSettings();
 					break;
 				case 1:
-					//Options - probably fullscreen
-					break;
-				case 2:
 					toggleDeckList();
 					break;
-				case 3:
+				case 2:
 					//Main Menu
 					closeSettings();
 					program.openMainMenu();
 					break;
-				case 4:
+				case 3:
 					//Quit Game
 					System.exit(0);
 					break;
