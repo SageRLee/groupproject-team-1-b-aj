@@ -6,6 +6,7 @@ import project.Card;
 import project.Enemy;
 import project.Entity;
 import project.Player;
+import starter.GraphicsPane;
 
 public class LargeHealthPotion extends Card {
 
@@ -21,5 +22,10 @@ public class LargeHealthPotion extends Card {
 			bG.changeEntityStats(enemy, 5, true, true);
 		}
 	}
-
+	
+	//private GImage puzzle;
+	//public void cardaction() {
+		//puzzle=new GImage(("media/images/puzzle.png"), 16, 100);
+	//}
+	
 }

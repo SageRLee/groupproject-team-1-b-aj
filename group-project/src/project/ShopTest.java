@@ -37,8 +37,7 @@ public class ShopTest extends GraphicsPane {
 		initializeObjects();
 	}
 	
-	public void initializeObjects() {
-		
+	public void initializeObjects() {	
 		shopCardList = CardPool.getCardList();
 		shopCardOwnedList = new ArrayList<>();
 
