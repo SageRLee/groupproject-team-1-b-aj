@@ -19,7 +19,7 @@ public class Settings {
 	private boolean decklistOpen = false;
 	private Font optionsFont = new Font ("Serif", Font.BOLD, 64); 
 	private String option[][] = {
-			new String[] {"Resume", "Options", "Deck List","Main Menu", "Quit Game"},
+			new String[] {"Resume", "Deck List","Main Menu", "Quit Game"},
 			new String[] {"Music", "More options", "Idk"},
 	};
 	private GRect hover = new GRect(2, 5);
@@ -51,7 +51,7 @@ public class Settings {
 		for(int i = 0; i < option[0].length; i++) {
 			GRect temp = new GRect(1, 2);
 			GLabel tempL = new GLabel("If you see this, Sage sucks at coding probably", 1, 2);
-			temp.setSize(menu.getWidth() * 0.5, menu.getHeight() * 0.15);
+			temp.setSize(menu.getWidth() * 0.5, menu.getHeight() * 0.175);
 			temp.setLocation(menu.getLocation().getX() + menu.getWidth() / 2 - temp.getWidth() / 2, menu.getLocation().getY() + temp.getHeight() / 3 + i * temp.getHeight() * 1.25);
 			temp.setFilled(true);
 			temp.setFillColor(new Color(255, 255, 255, 255));
@@ -116,7 +116,7 @@ public class Settings {
 				for(int i = 0; i < playerDeck.size(); i++) {
 						cardImages.add(new GImage(playerDeck.get(i).getPicture().getImage()));	
 						cardImages.get(i).setLocation(MainMenu.RESOLUTION_X * 0.1 + (i % 5) * cardImages.get(i).getWidth() * 1.5,
-								 MainMenu.RESOLUTION_Y * 0.05 + (Math.floor((i / 5) * (cardImages.get(i).getHeight() + MainMenu.RESOLUTION_Y * 0.005))) );
+								 MainMenu.RESOLUTION_Y * 0.05 + (Math.floor((i / 5) * (cardImages.get(i).getHeight() + MainMenu.RESOLUTION_Y * 0.01))) );
 				}
 				for(int i = 0; i < cardImages.size(); i++) {
 					program.add(cardImages.get(i));
