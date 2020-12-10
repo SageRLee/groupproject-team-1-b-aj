@@ -23,9 +23,5 @@ public class LargeHealthPotion extends Card {
 		}
 	}
 	
-	//private GImage puzzle;
-	//public void cardaction() {
-		//puzzle=new GImage(("media/images/puzzle.png"), 16, 100);
-	//}
 	
 }
