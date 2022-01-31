@@ -1,0 +1,14 @@
+LargeHealthPotion media/images/cards/LargeHealthPotionCard.png 100 4 increase self 5 h
+SmallHealthPotion media/images/cards/SmallHealthPotion.png 50 3 increase self 3 h
+SoulSteal media/images/cards/SoulStealCard.png XX 8 both self 5 -5
+Split media/images/cards/SplitCard.png XX 3 other split 5 1
+SmallManaPotion media/images/cards/SmallManaPotionCard.png XX 0 increase self 2 m
+LargeManaPotion media/images/cards/LargeManaPotion.png XX 0 increase self 5 m
+LifeSteal media/images/cards/LifeStealCard.png XX 8 both self 2 -2
+ManaRevive media/images/cards/ManaReviveCard.png XX 7 increase self 10 m
+Revive media/images/cards/ReviveCard.png XX 7 increase self 10 h
+Stick media/images/cards/StickCard.png XX 2 decrease other 1 h 
+Suicide media/images/cards/SuicideCard.png XX 6 both self -5 -10
+Slash media/images/cards/SlashCard.png XX 4 decrease other 3 h 
+Stab media/images/cards/StabCard.png XX 7 decrease other 5 h 
+card name, image filepath, shop cost, mana cost, effect, target, power, secondaryEff

@@ -1,7 +1,10 @@
 package project;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import project.cards.SmallHealthPotion;
 import project.cards.SmallManaPotion;
@@ -19,8 +22,21 @@ import project.cards.Stab;
 
 
 public class CardPool {
-	
+//	static ArrayList<Card> cardList = new ArrayList<>();
+
 	public static ArrayList<Card> getCardList() {
+//		try {
+//		      File myObj = new File("cardpool.txt");
+//		      Scanner myReader = new Scanner(myObj);
+//		      while (myReader.hasNextLine()) {
+//		        String data = myReader.nextLine();
+//		        System.out.println(data);
+//		      }
+//		      myReader.close();
+//		    } catch (FileNotFoundException e) {
+//		      System.out.println("An error occurred.");
+//		      e.printStackTrace();
+//		    }
 		ArrayList<Card> cardList = new ArrayList<>();
 		cardList.add(new SmallHealthPotion());
 		cardList.add(new LargeHealthPotion());
