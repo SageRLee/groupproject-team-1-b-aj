@@ -21,28 +21,20 @@ public class CardPool {
 		        String[] splitLine = line.split(" ", 0);
 		        String name = splitLine[0];
 		        String filepath = splitLine[1];
-		        int price = Integer.valueOf(splitLine[2]);
-		        int cost = Integer.valueOf(splitLine[3]);
-		        String effect = myReader.next();
-		        String target = myReader.next();
-		        int power = myReader.nextInt();
-		        int secondEff = myReader.nextInt();
-		        System.out.println(splitLine[0]);
+		        int price = Integer.parseInt(splitLine[2]);
+		        int cost = Integer.parseInt(splitLine[3]);
+		        String effect = splitLine[4];
+		        String target = splitLine[5];
+		        int power = Integer.parseInt(splitLine[6]);
+		        int secEff = Integer.parseInt(splitLine[7]);
+		        cardList.add(new CustomCard(name, filepath, price, cost, effect, target, power, secEff));
 		      }
 		      myReader.close();
 		    } catch (FileNotFoundException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
 		    }
-		/*
-		 * ArrayList<Card> cardList = new ArrayList<>(); cardList.add(new
-		 * SmallHealthPotion()); cardList.add(new LargeHealthPotion()); cardList.add(new
-		 * Revive()); cardList.add(new Stick()); cardList.add(new Slash());
-		 * cardList.add(new Stab()); cardList.add(new SmallManaPotion());
-		 * cardList.add(new LargeManaPotion()); cardList.add(new ManaRevive());
-		 * cardList.add(new LifeSteal()); cardList.add(new SoulSteal());
-		 * cardList.add(new Suicide()); cardList.add(new Split());
-		 */
+
 		return cardList;
 	}
 }
