@@ -68,7 +68,7 @@ public class ShopTest extends GraphicsPane {
 		removeOwnedCards();
 		
 		for (Card card : shopCardList) {
-			if (program.getPlayer().hasCard(card)) {
+			if (program.getPlayer().hasCard(card.getName())) {
 				GRect ownedCardOverlay = new GRect(card.getPicture().getX() - 5, card.getPicture().getY() - 5, card.getPicture().getWidth() + 10, card.getPicture().getHeight() + 10);
 				ownedCardOverlay.setFilled(true);
 				ownedCardOverlay.setFillColor(new Color(255, 255, 0));
@@ -116,7 +116,7 @@ public class ShopTest extends GraphicsPane {
 				} else {
 					if (currElem == buyButton || currElem == sellButton) {
 						if (currElem == buyButton) {
-							if (program.getPlayer().hasCard(selectCard)) {
+							if (program.getPlayer().hasCard(selectCard.getName())) {
 								shopNote = "ALREADY OWN CARD";
 								shopNoteColor = Color.RED;
 							} else {
@@ -131,7 +131,7 @@ public class ShopTest extends GraphicsPane {
 								}
 							}
 						} else if (currElem == sellButton) {
-							if (program.getPlayer().hasCard(selectCard)) {
+							if (program.getPlayer().hasCard(selectCard.getName())) {
 								shopNote = "SOLD CARD";
 								shopNoteColor = Color.GREEN;
 								program.getPlayer().removeCard(selectCard);

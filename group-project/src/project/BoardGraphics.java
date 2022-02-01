@@ -179,7 +179,7 @@ public class BoardGraphics extends GraphicsPane {
 							program.add(cardRewardLabel);
 							program.add(cardRewardImage);
 							
-							if (player.hasCard(level.getReward().getCard())) {
+							if (player.hasCard(level.getReward().getCard().getName())) {
 								alreadyOwnedLabel = new GLabel("ALREADY OWNED");
 								alreadyOwnedLabel.setColor(Color.RED);
 								alreadyOwnedLabel.setLocation(650, 500);

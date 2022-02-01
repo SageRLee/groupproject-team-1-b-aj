@@ -21,10 +21,10 @@ public class Player extends Entity {
 		ConfigManager.setPath("gold", String.valueOf(gold));
 	}
 	
-	public boolean hasCard(Card card) {
-		if (card != null) {
+	public boolean hasCard(String cardName) {
+		if (cardName != null) {
 			for (Card cardsInDeck : getDeck()) {
-				if (cardsInDeck != null && cardsInDeck.getName().toLowerCase().replaceAll(" ", "").equalsIgnoreCase(card.getName().toLowerCase().replaceAll(" ", ""))) {
+				if (cardsInDeck != null && cardsInDeck.getName().equalsIgnoreCase(cardName)) {
 					return true;
 				}
 			}
@@ -33,7 +33,7 @@ public class Player extends Entity {
 	}
 
 	public void addCard(Card card) {
-		if (card != null && !hasCard(card)) {
+		if (card != null && !hasCard(card.getName())) {
 			String comma = ",";
 			if (getDeck().size() == 0)
 				comma = "";
@@ -45,7 +45,6 @@ public class Player extends Entity {
 	public void removeCard(Card card) {
 		if (card != null) {
 			Card cardToRemove = null;
-			
 			for (Card cardsInDeck : getDeck()) {
 				if (cardsInDeck.getName().equalsIgnoreCase(card.getName())) {
 					String cardName = card.getName().toLowerCase().replaceAll(" ", "");
