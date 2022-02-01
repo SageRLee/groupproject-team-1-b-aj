@@ -32,6 +32,15 @@ Custom Card Object (new!)
         change one target by the first power, and then other target by secondaryEff
      switch depending on target
       can target self, other (enemy), or split
-      
 
+#Demonstration
+Upon pullng the program, navigate to git\groupproject-team-1-b-aj\bin
+Note cardpool.txt, with 12 unique cards. 
+Launch the program from MainMenu.java and navigate to the shop, noting the 12 unique cards visable in the shop. 
+Close the game, and open cardpool.txt.
+To add a new card, write it in the following line in this format:
+Cardname, Filepath, Shop Price, Mana Cost, Effect (increase, decrease, both), target (self, other, split), power, secondary effect (currently used for both effect)
+For simplicity, I've given an example card to add below. 
+Stab media/images/cards/StabCard.png 200 7 decrease other 5 0
+After adding the card and saving the file, reopen the game and note how the card has been added to the shop. 
 			
